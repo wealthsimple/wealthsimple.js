@@ -7,20 +7,17 @@ const util = require('util');
 
 const wealthsimple = Wealthsimple.ApiClient.instance;
 
-var postBody = {
+const postBody = {
   client_id: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
   grant_type: 'password',
   username: process.env.EMAIL,
   password: process.env.PASSWORD,
   scope: 'read write',
 };
-var authNames = ['Bearer'];
-var contentTypes = ['application/json'];
-var accepts = ['application/json'];
-var returnType = 'Object';
+const returnType = 'Object';
 
 wealthsimple.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {},
-  postBody, authNames, contentTypes, accepts, returnType, (error, data, response) => {
+  postBody, [], [], [], returnType, (error, data, response) => {
 
   if (error) {
     console.log('Auth error: ', error);
