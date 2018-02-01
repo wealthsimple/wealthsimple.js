@@ -43,7 +43,14 @@
 {{/parentModel}}{{/parent}}{{#useInheritance}}{{#parentModel}}      {{classname}}.constructFromObject(data, obj);{{/parentModel}}
 {{#interfaces}}      {{.}}.constructFromObject(data, obj);
 {{/interfaces}}{{/useInheritance}}{{#vars}}      if (data.hasOwnProperty('{{baseName}}')) {
-        obj['{{baseName}}']{{{defaultValueWithParam}}}
+        var originalValue = data['{{baseName}}'];
+        var parsedValue;
+        if (typeof originalValue === "object" && {{baseType}}.hasOwnProperty('constructFromObject')) {
+          parsedValue = {{baseType}}.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['{{baseName}}'] = parsedValue;
       }
 {{/vars}}    }
     return obj;
