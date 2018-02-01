@@ -13,19 +13,17 @@ wealthsimple.auth({
   username: process.env.EMAIL,
   password: process.env.PASSWORD,
   scope: 'read write',
-  callback: (error, data, response) => {
+}).then((error, data, response) => {
+  // Successful auth. Now fetch user.
+  const usersApi = new Wealthsimple.UsersApi();
+  usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
     if (error) {
-      console.log('Auth error: ', error);
+      console.error(error);
     } else {
-      const usersApi = new Wealthsimple.UsersApi();
-      usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log('API called successfully. Returned data: ');
-          console.log(util.inspect(data, false, null));
-        }
-      });
+      console.log('API called successfully. Returned data: ');
+      console.log(util.inspect(data, false, null));
     }
-  },
+  });
+}).catch((error, data, response) => {
+  console.error('Auth error: ' + response);
 });
