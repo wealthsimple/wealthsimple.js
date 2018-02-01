@@ -12,7 +12,7 @@ var postBody = {
   grant_type: 'password',
   username: process.env.EMAIL,
   password: process.env.PASSWORD,
-  scope: 'read',
+  scope: 'read write',
 };
 var authNames = ['Bearer'];
 var contentTypes = ['application/json'];
