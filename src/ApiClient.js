@@ -41,7 +41,7 @@
      * @type {Array.<String>}
      */
     this.authentications = {
-      'Bearer': {type: 'apiKey', 'in': 'header', name: 'Authorization'}
+      'Bearer': {type: 'apiKey', apiKeyPrefix: 'Bearer', 'in': 'header', name: 'Authorization'}
     };
     /**
      * The default HTTP headers to be included for all API calls.
