@@ -336,27 +336,24 @@
     return exports.convertToType(data, returnType);
   };
 
-  exports.prototype.auth = function ({clientId, grantType, username, password, scope}) {
-    return new Promise((resolve, reject) => {
-      const body = {
-        client_id: clientId,
-        grant_type: grantType,
-        username: username,
-        password: password,
-        scope: scope,
-      };
-      const returnType = 'Object';
-      // TODO: 2fa?
-      const authCallback = (error, data, response) => {
-        if (!error) {
-          this.authentications['Bearer']['apiKey'] = data.access_token;
-          resolve(error, data, response);
-        } else {
-          reject(error, data, response);
-        }
-      };
-      this.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {}, body, [], [], [], returnType, authCallback);
-    });
+  exports.prototype.auth = function ({clientId, grantType, username, password, scope, callback}) {
+    const body = {
+      client_id: clientId,
+      grant_type: grantType,
+      username: username,
+      password: password,
+      scope: scope,
+    };
+    const returnType = 'Object';
+    // TODO: 2fa?
+    const authCallback = (error, data, response) => {
+      if (!error) {
+        this.authentications['Bearer']['apiKey'] = data.access_token;
+      }
+      return callback(error, data, response);
+    };
+
+    return this.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {}, body, [], [], [], returnType, authCallback);
   };
 
   /**
