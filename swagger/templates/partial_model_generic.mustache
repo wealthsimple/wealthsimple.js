@@ -47,8 +47,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && {{baseType}}.hasOwnProperty('constructFromObject')) {
           parsedValue = {{baseType}}.constructFromObject(originalValue);
+        } else if ('{{datatype}}' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, '{{datatype}}');
         }
         obj['{{baseName}}'] = parsedValue;
       }
