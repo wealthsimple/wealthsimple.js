@@ -1,12 +1,14 @@
-var Wealthsimple = require('../src/index');
+const Wealthsimple = require('../src/index');
+const util = require('util');
 
-var apiInstance = new Wealthsimple.HealthcheckApi();
+const apiInstance = new Wealthsimple.HealthcheckApi();
 
-var callback = function(error, data, response) {
+const callback = (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + JSON.stringify(data));
+    console.log('API called successfully. Returned data: ');
+    console.log(util.inspect(data, false, null));
   }
 };
 apiInstance.healthcheck(callback);
