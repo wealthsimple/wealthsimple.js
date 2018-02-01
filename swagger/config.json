@@ -1,4 +1,5 @@
 {
   "hideGenerationTimestamp": false,
-  "moduleName": "Wealthsimple"
+  "moduleName": "Wealthsimple",
+  "projectName": "@wealthsimple/wealthsimple"
 }
