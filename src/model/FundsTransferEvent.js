@@ -53,6 +53,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
           parsedValue = Date.constructFromObject(originalValue);
+        } else if ('Date' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Date');
         }
         obj['timestamp'] = parsedValue;
       }

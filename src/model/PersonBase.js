@@ -70,8 +70,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && PreferredFirstName.hasOwnProperty('constructFromObject')) {
           parsedValue = PreferredFirstName.constructFromObject(originalValue);
+        } else if ('PreferredFirstName' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'PreferredFirstName');
         }
         obj['preferred_first_name'] = parsedValue;
       }
@@ -80,8 +82,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && FullLegalName.hasOwnProperty('constructFromObject')) {
           parsedValue = FullLegalName.constructFromObject(originalValue);
+        } else if ('FullLegalName' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'FullLegalName');
         }
         obj['full_legal_name'] = parsedValue;
       }
@@ -90,8 +94,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Gender.hasOwnProperty('constructFromObject')) {
           parsedValue = Gender.constructFromObject(originalValue);
+        } else if ('Gender' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Gender');
         }
         obj['gender'] = parsedValue;
       }
@@ -100,8 +106,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
           parsedValue = Date.constructFromObject(originalValue);
+        } else if ('Date' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Date');
         }
         obj['date_of_birth'] = parsedValue;
       }
@@ -110,8 +118,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Citizenships.hasOwnProperty('constructFromObject')) {
           parsedValue = Citizenships.constructFromObject(originalValue);
+        } else if ('Citizenships' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Citizenships');
         }
         obj['citizenships'] = parsedValue;
       }
@@ -120,8 +130,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && MaritalStatus.hasOwnProperty('constructFromObject')) {
           parsedValue = MaritalStatus.constructFromObject(originalValue);
+        } else if ('MaritalStatus' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'MaritalStatus');
         }
         obj['marital_status'] = parsedValue;
       }
@@ -130,8 +142,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && SpouseOrCommonLaw.hasOwnProperty('constructFromObject')) {
           parsedValue = SpouseOrCommonLaw.constructFromObject(originalValue);
+        } else if ('SpouseOrCommonLaw' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'SpouseOrCommonLaw');
         }
         obj['spouse_or_common_law'] = parsedValue;
       }
@@ -140,8 +154,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && TaxIdentificationNumbers.hasOwnProperty('constructFromObject')) {
           parsedValue = TaxIdentificationNumbers.constructFromObject(originalValue);
+        } else if ('TaxIdentificationNumbers' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'TaxIdentificationNumbers');
         }
         obj['tax_identification_numbers'] = parsedValue;
       }
@@ -150,8 +166,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
           parsedValue = Address.constructFromObject(originalValue);
+        } else if ('Address' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Address');
         }
         obj['residential_address'] = parsedValue;
       }
@@ -160,8 +178,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
           parsedValue = Address.constructFromObject(originalValue);
+        } else if ('Address' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Address');
         }
         obj['mailing_address'] = parsedValue;
       }
@@ -170,8 +190,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Employment.hasOwnProperty('constructFromObject')) {
           parsedValue = Employment.constructFromObject(originalValue);
+        } else if ('Employment' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Employment');
         }
         obj['employment'] = parsedValue;
       }
@@ -180,8 +202,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Name.hasOwnProperty('constructFromObject')) {
           parsedValue = Name.constructFromObject(originalValue);
+        } else if ('Name' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Name');
         }
         obj['power_of_attorney'] = parsedValue;
       }
@@ -190,8 +214,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Dependents.hasOwnProperty('constructFromObject')) {
           parsedValue = Dependents.constructFromObject(originalValue);
+        } else if ('Dependents' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Dependents');
         }
         obj['dependents'] = parsedValue;
       }
@@ -200,8 +226,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && RegulatedPeople.hasOwnProperty('constructFromObject')) {
           parsedValue = RegulatedPeople.constructFromObject(originalValue);
+        } else if ('RegulatedPeople' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'RegulatedPeople');
         }
         obj['regulated_people'] = parsedValue;
       }
@@ -210,8 +238,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && PoliticallyExposedPeople.hasOwnProperty('constructFromObject')) {
           parsedValue = PoliticallyExposedPeople.constructFromObject(originalValue);
+        } else if ('PoliticallyExposedPeople' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'PoliticallyExposedPeople');
         }
         obj['politically_exposed_people'] = parsedValue;
       }
@@ -220,8 +250,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Insiders.hasOwnProperty('constructFromObject')) {
           parsedValue = Insiders.constructFromObject(originalValue);
+        } else if ('Insiders' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Insiders');
         }
         obj['insiders'] = parsedValue;
       }

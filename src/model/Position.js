@@ -62,6 +62,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -72,8 +74,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountId.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountId.constructFromObject(originalValue);
+        } else if ('AccountId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountId');
         }
         obj['account_id'] = parsedValue;
       }
@@ -82,8 +86,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Asset.hasOwnProperty('constructFromObject')) {
           parsedValue = Asset.constructFromObject(originalValue);
+        } else if ('Asset' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Asset');
         }
         obj['asset'] = parsedValue;
       }
@@ -92,8 +98,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
           parsedValue = Number.constructFromObject(originalValue);
+        } else if ('Number' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Number');
         }
         obj['quantity'] = parsedValue;
       }
@@ -102,8 +110,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && BookValue.hasOwnProperty('constructFromObject')) {
           parsedValue = BookValue.constructFromObject(originalValue);
+        } else if ('BookValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'BookValue');
         }
         obj['book_value'] = parsedValue;
       }
@@ -112,8 +122,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AdjustedBookValue.hasOwnProperty('constructFromObject')) {
           parsedValue = AdjustedBookValue.constructFromObject(originalValue);
+        } else if ('AdjustedBookValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AdjustedBookValue');
         }
         obj['adjusted_book_value'] = parsedValue;
       }
@@ -122,8 +134,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && PositionMarketValue.hasOwnProperty('constructFromObject')) {
           parsedValue = PositionMarketValue.constructFromObject(originalValue);
+        } else if ('PositionMarketValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'PositionMarketValue');
         }
         obj['market_value'] = parsedValue;
       }
@@ -132,8 +146,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && PositionMarketPrice.hasOwnProperty('constructFromObject')) {
           parsedValue = PositionMarketPrice.constructFromObject(originalValue);
+        } else if ('PositionMarketPrice' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'PositionMarketPrice');
         }
         obj['market_price'] = parsedValue;
       }
@@ -142,8 +158,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AveragePrice.hasOwnProperty('constructFromObject')) {
           parsedValue = AveragePrice.constructFromObject(originalValue);
+        } else if ('AveragePrice' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AveragePrice');
         }
         obj['average_price'] = parsedValue;
       }
@@ -152,8 +170,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountValue.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountValue.constructFromObject(originalValue);
+        } else if ('AccountValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountValue');
         }
         obj['account_value'] = parsedValue;
       }
@@ -162,8 +182,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
           parsedValue = Date.constructFromObject(originalValue);
+        } else if ('Date' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Date');
         }
         obj['position_date'] = parsedValue;
       }

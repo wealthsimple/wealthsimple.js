@@ -57,6 +57,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -67,8 +69,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountTransferId.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountTransferId.constructFromObject(originalValue);
+        } else if ('AccountTransferId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountTransferId');
         }
         obj['id'] = parsedValue;
       }
@@ -77,8 +81,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountId.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountId.constructFromObject(originalValue);
+        } else if ('AccountId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountId');
         }
         obj['account_id'] = parsedValue;
       }
@@ -87,6 +93,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -97,6 +105,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -107,8 +117,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Institution.hasOwnProperty('constructFromObject')) {
           parsedValue = Institution.constructFromObject(originalValue);
+        } else if ('Institution' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Institution');
         }
         obj['relinquishing_institution'] = parsedValue;
       }

@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && ClientId.hasOwnProperty('constructFromObject')) {
           parsedValue = ClientId.constructFromObject(originalValue);
+        } else if ('ClientId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'ClientId');
         }
         obj['client_id'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Locale.hasOwnProperty('constructFromObject')) {
           parsedValue = Locale.constructFromObject(originalValue);
+        } else if ('Locale' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Locale');
         }
         obj['locale'] = parsedValue;
       }

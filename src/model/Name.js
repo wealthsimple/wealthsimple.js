@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && FirstName.hasOwnProperty('constructFromObject')) {
           parsedValue = FirstName.constructFromObject(originalValue);
+        } else if ('FirstName' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'FirstName');
         }
         obj['first_name'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && LastName.hasOwnProperty('constructFromObject')) {
           parsedValue = LastName.constructFromObject(originalValue);
+        } else if ('LastName' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'LastName');
         }
         obj['last_name'] = parsedValue;
       }

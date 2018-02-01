@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && EmploymentStatus.hasOwnProperty('constructFromObject')) {
           parsedValue = EmploymentStatus.constructFromObject(originalValue);
+        } else if ('EmploymentStatus' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'EmploymentStatus');
         }
         obj['status'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && EmploymentEmployerInfo.hasOwnProperty('constructFromObject')) {
           parsedValue = EmploymentEmployerInfo.constructFromObject(originalValue);
+        } else if ('EmploymentEmployerInfo' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'EmploymentEmployerInfo');
         }
         obj['employer_info'] = parsedValue;
       }

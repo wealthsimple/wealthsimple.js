@@ -56,8 +56,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && VerificationStatus.hasOwnProperty('constructFromObject')) {
           parsedValue = VerificationStatus.constructFromObject(originalValue);
+        } else if ('VerificationStatus' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'VerificationStatus');
         }
         obj['status'] = parsedValue;
       }
@@ -66,8 +68,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && DateTime.hasOwnProperty('constructFromObject')) {
           parsedValue = DateTime.constructFromObject(originalValue);
+        } else if ('Date' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Date');
         }
         obj['processed_at'] = parsedValue;
       }

@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AnswerId.hasOwnProperty('constructFromObject')) {
           parsedValue = AnswerId.constructFromObject(originalValue);
+        } else if ('AnswerId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AnswerId');
         }
         obj['id'] = parsedValue;
       }
@@ -63,6 +65,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }

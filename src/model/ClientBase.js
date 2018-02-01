@@ -58,8 +58,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Email.hasOwnProperty('constructFromObject')) {
           parsedValue = Email.constructFromObject(originalValue);
+        } else if ('Email' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Email');
         }
         obj['email'] = parsedValue;
       }
@@ -68,8 +70,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && PhoneNumbers.hasOwnProperty('constructFromObject')) {
           parsedValue = PhoneNumbers.constructFromObject(originalValue);
+        } else if ('PhoneNumbers' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'PhoneNumbers');
         }
         obj['phone_numbers'] = parsedValue;
       }
@@ -78,8 +82,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && UserId.hasOwnProperty('constructFromObject')) {
           parsedValue = UserId.constructFromObject(originalValue);
+        } else if ('UserId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'UserId');
         }
         obj['user_id'] = parsedValue;
       }
@@ -88,8 +94,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && ExternalId.hasOwnProperty('constructFromObject')) {
           parsedValue = ExternalId.constructFromObject(originalValue);
+        } else if ('ExternalId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'ExternalId');
         }
         obj['external_id'] = parsedValue;
       }
@@ -98,8 +106,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Locale.hasOwnProperty('constructFromObject')) {
           parsedValue = Locale.constructFromObject(originalValue);
+        } else if ('Locale' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Locale');
         }
         obj['locale'] = parsedValue;
       }
@@ -108,8 +118,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
           parsedValue = Address.constructFromObject(originalValue);
+        } else if ('Address' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Address');
         }
         obj['mailing_address'] = parsedValue;
       }
@@ -118,8 +130,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
           parsedValue = Array.constructFromObject(originalValue);
+        } else if ('[CountryCode]' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, '[CountryCode]');
         }
         obj['jurisdictions'] = parsedValue;
       }

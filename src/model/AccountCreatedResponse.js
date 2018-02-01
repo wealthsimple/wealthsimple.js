@@ -57,8 +57,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountOwners.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountOwners.constructFromObject(originalValue);
+        } else if ('AccountOwners' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountOwners');
         }
         obj['owners'] = parsedValue;
       }
@@ -67,8 +69,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountCreatedAt.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountCreatedAt.constructFromObject(originalValue);
+        } else if ('AccountCreatedAt' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountCreatedAt');
         }
         obj['created_at'] = parsedValue;
       }
@@ -77,8 +81,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountUpdatedAt.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountUpdatedAt.constructFromObject(originalValue);
+        } else if ('AccountUpdatedAt' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountUpdatedAt');
         }
         obj['updated_at'] = parsedValue;
       }

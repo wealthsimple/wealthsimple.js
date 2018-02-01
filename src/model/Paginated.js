@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
           parsedValue = Number.constructFromObject(originalValue);
+        } else if ('Number' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Number');
         }
         obj['offset'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
           parsedValue = Number.constructFromObject(originalValue);
+        } else if ('Number' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Number');
         }
         obj['total_count'] = parsedValue;
       }

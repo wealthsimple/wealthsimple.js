@@ -56,8 +56,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && TaxIdentification.hasOwnProperty('constructFromObject')) {
           parsedValue = TaxIdentification.constructFromObject(originalValue);
+        } else if ('TaxIdentification' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'TaxIdentification');
         }
         obj['tax_identification_number'] = parsedValue;
       }
@@ -66,8 +68,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && TrustName.hasOwnProperty('constructFromObject')) {
           parsedValue = TrustName.constructFromObject(originalValue);
+        } else if ('TrustName' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'TrustName');
         }
         obj['name'] = parsedValue;
       }

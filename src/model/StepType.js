@@ -53,6 +53,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
           parsedValue = Array.constructFromObject(originalValue);
+        } else if ('[CustomIncrement]' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, '[CustomIncrement]');
         }
         obj['increments'] = parsedValue;
       }

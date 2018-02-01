@@ -68,6 +68,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -78,8 +80,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && TransactionId.hasOwnProperty('constructFromObject')) {
           parsedValue = TransactionId.constructFromObject(originalValue);
+        } else if ('TransactionId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'TransactionId');
         }
         obj['id'] = parsedValue;
       }
@@ -88,8 +92,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AccountId.hasOwnProperty('constructFromObject')) {
           parsedValue = AccountId.constructFromObject(originalValue);
+        } else if ('AccountId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AccountId');
         }
         obj['account_id'] = parsedValue;
       }
@@ -98,6 +104,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -108,8 +116,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && CountryCode.hasOwnProperty('constructFromObject')) {
           parsedValue = CountryCode.constructFromObject(originalValue);
+        } else if ('CountryCode' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'CountryCode');
         }
         obj['country_code'] = parsedValue;
       }
@@ -118,8 +128,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && TransactionType.hasOwnProperty('constructFromObject')) {
           parsedValue = TransactionType.constructFromObject(originalValue);
+        } else if ('TransactionType' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'TransactionType');
         }
         obj['type'] = parsedValue;
       }
@@ -128,6 +140,8 @@
         var parsedValue;
         if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
           parsedValue = String.constructFromObject(originalValue);
+        } else if ('String' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
           parsedValue = ApiClient.convertToType(originalValue, 'String');
         }
@@ -138,8 +152,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
           parsedValue = Number.constructFromObject(originalValue);
+        } else if ('Number' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Number');
         }
         obj['quantity'] = parsedValue;
       }
@@ -148,8 +164,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
           parsedValue = Number.constructFromObject(originalValue);
+        } else if ('Number' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Number');
         }
         obj['fx_rate'] = parsedValue;
       }
@@ -158,8 +176,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && MarketValue.hasOwnProperty('constructFromObject')) {
           parsedValue = MarketValue.constructFromObject(originalValue);
+        } else if ('MarketValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'MarketValue');
         }
         obj['market_value'] = parsedValue;
       }
@@ -168,8 +188,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && MarketPrice.hasOwnProperty('constructFromObject')) {
           parsedValue = MarketPrice.constructFromObject(originalValue);
+        } else if ('MarketPrice' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'MarketPrice');
         }
         obj['market_price'] = parsedValue;
       }
@@ -178,8 +200,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && BookValue.hasOwnProperty('constructFromObject')) {
           parsedValue = BookValue.constructFromObject(originalValue);
+        } else if ('BookValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'BookValue');
         }
         obj['book_value'] = parsedValue;
       }
@@ -188,8 +212,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AdjustedBookValue.hasOwnProperty('constructFromObject')) {
           parsedValue = AdjustedBookValue.constructFromObject(originalValue);
+        } else if ('AdjustedBookValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AdjustedBookValue');
         }
         obj['adjusted_book_value'] = parsedValue;
       }
@@ -198,8 +224,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && NetCash.hasOwnProperty('constructFromObject')) {
           parsedValue = NetCash.constructFromObject(originalValue);
+        } else if ('NetCash' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'NetCash');
         }
         obj['net_cash'] = parsedValue;
       }
@@ -208,8 +236,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && ContributionValue.hasOwnProperty('constructFromObject')) {
           parsedValue = ContributionValue.constructFromObject(originalValue);
+        } else if ('ContributionValue' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'ContributionValue');
         }
         obj['contribution_value'] = parsedValue;
       }
@@ -218,8 +248,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && ProcessDate.hasOwnProperty('constructFromObject')) {
           parsedValue = ProcessDate.constructFromObject(originalValue);
+        } else if ('ProcessDate' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'ProcessDate');
         }
         obj['process_date'] = parsedValue;
       }
@@ -228,8 +260,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && EffectiveDate.hasOwnProperty('constructFromObject')) {
           parsedValue = EffectiveDate.constructFromObject(originalValue);
+        } else if ('EffectiveDate' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'EffectiveDate');
         }
         obj['effective_date'] = parsedValue;
       }

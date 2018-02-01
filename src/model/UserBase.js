@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Email.hasOwnProperty('constructFromObject')) {
           parsedValue = Email.constructFromObject(originalValue);
+        } else if ('Email' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Email');
         }
         obj['email'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Password.hasOwnProperty('constructFromObject')) {
           parsedValue = Password.constructFromObject(originalValue);
+        } else if ('Password' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Password');
         }
         obj['password'] = parsedValue;
       }

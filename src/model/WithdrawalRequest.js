@@ -59,8 +59,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && WithdrawalType.hasOwnProperty('constructFromObject')) {
           parsedValue = WithdrawalType.constructFromObject(originalValue);
+        } else if ('WithdrawalType' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'WithdrawalType');
         }
         obj['withdrawal_type'] = parsedValue;
       }
@@ -69,8 +71,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && WithdrawalReason.hasOwnProperty('constructFromObject')) {
           parsedValue = WithdrawalReason.constructFromObject(originalValue);
+        } else if ('WithdrawalReason' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'WithdrawalReason');
         }
         obj['withdrawal_reason'] = parsedValue;
       }

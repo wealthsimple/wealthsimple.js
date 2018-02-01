@@ -56,8 +56,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['complete'] = parsedValue;
       }
@@ -66,8 +68,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
           parsedValue = Percent.constructFromObject(originalValue);
+        } else if ('Percent' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Percent');
         }
         obj['percent_complete'] = parsedValue;
       }
@@ -76,8 +80,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && SurveyQuestion.hasOwnProperty('constructFromObject')) {
           parsedValue = SurveyQuestion.constructFromObject(originalValue);
+        } else if ('SurveyQuestion' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'SurveyQuestion');
         }
         obj['question'] = parsedValue;
       }
@@ -86,8 +92,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && AnswerOptions.hasOwnProperty('constructFromObject')) {
           parsedValue = AnswerOptions.constructFromObject(originalValue);
+        } else if ('AnswerOptions' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'AnswerOptions');
         }
         obj['answer_options'] = parsedValue;
       }

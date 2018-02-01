@@ -61,8 +61,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['marketing'] = parsedValue;
       }
@@ -71,8 +73,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['news_and_announcements'] = parsedValue;
       }
@@ -81,8 +85,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['corporate_actions'] = parsedValue;
       }
@@ -91,8 +97,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['deposits'] = parsedValue;
       }
@@ -101,8 +109,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['withdrawals'] = parsedValue;
       }
@@ -111,8 +121,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['trade_confirms'] = parsedValue;
       }
@@ -121,8 +133,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['tax_statements'] = parsedValue;
       }
@@ -131,8 +145,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['disclosures'] = parsedValue;
       }
@@ -141,8 +157,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['daily_statements'] = parsedValue;
       }
@@ -151,8 +169,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
           parsedValue = Boolean.constructFromObject(originalValue);
+        } else if ('Boolean' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Boolean');
         }
         obj['monthly_statements'] = parsedValue;
       }

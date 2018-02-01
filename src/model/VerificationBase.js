@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && VerificationMethod.hasOwnProperty('constructFromObject')) {
           parsedValue = VerificationMethod.constructFromObject(originalValue);
+        } else if ('VerificationMethod' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'VerificationMethod');
         }
         obj['method'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && DocumentId.hasOwnProperty('constructFromObject')) {
           parsedValue = DocumentId.constructFromObject(originalValue);
+        } else if ('DocumentId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'DocumentId');
         }
         obj['document_id'] = parsedValue;
       }

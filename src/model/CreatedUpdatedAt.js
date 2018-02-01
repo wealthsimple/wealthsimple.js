@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && CreatedAt.hasOwnProperty('constructFromObject')) {
           parsedValue = CreatedAt.constructFromObject(originalValue);
+        } else if ('CreatedAt' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'CreatedAt');
         }
         obj['created_at'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && UpdatedAt.hasOwnProperty('constructFromObject')) {
           parsedValue = UpdatedAt.constructFromObject(originalValue);
+        } else if ('UpdatedAt' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'UpdatedAt');
         }
         obj['updated_at'] = parsedValue;
       }

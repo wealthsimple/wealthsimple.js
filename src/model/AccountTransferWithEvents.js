@@ -55,8 +55,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
           parsedValue = Array.constructFromObject(originalValue);
+        } else if ('[AccountTransferEvent]' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, '[AccountTransferEvent]');
         }
         obj['events'] = parsedValue;
       }

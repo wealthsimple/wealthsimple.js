@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && QuestionId.hasOwnProperty('constructFromObject')) {
           parsedValue = QuestionId.constructFromObject(originalValue);
+        } else if ('QuestionId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'QuestionId');
         }
         obj['question_id'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Answers.hasOwnProperty('constructFromObject')) {
           parsedValue = Answers.constructFromObject(originalValue);
+        } else if ('Answers' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Answers');
         }
         obj['answers'] = parsedValue;
       }

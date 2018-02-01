@@ -53,8 +53,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && ExternalId.hasOwnProperty('constructFromObject')) {
           parsedValue = ExternalId.constructFromObject(originalValue);
+        } else if ('ExternalId' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'ExternalId');
         }
         obj['external_id'] = parsedValue;
       }
@@ -63,8 +65,10 @@
         var parsedValue;
         if (typeof originalValue === "object" && Tags.hasOwnProperty('constructFromObject')) {
           parsedValue = Tags.constructFromObject(originalValue);
+        } else if ('Tags' === 'Object') {
+          parsedValue = ApiClient.convertToType(originalValue, Object);
         } else {
-          parsedValue = ApiClient.convertToType(originalValue, 'String');
+          parsedValue = ApiClient.convertToType(originalValue, 'Tags');
         }
         obj['tags'] = parsedValue;
       }
