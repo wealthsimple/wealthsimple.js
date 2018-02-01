@@ -12,4 +12,5 @@ swagger-codegen generate \
  --output . \
  --lang javascript \
  --template-dir swagger/templates \
+ --type-mappings Date=String,DateTime=String \
  --config swagger/config.json
