@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Delete existing files
+rm -rf docs
+rm -rf src/api
+rm -rf src/models
+rm -rf test/api
+rm -rf test/models
+
+swagger-codegen generate \
+ --input-spec https://api.sandbox.wealthsimple.com/v1/swagger.json \
+ --output . \
+ --lang javascript \
+ --config swagger/config.json
