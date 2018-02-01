@@ -61,5 +61,6 @@ typings/
 docs/*
 .swagger-codegen/*
 git_push.sh
+.travis.yml
 
 .env
