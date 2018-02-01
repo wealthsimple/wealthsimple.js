@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Document'), require('../model/DocumentInput'), require('../model/DocumentsPaginated'), require('../model/Error'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.DocumentsApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Document, root.WealthsimpleApi.DocumentInput, root.WealthsimpleApi.DocumentsPaginated, root.WealthsimpleApi.Error);
+    root.Wealthsimple.DocumentsApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Document, root.Wealthsimple.DocumentInput, root.Wealthsimple.DocumentsPaginated, root.Wealthsimple.Error);
   }
 }(this, function(ApiClient, Document, DocumentInput, DocumentsPaginated, Error) {
   'use strict';

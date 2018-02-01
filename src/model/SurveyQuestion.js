@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./RangeLimits'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.SurveyQuestion = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.RangeLimits);
+    root.Wealthsimple.SurveyQuestion = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.RangeLimits);
   }
 }(this, function(ApiClient, RangeLimits) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Address'), require('./Citizenships'), require('./ClientBase'), require('./CountryCode'), require('./Dependents'), require('./Email'), require('./Employment'), require('./ExternalId'), require('./FullLegalName'), require('./Gender'), require('./Insiders'), require('./Locale'), require('./MaritalStatus'), require('./Name'), require('./PhoneNumbers'), require('./PoliticallyExposedPeople'), require('./PreferredFirstName'), require('./RegulatedPeople'), require('./SpouseOrCommonLaw'), require('./TaxIdentificationNumbers'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.PersonBase = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Address, root.WealthsimpleApi.Citizenships, root.WealthsimpleApi.ClientBase, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.Dependents, root.WealthsimpleApi.Email, root.WealthsimpleApi.Employment, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.FullLegalName, root.WealthsimpleApi.Gender, root.WealthsimpleApi.Insiders, root.WealthsimpleApi.Locale, root.WealthsimpleApi.MaritalStatus, root.WealthsimpleApi.Name, root.WealthsimpleApi.PhoneNumbers, root.WealthsimpleApi.PoliticallyExposedPeople, root.WealthsimpleApi.PreferredFirstName, root.WealthsimpleApi.RegulatedPeople, root.WealthsimpleApi.SpouseOrCommonLaw, root.WealthsimpleApi.TaxIdentificationNumbers, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.PersonBase = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Address, root.Wealthsimple.Citizenships, root.Wealthsimple.ClientBase, root.Wealthsimple.CountryCode, root.Wealthsimple.Dependents, root.Wealthsimple.Email, root.Wealthsimple.Employment, root.Wealthsimple.ExternalId, root.Wealthsimple.FullLegalName, root.Wealthsimple.Gender, root.Wealthsimple.Insiders, root.Wealthsimple.Locale, root.Wealthsimple.MaritalStatus, root.Wealthsimple.Name, root.Wealthsimple.PhoneNumbers, root.Wealthsimple.PoliticallyExposedPeople, root.Wealthsimple.PreferredFirstName, root.Wealthsimple.RegulatedPeople, root.Wealthsimple.SpouseOrCommonLaw, root.Wealthsimple.TaxIdentificationNumbers, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, Address, Citizenships, ClientBase, CountryCode, Dependents, Email, Employment, ExternalId, FullLegalName, Gender, Insiders, Locale, MaritalStatus, Name, PhoneNumbers, PoliticallyExposedPeople, PreferredFirstName, RegulatedPeople, SpouseOrCommonLaw, TaxIdentificationNumbers, UserId) {
   'use strict';

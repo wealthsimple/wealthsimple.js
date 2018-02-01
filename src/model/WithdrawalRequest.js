@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountId'), require('./BankAccountId'), require('./ExternalId'), require('./FundsTransferBase'), require('./Money'), require('./WithdrawalReason'), require('./WithdrawalType'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.WithdrawalRequest = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountId, root.WealthsimpleApi.BankAccountId, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.FundsTransferBase, root.WealthsimpleApi.Money, root.WealthsimpleApi.WithdrawalReason, root.WealthsimpleApi.WithdrawalType);
+    root.Wealthsimple.WithdrawalRequest = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountId, root.Wealthsimple.BankAccountId, root.Wealthsimple.ExternalId, root.Wealthsimple.FundsTransferBase, root.Wealthsimple.Money, root.Wealthsimple.WithdrawalReason, root.Wealthsimple.WithdrawalType);
   }
 }(this, function(ApiClient, AccountId, BankAccountId, ExternalId, FundsTransferBase, Money, WithdrawalReason, WithdrawalType) {
   'use strict';

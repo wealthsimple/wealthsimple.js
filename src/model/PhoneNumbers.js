@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./PhoneNumber'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.PhoneNumbers = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.PhoneNumber);
+    root.Wealthsimple.PhoneNumbers = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.PhoneNumber);
   }
 }(this, function(ApiClient, PhoneNumber) {
   'use strict';

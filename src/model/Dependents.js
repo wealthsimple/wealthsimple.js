@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Dependent'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Dependents = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Dependent);
+    root.Wealthsimple.Dependents = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Dependent);
   }
 }(this, function(ApiClient, Dependent) {
   'use strict';

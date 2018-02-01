@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Address'), require('./CorporationBase'), require('./CorporationDirectors'), require('./CorporationName'), require('./CorporationOwners'), require('./CountryCode'), require('./Email'), require('./ExternalId'), require('./Locale'), require('./PhoneNumbers'), require('./TaxIdentification'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.CorporationInput = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Address, root.WealthsimpleApi.CorporationBase, root.WealthsimpleApi.CorporationDirectors, root.WealthsimpleApi.CorporationName, root.WealthsimpleApi.CorporationOwners, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.Email, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.Locale, root.WealthsimpleApi.PhoneNumbers, root.WealthsimpleApi.TaxIdentification, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.CorporationInput = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Address, root.Wealthsimple.CorporationBase, root.Wealthsimple.CorporationDirectors, root.Wealthsimple.CorporationName, root.Wealthsimple.CorporationOwners, root.Wealthsimple.CountryCode, root.Wealthsimple.Email, root.Wealthsimple.ExternalId, root.Wealthsimple.Locale, root.Wealthsimple.PhoneNumbers, root.Wealthsimple.TaxIdentification, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, Address, CorporationBase, CorporationDirectors, CorporationName, CorporationOwners, CountryCode, Email, ExternalId, Locale, PhoneNumbers, TaxIdentification, UserId) {
   'use strict';

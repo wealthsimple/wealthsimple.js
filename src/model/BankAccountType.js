@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.BankAccountType = factory(root.WealthsimpleApi.ApiClient);
+    root.Wealthsimple.BankAccountType = factory(root.Wealthsimple.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';

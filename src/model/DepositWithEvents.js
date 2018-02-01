@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountId'), require('./BankAccountId'), require('./CreatedAt'), require('./Deposit'), require('./ExternalId'), require('./FundsTransferEvent'), require('./FundsTransferId'), require('./FundsTransferRejectReason'), require('./FundsTransferScheduleId'), require('./FundsTransferStatus'), require('./FundsTransferType'), require('./Money'), require('./UpdatedAt'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.DepositWithEvents = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountId, root.WealthsimpleApi.BankAccountId, root.WealthsimpleApi.CreatedAt, root.WealthsimpleApi.Deposit, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.FundsTransferEvent, root.WealthsimpleApi.FundsTransferId, root.WealthsimpleApi.FundsTransferRejectReason, root.WealthsimpleApi.FundsTransferScheduleId, root.WealthsimpleApi.FundsTransferStatus, root.WealthsimpleApi.FundsTransferType, root.WealthsimpleApi.Money, root.WealthsimpleApi.UpdatedAt);
+    root.Wealthsimple.DepositWithEvents = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountId, root.Wealthsimple.BankAccountId, root.Wealthsimple.CreatedAt, root.Wealthsimple.Deposit, root.Wealthsimple.ExternalId, root.Wealthsimple.FundsTransferEvent, root.Wealthsimple.FundsTransferId, root.Wealthsimple.FundsTransferRejectReason, root.Wealthsimple.FundsTransferScheduleId, root.Wealthsimple.FundsTransferStatus, root.Wealthsimple.FundsTransferType, root.Wealthsimple.Money, root.Wealthsimple.UpdatedAt);
   }
 }(this, function(ApiClient, AccountId, BankAccountId, CreatedAt, Deposit, ExternalId, FundsTransferEvent, FundsTransferId, FundsTransferRejectReason, FundsTransferScheduleId, FundsTransferStatus, FundsTransferType, Money, UpdatedAt) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./DocumentBase'), require('./ExternalId'), require('./Tags'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.DocumentInput = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.DocumentBase, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.Tags);
+    root.Wealthsimple.DocumentInput = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.DocumentBase, root.Wealthsimple.ExternalId, root.Wealthsimple.Tags);
   }
 }(this, function(ApiClient, DocumentBase, ExternalId, Tags) {
   'use strict';

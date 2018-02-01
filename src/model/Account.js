@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountBase'), require('./AccountCreatedAt'), require('./AccountOwners'), require('./AccountType'), require('./AccountUpdatedAt'), require('./Currency'), require('./GrossPosition'), require('./NetLiquidation'), require('./TotalDeposits'), require('./TotalWithdrawals'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Account = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountBase, root.WealthsimpleApi.AccountCreatedAt, root.WealthsimpleApi.AccountOwners, root.WealthsimpleApi.AccountType, root.WealthsimpleApi.AccountUpdatedAt, root.WealthsimpleApi.Currency, root.WealthsimpleApi.GrossPosition, root.WealthsimpleApi.NetLiquidation, root.WealthsimpleApi.TotalDeposits, root.WealthsimpleApi.TotalWithdrawals);
+    root.Wealthsimple.Account = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountBase, root.Wealthsimple.AccountCreatedAt, root.Wealthsimple.AccountOwners, root.Wealthsimple.AccountType, root.Wealthsimple.AccountUpdatedAt, root.Wealthsimple.Currency, root.Wealthsimple.GrossPosition, root.Wealthsimple.NetLiquidation, root.Wealthsimple.TotalDeposits, root.Wealthsimple.TotalWithdrawals);
   }
 }(this, function(ApiClient, AccountBase, AccountCreatedAt, AccountOwners, AccountType, AccountUpdatedAt, Currency, GrossPosition, NetLiquidation, TotalDeposits, TotalWithdrawals) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./StepType'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.RangeLimits = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.StepType);
+    root.Wealthsimple.RangeLimits = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.StepType);
   }
 }(this, function(ApiClient, StepType) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Error'), require('../model/PeoplePaginated'), require('../model/Person'), require('../model/PersonInput'), require('../model/PersonUpdate'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.PeopleApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Error, root.WealthsimpleApi.PeoplePaginated, root.WealthsimpleApi.Person, root.WealthsimpleApi.PersonInput, root.WealthsimpleApi.PersonUpdate);
+    root.Wealthsimple.PeopleApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Error, root.Wealthsimple.PeoplePaginated, root.Wealthsimple.Person, root.Wealthsimple.PersonInput, root.Wealthsimple.PersonUpdate);
   }
 }(this, function(ApiClient, Error, PeoplePaginated, Person, PersonInput, PersonUpdate) {
   'use strict';

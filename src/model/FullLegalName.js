@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./FirstName'), require('./LastName'), require('./MiddleNames'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.FullLegalName = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.FirstName, root.WealthsimpleApi.LastName, root.WealthsimpleApi.MiddleNames);
+    root.Wealthsimple.FullLegalName = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.FirstName, root.Wealthsimple.LastName, root.Wealthsimple.MiddleNames);
   }
 }(this, function(ApiClient, FirstName, LastName, MiddleNames) {
   'use strict';

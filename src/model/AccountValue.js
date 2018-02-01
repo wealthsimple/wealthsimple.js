@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Currency'), require('./Money'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.AccountValue = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Currency, root.WealthsimpleApi.Money);
+    root.Wealthsimple.AccountValue = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Currency, root.Wealthsimple.Money);
   }
 }(this, function(ApiClient, Currency, Money) {
   'use strict';

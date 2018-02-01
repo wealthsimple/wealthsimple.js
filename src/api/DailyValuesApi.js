@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/DailyValuesPaginated'), require('../model/Error'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.DailyValuesApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.DailyValuesPaginated, root.WealthsimpleApi.Error);
+    root.Wealthsimple.DailyValuesApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.DailyValuesPaginated, root.Wealthsimple.Error);
   }
 }(this, function(ApiClient, DailyValuesPaginated, Error) {
   'use strict';

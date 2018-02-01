@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Answers'), require('./QuestionId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.SurveyUpdate = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Answers, root.WealthsimpleApi.QuestionId);
+    root.Wealthsimple.SurveyUpdate = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Answers, root.Wealthsimple.QuestionId);
   }
 }(this, function(ApiClient, Answers, QuestionId) {
   'use strict';

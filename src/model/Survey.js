@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./ClientId'), require('./CompletedAt'), require('./CreatedAt'), require('./CreatedUpdatedAt'), require('./Locale'), require('./SurveyBase'), require('./SurveyState'), require('./UpdatedAt'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Survey = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.ClientId, root.WealthsimpleApi.CompletedAt, root.WealthsimpleApi.CreatedAt, root.WealthsimpleApi.CreatedUpdatedAt, root.WealthsimpleApi.Locale, root.WealthsimpleApi.SurveyBase, root.WealthsimpleApi.SurveyState, root.WealthsimpleApi.UpdatedAt);
+    root.Wealthsimple.Survey = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.ClientId, root.Wealthsimple.CompletedAt, root.Wealthsimple.CreatedAt, root.Wealthsimple.CreatedUpdatedAt, root.Wealthsimple.Locale, root.Wealthsimple.SurveyBase, root.Wealthsimple.SurveyState, root.Wealthsimple.UpdatedAt);
   }
 }(this, function(ApiClient, ClientId, CompletedAt, CreatedAt, CreatedUpdatedAt, Locale, SurveyBase, SurveyState, UpdatedAt) {
   'use strict';

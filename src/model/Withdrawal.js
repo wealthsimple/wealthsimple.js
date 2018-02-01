@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountId'), require('./BankAccountId'), require('./CreatedAt'), require('./CreatedUpdatedAt'), require('./ExternalId'), require('./FundsTransferBase'), require('./FundsTransferId'), require('./FundsTransferRejectReason'), require('./FundsTransferScheduleId'), require('./FundsTransferStatus'), require('./FundsTransferType'), require('./Money'), require('./TaxDetail'), require('./UpdatedAt'), require('./WithdrawalReason'), require('./WithdrawalType'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Withdrawal = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountId, root.WealthsimpleApi.BankAccountId, root.WealthsimpleApi.CreatedAt, root.WealthsimpleApi.CreatedUpdatedAt, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.FundsTransferBase, root.WealthsimpleApi.FundsTransferId, root.WealthsimpleApi.FundsTransferRejectReason, root.WealthsimpleApi.FundsTransferScheduleId, root.WealthsimpleApi.FundsTransferStatus, root.WealthsimpleApi.FundsTransferType, root.WealthsimpleApi.Money, root.WealthsimpleApi.TaxDetail, root.WealthsimpleApi.UpdatedAt, root.WealthsimpleApi.WithdrawalReason, root.WealthsimpleApi.WithdrawalType);
+    root.Wealthsimple.Withdrawal = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountId, root.Wealthsimple.BankAccountId, root.Wealthsimple.CreatedAt, root.Wealthsimple.CreatedUpdatedAt, root.Wealthsimple.ExternalId, root.Wealthsimple.FundsTransferBase, root.Wealthsimple.FundsTransferId, root.Wealthsimple.FundsTransferRejectReason, root.Wealthsimple.FundsTransferScheduleId, root.Wealthsimple.FundsTransferStatus, root.Wealthsimple.FundsTransferType, root.Wealthsimple.Money, root.Wealthsimple.TaxDetail, root.Wealthsimple.UpdatedAt, root.Wealthsimple.WithdrawalReason, root.Wealthsimple.WithdrawalType);
   }
 }(this, function(ApiClient, AccountId, BankAccountId, CreatedAt, CreatedUpdatedAt, ExternalId, FundsTransferBase, FundsTransferId, FundsTransferRejectReason, FundsTransferScheduleId, FundsTransferStatus, FundsTransferType, Money, TaxDetail, UpdatedAt, WithdrawalReason, WithdrawalType) {
   'use strict';

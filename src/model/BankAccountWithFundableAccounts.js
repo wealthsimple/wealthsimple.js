@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./BankAccountBase'), require('./BankAccountCreatedAt'), require('./BankAccountType'), require('./BankAccountUpdatedAt'), require('./ClientId'), require('./CountryCode'), require('./InstitutionNumber'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.BankAccountWithFundableAccounts = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.BankAccountBase, root.WealthsimpleApi.BankAccountCreatedAt, root.WealthsimpleApi.BankAccountType, root.WealthsimpleApi.BankAccountUpdatedAt, root.WealthsimpleApi.ClientId, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.InstitutionNumber);
+    root.Wealthsimple.BankAccountWithFundableAccounts = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.BankAccountBase, root.Wealthsimple.BankAccountCreatedAt, root.Wealthsimple.BankAccountType, root.Wealthsimple.BankAccountUpdatedAt, root.Wealthsimple.ClientId, root.Wealthsimple.CountryCode, root.Wealthsimple.InstitutionNumber);
   }
 }(this, function(ApiClient, BankAccountBase, BankAccountCreatedAt, BankAccountType, BankAccountUpdatedAt, ClientId, CountryCode, InstitutionNumber) {
   'use strict';

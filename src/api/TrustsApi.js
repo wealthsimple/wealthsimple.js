@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Error'), require('../model/Trust'), require('../model/TrustInput'), require('../model/TrustUpdate'), require('../model/TrustsPaginated'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.TrustsApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Error, root.WealthsimpleApi.Trust, root.WealthsimpleApi.TrustInput, root.WealthsimpleApi.TrustUpdate, root.WealthsimpleApi.TrustsPaginated);
+    root.Wealthsimple.TrustsApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Error, root.Wealthsimple.Trust, root.Wealthsimple.TrustInput, root.Wealthsimple.TrustUpdate, root.Wealthsimple.TrustsPaginated);
   }
 }(this, function(ApiClient, Error, Trust, TrustInput, TrustUpdate, TrustsPaginated) {
   'use strict';

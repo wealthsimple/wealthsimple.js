@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Healthcheck'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.HealthcheckApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Healthcheck);
+    root.Wealthsimple.HealthcheckApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Healthcheck);
   }
 }(this, function(ApiClient, Healthcheck) {
   'use strict';

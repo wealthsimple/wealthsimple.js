@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./CreatedAt'), require('./CreatedUpdatedAt'), require('./Email'), require('./UpdatedAt'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.User = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.CreatedAt, root.WealthsimpleApi.CreatedUpdatedAt, root.WealthsimpleApi.Email, root.WealthsimpleApi.UpdatedAt, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.User = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.CreatedAt, root.Wealthsimple.CreatedUpdatedAt, root.Wealthsimple.Email, root.Wealthsimple.UpdatedAt, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, CreatedAt, CreatedUpdatedAt, Email, UpdatedAt, UserId) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./EmploymentEmployerInfo'), require('./EmploymentStatus'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Employment = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.EmploymentEmployerInfo, root.WealthsimpleApi.EmploymentStatus);
+    root.Wealthsimple.Employment = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.EmploymentEmployerInfo, root.Wealthsimple.EmploymentStatus);
   }
 }(this, function(ApiClient, EmploymentEmployerInfo, EmploymentStatus) {
   'use strict';

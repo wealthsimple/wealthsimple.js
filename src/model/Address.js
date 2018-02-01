@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./CountryCode'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Address = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.CountryCode);
+    root.Wealthsimple.Address = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.CountryCode);
   }
 }(this, function(ApiClient, CountryCode) {
   'use strict';

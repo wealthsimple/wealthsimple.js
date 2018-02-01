@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/BankAccountInput'), require('../model/BankAccountWithFundableAccounts'), require('../model/BankAccountsPaginated'), require('../model/Deposit'), require('../model/DepositRequest'), require('../model/DepositWithEvents'), require('../model/DepositsPaginated'), require('../model/Error'), require('../model/Withdrawal'), require('../model/WithdrawalRequest'), require('../model/WithdrawalsPaginated'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.FundingApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.BankAccountInput, root.WealthsimpleApi.BankAccountWithFundableAccounts, root.WealthsimpleApi.BankAccountsPaginated, root.WealthsimpleApi.Deposit, root.WealthsimpleApi.DepositRequest, root.WealthsimpleApi.DepositWithEvents, root.WealthsimpleApi.DepositsPaginated, root.WealthsimpleApi.Error, root.WealthsimpleApi.Withdrawal, root.WealthsimpleApi.WithdrawalRequest, root.WealthsimpleApi.WithdrawalsPaginated);
+    root.Wealthsimple.FundingApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.BankAccountInput, root.Wealthsimple.BankAccountWithFundableAccounts, root.Wealthsimple.BankAccountsPaginated, root.Wealthsimple.Deposit, root.Wealthsimple.DepositRequest, root.Wealthsimple.DepositWithEvents, root.Wealthsimple.DepositsPaginated, root.Wealthsimple.Error, root.Wealthsimple.Withdrawal, root.Wealthsimple.WithdrawalRequest, root.Wealthsimple.WithdrawalsPaginated);
   }
 }(this, function(ApiClient, BankAccountInput, BankAccountWithFundableAccounts, BankAccountsPaginated, Deposit, DepositRequest, DepositWithEvents, DepositsPaginated, Error, Withdrawal, WithdrawalRequest, WithdrawalsPaginated) {
   'use strict';

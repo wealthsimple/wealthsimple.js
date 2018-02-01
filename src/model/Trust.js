@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Address'), require('./CountryCode'), require('./CreatedAt'), require('./CreatedUpdatedAt'), require('./Email'), require('./ExternalId'), require('./Locale'), require('./PhoneNumbers'), require('./TaxIdentification'), require('./TrustBase'), require('./TrustId'), require('./TrustName'), require('./UpdatedAt'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Trust = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Address, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.CreatedAt, root.WealthsimpleApi.CreatedUpdatedAt, root.WealthsimpleApi.Email, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.Locale, root.WealthsimpleApi.PhoneNumbers, root.WealthsimpleApi.TaxIdentification, root.WealthsimpleApi.TrustBase, root.WealthsimpleApi.TrustId, root.WealthsimpleApi.TrustName, root.WealthsimpleApi.UpdatedAt, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.Trust = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Address, root.Wealthsimple.CountryCode, root.Wealthsimple.CreatedAt, root.Wealthsimple.CreatedUpdatedAt, root.Wealthsimple.Email, root.Wealthsimple.ExternalId, root.Wealthsimple.Locale, root.Wealthsimple.PhoneNumbers, root.Wealthsimple.TaxIdentification, root.Wealthsimple.TrustBase, root.Wealthsimple.TrustId, root.Wealthsimple.TrustName, root.Wealthsimple.UpdatedAt, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, Address, CountryCode, CreatedAt, CreatedUpdatedAt, Email, ExternalId, Locale, PhoneNumbers, TaxIdentification, TrustBase, TrustId, TrustName, UpdatedAt, UserId) {
   'use strict';

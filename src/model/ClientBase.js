@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Address'), require('./CountryCode'), require('./Email'), require('./ExternalId'), require('./Locale'), require('./PhoneNumbers'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.ClientBase = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Address, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.Email, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.Locale, root.WealthsimpleApi.PhoneNumbers, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.ClientBase = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Address, root.Wealthsimple.CountryCode, root.Wealthsimple.Email, root.Wealthsimple.ExternalId, root.Wealthsimple.Locale, root.Wealthsimple.PhoneNumbers, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, Address, CountryCode, Email, ExternalId, Locale, PhoneNumbers, UserId) {
   'use strict';

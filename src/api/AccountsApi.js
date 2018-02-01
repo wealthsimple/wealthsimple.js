@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Account'), require('../model/AccountCreatedResponse'), require('../model/AccountInput'), require('../model/AccountsPaginated'), require('../model/Error'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.AccountsApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Account, root.WealthsimpleApi.AccountCreatedResponse, root.WealthsimpleApi.AccountInput, root.WealthsimpleApi.AccountsPaginated, root.WealthsimpleApi.Error);
+    root.Wealthsimple.AccountsApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Account, root.Wealthsimple.AccountCreatedResponse, root.Wealthsimple.AccountInput, root.Wealthsimple.AccountsPaginated, root.Wealthsimple.Error);
   }
 }(this, function(ApiClient, Account, AccountCreatedResponse, AccountInput, AccountsPaginated, Error) {
   'use strict';

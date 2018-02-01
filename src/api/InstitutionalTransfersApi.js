@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/AccountTransferWithEvents'), require('../model/AccountTransfersPaginated'), require('../model/Error'), require('../model/FinancialInstitutions'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.InstitutionalTransfersApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountTransferWithEvents, root.WealthsimpleApi.AccountTransfersPaginated, root.WealthsimpleApi.Error, root.WealthsimpleApi.FinancialInstitutions);
+    root.Wealthsimple.InstitutionalTransfersApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountTransferWithEvents, root.Wealthsimple.AccountTransfersPaginated, root.Wealthsimple.Error, root.Wealthsimple.FinancialInstitutions);
   }
 }(this, function(ApiClient, AccountTransferWithEvents, AccountTransfersPaginated, Error, FinancialInstitutions) {
   'use strict';

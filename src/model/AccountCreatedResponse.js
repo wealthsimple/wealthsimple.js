@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountBase'), require('./AccountCreatedAt'), require('./AccountOwners'), require('./AccountType'), require('./AccountUpdatedAt'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.AccountCreatedResponse = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountBase, root.WealthsimpleApi.AccountCreatedAt, root.WealthsimpleApi.AccountOwners, root.WealthsimpleApi.AccountType, root.WealthsimpleApi.AccountUpdatedAt);
+    root.Wealthsimple.AccountCreatedResponse = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountBase, root.Wealthsimple.AccountCreatedAt, root.Wealthsimple.AccountOwners, root.Wealthsimple.AccountType, root.Wealthsimple.AccountUpdatedAt);
   }
 }(this, function(ApiClient, AccountBase, AccountCreatedAt, AccountOwners, AccountType, AccountUpdatedAt) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./DocumentId'), require('./VerificationMethod'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.VerificationBase = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.DocumentId, root.WealthsimpleApi.VerificationMethod);
+    root.Wealthsimple.VerificationBase = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.DocumentId, root.Wealthsimple.VerificationMethod);
   }
 }(this, function(ApiClient, DocumentId, VerificationMethod) {
   'use strict';

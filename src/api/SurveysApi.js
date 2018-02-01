@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Error'), require('../model/Survey'), require('../model/SurveysPaginated'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.SurveysApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Error, root.WealthsimpleApi.Survey, root.WealthsimpleApi.SurveysPaginated);
+    root.Wealthsimple.SurveysApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Error, root.Wealthsimple.Survey, root.Wealthsimple.SurveysPaginated);
   }
 }(this, function(ApiClient, Error, Survey, SurveysPaginated) {
   'use strict';

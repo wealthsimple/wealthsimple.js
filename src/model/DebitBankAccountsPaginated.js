@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Paginated'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.DebitBankAccountsPaginated = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Paginated);
+    root.Wealthsimple.DebitBankAccountsPaginated = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Paginated);
   }
 }(this, function(ApiClient, Paginated) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('../model/Corporation'), require('../model/CorporationInput'), require('../model/CorporationUpdate'), require('../model/CorporationsPaginated'), require('../model/Error'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.CorporationsApi = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Corporation, root.WealthsimpleApi.CorporationInput, root.WealthsimpleApi.CorporationUpdate, root.WealthsimpleApi.CorporationsPaginated, root.WealthsimpleApi.Error);
+    root.Wealthsimple.CorporationsApi = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Corporation, root.Wealthsimple.CorporationInput, root.Wealthsimple.CorporationUpdate, root.Wealthsimple.CorporationsPaginated, root.Wealthsimple.Error);
   }
 }(this, function(ApiClient, Corporation, CorporationInput, CorporationUpdate, CorporationsPaginated, Error) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountNumber'), require('./BankAccountBase'), require('./BankAccountCreatedAt'), require('./BankAccountType'), require('./BankAccountUpdatedAt'), require('./ClientId'), require('./CountryCode'), require('./InstitutionNumber'), require('./TransitNumber'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.BankAccountInput = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountNumber, root.WealthsimpleApi.BankAccountBase, root.WealthsimpleApi.BankAccountCreatedAt, root.WealthsimpleApi.BankAccountType, root.WealthsimpleApi.BankAccountUpdatedAt, root.WealthsimpleApi.ClientId, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.InstitutionNumber, root.WealthsimpleApi.TransitNumber);
+    root.Wealthsimple.BankAccountInput = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountNumber, root.Wealthsimple.BankAccountBase, root.Wealthsimple.BankAccountCreatedAt, root.Wealthsimple.BankAccountType, root.Wealthsimple.BankAccountUpdatedAt, root.Wealthsimple.ClientId, root.Wealthsimple.CountryCode, root.Wealthsimple.InstitutionNumber, root.Wealthsimple.TransitNumber);
   }
 }(this, function(ApiClient, AccountNumber, BankAccountBase, BankAccountCreatedAt, BankAccountType, BankAccountUpdatedAt, ClientId, CountryCode, InstitutionNumber, TransitNumber) {
   'use strict';

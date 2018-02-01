@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountId'), require('./AdjustedBookValue'), require('./BookValue'), require('./ContributionValue'), require('./CountryCode'), require('./EffectiveDate'), require('./MarketPrice'), require('./MarketValue'), require('./NetCash'), require('./ProcessDate'), require('./TransactionId'), require('./TransactionType'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Transaction = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountId, root.WealthsimpleApi.AdjustedBookValue, root.WealthsimpleApi.BookValue, root.WealthsimpleApi.ContributionValue, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.EffectiveDate, root.WealthsimpleApi.MarketPrice, root.WealthsimpleApi.MarketValue, root.WealthsimpleApi.NetCash, root.WealthsimpleApi.ProcessDate, root.WealthsimpleApi.TransactionId, root.WealthsimpleApi.TransactionType);
+    root.Wealthsimple.Transaction = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountId, root.Wealthsimple.AdjustedBookValue, root.Wealthsimple.BookValue, root.Wealthsimple.ContributionValue, root.Wealthsimple.CountryCode, root.Wealthsimple.EffectiveDate, root.Wealthsimple.MarketPrice, root.Wealthsimple.MarketValue, root.Wealthsimple.NetCash, root.Wealthsimple.ProcessDate, root.Wealthsimple.TransactionId, root.Wealthsimple.TransactionType);
   }
 }(this, function(ApiClient, AccountId, AdjustedBookValue, BookValue, ContributionValue, CountryCode, EffectiveDate, MarketPrice, MarketValue, NetCash, ProcessDate, TransactionId, TransactionType) {
   'use strict';

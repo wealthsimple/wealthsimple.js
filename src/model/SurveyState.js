@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AnswerOptions'), require('./Percent'), require('./SurveyQuestion'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.SurveyState = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AnswerOptions, root.WealthsimpleApi.Percent, root.WealthsimpleApi.SurveyQuestion);
+    root.Wealthsimple.SurveyState = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AnswerOptions, root.Wealthsimple.Percent, root.Wealthsimple.SurveyQuestion);
   }
 }(this, function(ApiClient, AnswerOptions, Percent, SurveyQuestion) {
   'use strict';

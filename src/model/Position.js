@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./AccountId'), require('./AccountValue'), require('./AdjustedBookValue'), require('./Asset'), require('./AveragePrice'), require('./BookValue'), require('./PositionMarketPrice'), require('./PositionMarketValue'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Position = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.AccountId, root.WealthsimpleApi.AccountValue, root.WealthsimpleApi.AdjustedBookValue, root.WealthsimpleApi.Asset, root.WealthsimpleApi.AveragePrice, root.WealthsimpleApi.BookValue, root.WealthsimpleApi.PositionMarketPrice, root.WealthsimpleApi.PositionMarketValue);
+    root.Wealthsimple.Position = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.AccountId, root.Wealthsimple.AccountValue, root.Wealthsimple.AdjustedBookValue, root.Wealthsimple.Asset, root.Wealthsimple.AveragePrice, root.Wealthsimple.BookValue, root.Wealthsimple.PositionMarketPrice, root.Wealthsimple.PositionMarketValue);
   }
 }(this, function(ApiClient, AccountId, AccountValue, AdjustedBookValue, Asset, AveragePrice, BookValue, PositionMarketPrice, PositionMarketValue) {
   'use strict';

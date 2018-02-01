@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Address'), require('./ClientBase'), require('./CountryCode'), require('./Email'), require('./ExternalId'), require('./Locale'), require('./PhoneNumbers'), require('./TaxIdentification'), require('./TrustName'), require('./UserId'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.TrustBase = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Address, root.WealthsimpleApi.ClientBase, root.WealthsimpleApi.CountryCode, root.WealthsimpleApi.Email, root.WealthsimpleApi.ExternalId, root.WealthsimpleApi.Locale, root.WealthsimpleApi.PhoneNumbers, root.WealthsimpleApi.TaxIdentification, root.WealthsimpleApi.TrustName, root.WealthsimpleApi.UserId);
+    root.Wealthsimple.TrustBase = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Address, root.Wealthsimple.ClientBase, root.Wealthsimple.CountryCode, root.Wealthsimple.Email, root.Wealthsimple.ExternalId, root.Wealthsimple.Locale, root.Wealthsimple.PhoneNumbers, root.Wealthsimple.TaxIdentification, root.Wealthsimple.TrustName, root.Wealthsimple.UserId);
   }
 }(this, function(ApiClient, Address, ClientBase, CountryCode, Email, ExternalId, Locale, PhoneNumbers, TaxIdentification, TrustName, UserId) {
   'use strict';

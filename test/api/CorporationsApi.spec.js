@@ -22,15 +22,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.WealthsimpleApi);
+    factory(root.expect, root.Wealthsimple);
   }
-}(this, function(expect, WealthsimpleApi) {
+}(this, function(expect, Wealthsimple) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new WealthsimpleApi.CorporationsApi();
+    instance = new Wealthsimple.CorporationsApi();
   });
 
   var getProperty = function(object, getter, property) {

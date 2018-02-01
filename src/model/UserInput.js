@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./Email'), require('./Password'), require('./UserBase'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.UserInput = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.Email, root.WealthsimpleApi.Password, root.WealthsimpleApi.UserBase);
+    root.Wealthsimple.UserInput = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.Email, root.Wealthsimple.Password, root.Wealthsimple.UserBase);
   }
 }(this, function(ApiClient, Email, Password, UserBase) {
   'use strict';

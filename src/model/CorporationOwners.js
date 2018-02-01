@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./CorporationOwner'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.CorporationOwners = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.CorporationOwner);
+    root.Wealthsimple.CorporationOwners = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.CorporationOwner);
   }
 }(this, function(ApiClient, CorporationOwner) {
   'use strict';

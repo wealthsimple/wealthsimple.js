@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./PoliticallyExposedPerson'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.PoliticallyExposedPeople = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.PoliticallyExposedPerson);
+    root.Wealthsimple.PoliticallyExposedPeople = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.PoliticallyExposedPerson);
   }
 }(this, function(ApiClient, PoliticallyExposedPerson) {
   'use strict';

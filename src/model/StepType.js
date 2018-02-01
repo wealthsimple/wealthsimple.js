@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./CustomIncrement'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.StepType = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.CustomIncrement);
+    root.Wealthsimple.StepType = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.CustomIncrement);
   }
 }(this, function(ApiClient, CustomIncrement) {
   'use strict';

@@ -22,10 +22,10 @@
     module.exports = factory(require('../ApiClient'), require('./DateTime'));
   } else {
     // Browser globals (root is window)
-    if (!root.WealthsimpleApi) {
-      root.WealthsimpleApi = {};
+    if (!root.Wealthsimple) {
+      root.Wealthsimple = {};
     }
-    root.WealthsimpleApi.Healthcheck = factory(root.WealthsimpleApi.ApiClient, root.WealthsimpleApi.DateTime);
+    root.Wealthsimple.Healthcheck = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.DateTime);
   }
 }(this, function(ApiClient, DateTime) {
   'use strict';
