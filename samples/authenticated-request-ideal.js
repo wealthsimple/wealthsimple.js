@@ -15,8 +15,8 @@ const wealthsimple = new Wealthsimple({
 
 // Login with email + password:
 wealthsimple.login('peter@example.com', 'my-password')
-  .then(() => {
+  .then((user) => {
     // Make any authenticated calls here..
-    wealthsimple.get('/v1/users/user-221_1ut5ujy')
+    wealthsimple.get(`/v1/users/${user.id}`)
       .then((data) => console.log(data))
   })

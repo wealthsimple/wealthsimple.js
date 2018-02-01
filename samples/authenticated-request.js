@@ -1,5 +1,5 @@
 // This example shows how to get authenticated user data.
-// You must set EMAIL + PASSWORD in `.env` corresponding to user-221_1ut5ujy on staging.
+// You must set EMAIL + PASSWORD in `.env` corresponding to a valid staging user.
 
 require('dotenv').config();
 const Wealthsimple = require('../src/index');
@@ -20,7 +20,8 @@ wealthsimple.auth({
     }
     // Step 2: Once successfully authenticated, fetch user data.
     const usersApi = new Wealthsimple.UsersApi();
-    usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
+    const userId = data.resource_owner_id;
+    usersApi.getUser(userId, (error, data, response) => {
       if (error) {
         return console.error('GetUser error: ', response.status, response.body);
       }
