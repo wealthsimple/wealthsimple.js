@@ -7,6 +7,7 @@ const util = require('util');
 
 const wealthsimple = Wealthsimple.ApiClient.instance;
 
+// Step 1: Exchange username + password for an OAuth access token.
 wealthsimple.auth({
   clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
   grantType: 'password',
@@ -15,17 +16,16 @@ wealthsimple.auth({
   scope: 'read write',
   callback: (error, data, response) => {
     if (error) {
-      console.error('Auth error: ', error);
-    } else {
-      const usersApi = new Wealthsimple.UsersApi();
-      usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
-        if (error) {
-          console.error('GetUser error: ', error);
-        } else {
-          console.log('API called successfully. Returned data: ');
-          console.log(util.inspect(data, false, null));
-        }
-      });
+      return console.error('Auth error: ', response.status, response.body);
     }
+    // Step 2: Once successfully authenticated, fetch user data.
+    const usersApi = new Wealthsimple.UsersApi();
+    usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
+      if (error) {
+        return console.error('GetUser error: ', response.status, response.body);
+      }
+      console.log('API called successfully. Returned data: ');
+      console.log(util.inspect(data, false, null));
+    });
   },
 });
