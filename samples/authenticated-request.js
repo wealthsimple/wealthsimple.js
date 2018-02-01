@@ -15,12 +15,12 @@ wealthsimple.auth({
   scope: 'read write',
   callback: (error, data, response) => {
     if (error) {
-      console.log('Auth error: ', error);
+      console.error('Auth error: ', error);
     } else {
       const usersApi = new Wealthsimple.UsersApi();
       usersApi.getUser('user-221_1ut5ujy', (error, data, response) => {
         if (error) {
-          console.error(error);
+          console.error('GetUser error: ', error);
         } else {
           console.log('API called successfully. Returned data: ');
           console.log(util.inspect(data, false, null));
