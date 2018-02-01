@@ -26,8 +26,7 @@ wealthsimple.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {},
     console.log('Auth error: ', error);
   } else {
     const responseJSON = JSON.parse(data);
-    let Bearer = wealthsimple.authentications['Bearer'];
-    Bearer.apiKey = responseJSON.access_token;
+    wealthsimple.authentications['Bearer']['apiKey'] = responseJSON.access_token;
 
     const usersApi = new Wealthsimple.UsersApi();
 
