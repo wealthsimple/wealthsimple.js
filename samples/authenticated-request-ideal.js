@@ -4,12 +4,13 @@ const Wealthsimple = require('wealthsimple');
 
 // Configuration:
 const wealthsimple = new Wealthsimple({
-  clientId: '...oauth client id...',
-  // OPTIONAL: populate existing oauth tokens from iOS keychain or something similar.
+  // Required: Your OAuth application's unique client ID.
+  clientId: '58a99e4862a1b...',
+  // Optional: pass in the request adapter.
+  customRequestAdapter: reactNativeFetch,
+  // Optional: populate existing oauth tokens from iOS keychain or similar.
   accessToken: fetchFromStorage('accessToken'),
   refreshToken: fetchFromStorage('refreshToken'),
-  // OPTIONAL: pass in the request adapter function
-  customRequestAdapter: reactNativeFetch,
 });
 
 // Login with email + password:
