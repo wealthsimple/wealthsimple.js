@@ -50,13 +50,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('id')) {
-        obj['id'] = TargetPortfolioId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TargetPortfolioId.hasOwnProperty('constructFromObject')) {
+          parsedValue = TargetPortfolioId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        var originalValue = data['name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['name'] = parsedValue;
       }
       if (data.hasOwnProperty('allocations')) {
-        obj['allocations'] = ApiClient.convertToType(data['allocations'], Object);
+        var originalValue = data['allocations'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Object.hasOwnProperty('constructFromObject')) {
+          parsedValue = Object.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['allocations'] = parsedValue;
       }
     }
     return obj;

@@ -54,25 +54,74 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('email')) {
-        obj['email'] = Email.constructFromObject(data['email']);
+        var originalValue = data['email'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Email.hasOwnProperty('constructFromObject')) {
+          parsedValue = Email.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['email'] = parsedValue;
       }
       if (data.hasOwnProperty('phone_numbers')) {
-        obj['phone_numbers'] = PhoneNumbers.constructFromObject(data['phone_numbers']);
+        var originalValue = data['phone_numbers'];
+        var parsedValue;
+        if (typeof originalValue === "object" && PhoneNumbers.hasOwnProperty('constructFromObject')) {
+          parsedValue = PhoneNumbers.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['phone_numbers'] = parsedValue;
       }
       if (data.hasOwnProperty('user_id')) {
-        obj['user_id'] = UserId.constructFromObject(data['user_id']);
+        var originalValue = data['user_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && UserId.hasOwnProperty('constructFromObject')) {
+          parsedValue = UserId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['user_id'] = parsedValue;
       }
       if (data.hasOwnProperty('external_id')) {
-        obj['external_id'] = ExternalId.constructFromObject(data['external_id']);
+        var originalValue = data['external_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ExternalId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ExternalId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['external_id'] = parsedValue;
       }
       if (data.hasOwnProperty('locale')) {
-        obj['locale'] = Locale.constructFromObject(data['locale']);
+        var originalValue = data['locale'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Locale.hasOwnProperty('constructFromObject')) {
+          parsedValue = Locale.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['locale'] = parsedValue;
       }
       if (data.hasOwnProperty('mailing_address')) {
-        obj['mailing_address'] = Address.constructFromObject(data['mailing_address']);
+        var originalValue = data['mailing_address'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
+          parsedValue = Address.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['mailing_address'] = parsedValue;
       }
       if (data.hasOwnProperty('jurisdictions')) {
-        obj['jurisdictions'] = ApiClient.convertToType(data['jurisdictions'], [CountryCode]);
+        var originalValue = data['jurisdictions'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['jurisdictions'] = parsedValue;
       }
     }
     return obj;

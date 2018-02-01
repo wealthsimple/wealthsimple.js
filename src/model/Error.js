@@ -52,19 +52,54 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('code')) {
-        obj['code'] = ApiClient.convertToType(data['code'], 'Number');
+        var originalValue = data['code'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['code'] = parsedValue;
       }
       if (data.hasOwnProperty('message')) {
-        obj['message'] = ApiClient.convertToType(data['message'], 'String');
+        var originalValue = data['message'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['message'] = parsedValue;
       }
       if (data.hasOwnProperty('reference_id')) {
-        obj['reference_id'] = ApiClient.convertToType(data['reference_id'], 'String');
+        var originalValue = data['reference_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['reference_id'] = parsedValue;
       }
       if (data.hasOwnProperty('errors')) {
-        obj['errors'] = ApiClient.convertToType(data['errors'], Object);
+        var originalValue = data['errors'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Object.hasOwnProperty('constructFromObject')) {
+          parsedValue = Object.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['errors'] = parsedValue;
       }
     }
     return obj;

@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('increments')) {
-        obj['increments'] = ApiClient.convertToType(data['increments'], [CustomIncrement]);
+        var originalValue = data['increments'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['increments'] = parsedValue;
       }
     }
     return obj;

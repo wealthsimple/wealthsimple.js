@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('id')) {
-        obj['id'] = AnswerId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AnswerId.hasOwnProperty('constructFromObject')) {
+          parsedValue = AnswerId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('value')) {
-        obj['value'] = ApiClient.convertToType(data['value'], 'String');
+        var originalValue = data['value'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['value'] = parsedValue;
       }
     }
     return obj;

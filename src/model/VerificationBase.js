@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('method')) {
-        obj['method'] = VerificationMethod.constructFromObject(data['method']);
+        var originalValue = data['method'];
+        var parsedValue;
+        if (typeof originalValue === "object" && VerificationMethod.hasOwnProperty('constructFromObject')) {
+          parsedValue = VerificationMethod.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['method'] = parsedValue;
       }
       if (data.hasOwnProperty('document_id')) {
-        obj['document_id'] = DocumentId.constructFromObject(data['document_id']);
+        var originalValue = data['document_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && DocumentId.hasOwnProperty('constructFromObject')) {
+          parsedValue = DocumentId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['document_id'] = parsedValue;
       }
     }
     return obj;

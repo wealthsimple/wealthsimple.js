@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('offset')) {
-        obj['offset'] = ApiClient.convertToType(data['offset'], 'Number');
+        var originalValue = data['offset'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['offset'] = parsedValue;
       }
       if (data.hasOwnProperty('total_count')) {
-        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Number');
+        var originalValue = data['total_count'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['total_count'] = parsedValue;
       }
     }
     return obj;

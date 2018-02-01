@@ -53,13 +53,34 @@
 
       BankAccountBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('transit_number')) {
-        obj['transit_number'] = TransitNumber.constructFromObject(data['transit_number']);
+        var originalValue = data['transit_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TransitNumber.hasOwnProperty('constructFromObject')) {
+          parsedValue = TransitNumber.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['transit_number'] = parsedValue;
       }
       if (data.hasOwnProperty('account_number')) {
-        obj['account_number'] = AccountNumber.constructFromObject(data['account_number']);
+        var originalValue = data['account_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountNumber.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountNumber.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_number'] = parsedValue;
       }
       if (data.hasOwnProperty('owners')) {
-        obj['owners'] = ApiClient.convertToType(data['owners'], [ClientId]);
+        var originalValue = data['owners'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['owners'] = parsedValue;
       }
     }
     return obj;

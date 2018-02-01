@@ -51,7 +51,14 @@
 
       AccountBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('client_id')) {
-        obj['client_id'] = ClientId.constructFromObject(data['client_id']);
+        var originalValue = data['client_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ClientId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ClientId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['client_id'] = parsedValue;
       }
     }
     return obj;

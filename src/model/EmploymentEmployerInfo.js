@@ -50,13 +50,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('employer_name')) {
-        obj['employer_name'] = ApiClient.convertToType(data['employer_name'], 'String');
+        var originalValue = data['employer_name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['employer_name'] = parsedValue;
       }
       if (data.hasOwnProperty('employer_industry')) {
-        obj['employer_industry'] = ApiClient.convertToType(data['employer_industry'], 'String');
+        var originalValue = data['employer_industry'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['employer_industry'] = parsedValue;
       }
       if (data.hasOwnProperty('position')) {
-        obj['position'] = ApiClient.convertToType(data['position'], 'String');
+        var originalValue = data['position'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['position'] = parsedValue;
       }
     }
     return obj;

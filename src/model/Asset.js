@@ -53,22 +53,64 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('symbol')) {
-        obj['symbol'] = ApiClient.convertToType(data['symbol'], 'String');
+        var originalValue = data['symbol'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['symbol'] = parsedValue;
       }
       if (data.hasOwnProperty('country_code')) {
-        obj['country_code'] = CountryCode.constructFromObject(data['country_code']);
+        var originalValue = data['country_code'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CountryCode.hasOwnProperty('constructFromObject')) {
+          parsedValue = CountryCode.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['country_code'] = parsedValue;
       }
       if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+        var originalValue = data['name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['name'] = parsedValue;
       }
       if (data.hasOwnProperty('currency')) {
-        obj['currency'] = Currency.constructFromObject(data['currency']);
+        var originalValue = data['currency'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Currency.hasOwnProperty('constructFromObject')) {
+          parsedValue = Currency.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['currency'] = parsedValue;
       }
       if (data.hasOwnProperty('exchange')) {
-        obj['exchange'] = ApiClient.convertToType(data['exchange'], 'String');
+        var originalValue = data['exchange'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['exchange'] = parsedValue;
       }
     }
     return obj;

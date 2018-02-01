@@ -55,19 +55,54 @@
 
       ClientBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('name')) {
-        obj['name'] = CorporationName.constructFromObject(data['name']);
+        var originalValue = data['name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CorporationName.hasOwnProperty('constructFromObject')) {
+          parsedValue = CorporationName.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['name'] = parsedValue;
       }
       if (data.hasOwnProperty('address')) {
-        obj['address'] = Address.constructFromObject(data['address']);
+        var originalValue = data['address'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
+          parsedValue = Address.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['address'] = parsedValue;
       }
       if (data.hasOwnProperty('beneficial_owners')) {
-        obj['beneficial_owners'] = CorporationOwners.constructFromObject(data['beneficial_owners']);
+        var originalValue = data['beneficial_owners'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CorporationOwners.hasOwnProperty('constructFromObject')) {
+          parsedValue = CorporationOwners.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['beneficial_owners'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_identification_number')) {
-        obj['tax_identification_number'] = TaxIdentification.constructFromObject(data['tax_identification_number']);
+        var originalValue = data['tax_identification_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TaxIdentification.hasOwnProperty('constructFromObject')) {
+          parsedValue = TaxIdentification.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_identification_number'] = parsedValue;
       }
       if (data.hasOwnProperty('directors')) {
-        obj['directors'] = CorporationDirectors.constructFromObject(data['directors']);
+        var originalValue = data['directors'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CorporationDirectors.hasOwnProperty('constructFromObject')) {
+          parsedValue = CorporationDirectors.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['directors'] = parsedValue;
       }
     }
     return obj;

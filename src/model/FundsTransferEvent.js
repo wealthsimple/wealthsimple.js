@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('timestamp')) {
-        obj['timestamp'] = ApiClient.convertToType(data['timestamp'], 'Date');
+        var originalValue = data['timestamp'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
+          parsedValue = Date.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['timestamp'] = parsedValue;
       }
     }
     return obj;

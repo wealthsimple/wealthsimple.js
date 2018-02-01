@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('client_id')) {
-        obj['client_id'] = ClientId.constructFromObject(data['client_id']);
+        var originalValue = data['client_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ClientId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ClientId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['client_id'] = parsedValue;
       }
       if (data.hasOwnProperty('locale')) {
-        obj['locale'] = Locale.constructFromObject(data['locale']);
+        var originalValue = data['locale'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Locale.hasOwnProperty('constructFromObject')) {
+          parsedValue = Locale.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['locale'] = parsedValue;
       }
     }
     return obj;

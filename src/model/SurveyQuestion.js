@@ -57,34 +57,104 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('range_limits')) {
-        obj['range_limits'] = RangeLimits.constructFromObject(data['range_limits']);
+        var originalValue = data['range_limits'];
+        var parsedValue;
+        if (typeof originalValue === "object" && RangeLimits.hasOwnProperty('constructFromObject')) {
+          parsedValue = RangeLimits.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['range_limits'] = parsedValue;
       }
       if (data.hasOwnProperty('section')) {
-        obj['section'] = ApiClient.convertToType(data['section'], 'String');
+        var originalValue = data['section'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['section'] = parsedValue;
       }
       if (data.hasOwnProperty('text')) {
-        obj['text'] = ApiClient.convertToType(data['text'], 'String');
+        var originalValue = data['text'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['text'] = parsedValue;
       }
       if (data.hasOwnProperty('subtext')) {
-        obj['subtext'] = ApiClient.convertToType(data['subtext'], 'String');
+        var originalValue = data['subtext'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['subtext'] = parsedValue;
       }
       if (data.hasOwnProperty('context')) {
-        obj['context'] = ApiClient.convertToType(data['context'], 'String');
+        var originalValue = data['context'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['context'] = parsedValue;
       }
       if (data.hasOwnProperty('inline_context')) {
-        obj['inline_context'] = ApiClient.convertToType(data['inline_context'], 'String');
+        var originalValue = data['inline_context'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['inline_context'] = parsedValue;
       }
       if (data.hasOwnProperty('optional')) {
-        obj['optional'] = ApiClient.convertToType(data['optional'], 'Boolean');
+        var originalValue = data['optional'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['optional'] = parsedValue;
       }
       if (data.hasOwnProperty('parent_question')) {
-        obj['parent_question'] = ApiClient.convertToType(data['parent_question'], 'String');
+        var originalValue = data['parent_question'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['parent_question'] = parsedValue;
       }
     }
     return obj;

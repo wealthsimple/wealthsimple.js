@@ -55,10 +55,24 @@
       CorporationBase.constructFromObject(data, obj);
       CreatedUpdatedAt.constructFromObject(data, obj);
       if (data.hasOwnProperty('object')) {
-        obj['object'] = ApiClient.convertToType(data['object'], 'String');
+        var originalValue = data['object'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['object'] = parsedValue;
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = CorporationId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CorporationId.hasOwnProperty('constructFromObject')) {
+          parsedValue = CorporationId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
     }
     return obj;

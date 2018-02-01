@@ -53,22 +53,64 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('object')) {
-        obj['object'] = ApiClient.convertToType(data['object'], 'String');
+        var originalValue = data['object'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['object'] = parsedValue;
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = AccountTransferId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountTransferId.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountTransferId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('account_id')) {
-        obj['account_id'] = AccountId.constructFromObject(data['account_id']);
+        var originalValue = data['account_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountId.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_id'] = parsedValue;
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = ApiClient.convertToType(data['type'], 'String');
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('relinquishing_institution')) {
-        obj['relinquishing_institution'] = Institution.constructFromObject(data['relinquishing_institution']);
+        var originalValue = data['relinquishing_institution'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Institution.hasOwnProperty('constructFromObject')) {
+          parsedValue = Institution.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['relinquishing_institution'] = parsedValue;
       }
     }
     return obj;

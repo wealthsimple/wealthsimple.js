@@ -64,55 +64,174 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('gross_amount')) {
-        obj['gross_amount'] = Money.constructFromObject(data['gross_amount']);
+        var originalValue = data['gross_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['gross_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('base_gross_amount')) {
-        obj['base_gross_amount'] = Money.constructFromObject(data['base_gross_amount']);
+        var originalValue = data['base_gross_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['base_gross_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('excess_gross_amount')) {
-        obj['excess_gross_amount'] = Money.constructFromObject(data['excess_gross_amount']);
+        var originalValue = data['excess_gross_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['excess_gross_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('net_amount')) {
-        obj['net_amount'] = Money.constructFromObject(data['net_amount']);
+        var originalValue = data['net_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['net_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_override_percentage')) {
-        obj['tax_override_percentage'] = Percent.constructFromObject(data['tax_override_percentage']);
+        var originalValue = data['tax_override_percentage'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
+          parsedValue = Percent.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_override_percentage'] = parsedValue;
       }
       if (data.hasOwnProperty('federal_tax_amount')) {
-        obj['federal_tax_amount'] = Money.constructFromObject(data['federal_tax_amount']);
+        var originalValue = data['federal_tax_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['federal_tax_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('federal_tax_percentage')) {
-        obj['federal_tax_percentage'] = Percent.constructFromObject(data['federal_tax_percentage']);
+        var originalValue = data['federal_tax_percentage'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
+          parsedValue = Percent.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['federal_tax_percentage'] = parsedValue;
       }
       if (data.hasOwnProperty('provincial_tax_amount')) {
-        obj['provincial_tax_amount'] = Money.constructFromObject(data['provincial_tax_amount']);
+        var originalValue = data['provincial_tax_amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['provincial_tax_amount'] = parsedValue;
       }
       if (data.hasOwnProperty('provincial_tax_percentage')) {
-        obj['provincial_tax_percentage'] = Percent.constructFromObject(data['provincial_tax_percentage']);
+        var originalValue = data['provincial_tax_percentage'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
+          parsedValue = Percent.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['provincial_tax_percentage'] = parsedValue;
       }
       if (data.hasOwnProperty('province')) {
-        obj['province'] = Province.constructFromObject(data['province']);
+        var originalValue = data['province'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Province.hasOwnProperty('constructFromObject')) {
+          parsedValue = Province.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['province'] = parsedValue;
       }
       if (data.hasOwnProperty('country')) {
-        obj['country'] = CountryCode.constructFromObject(data['country']);
+        var originalValue = data['country'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CountryCode.hasOwnProperty('constructFromObject')) {
+          parsedValue = CountryCode.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['country'] = parsedValue;
       }
       if (data.hasOwnProperty('account_type')) {
-        obj['account_type'] = AccountType.constructFromObject(data['account_type']);
+        var originalValue = data['account_type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountType.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_type'] = parsedValue;
       }
       if (data.hasOwnProperty('person_or_spouse_age')) {
-        obj['person_or_spouse_age'] = ApiClient.convertToType(data['person_or_spouse_age'], 'Number');
+        var originalValue = data['person_or_spouse_age'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['person_or_spouse_age'] = parsedValue;
       }
       if (data.hasOwnProperty('account_market_value')) {
-        obj['account_market_value'] = Money.constructFromObject(data['account_market_value']);
+        var originalValue = data['account_market_value'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_market_value'] = parsedValue;
       }
       if (data.hasOwnProperty('account_market_value_previous_year')) {
-        obj['account_market_value_previous_year'] = Money.constructFromObject(data['account_market_value_previous_year']);
+        var originalValue = data['account_market_value_previous_year'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_market_value_previous_year'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_year')) {
-        obj['tax_year'] = ApiClient.convertToType(data['tax_year'], 'Number');
+        var originalValue = data['tax_year'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_year'] = parsedValue;
       }
       if (data.hasOwnProperty('document_url')) {
-        obj['document_url'] = ApiClient.convertToType(data['document_url'], 'String');
+        var originalValue = data['document_url'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['document_url'] = parsedValue;
       }
     }
     return obj;

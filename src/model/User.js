@@ -53,13 +53,34 @@
 
       CreatedUpdatedAt.constructFromObject(data, obj);
       if (data.hasOwnProperty('object')) {
-        obj['object'] = ApiClient.convertToType(data['object'], 'String');
+        var originalValue = data['object'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['object'] = parsedValue;
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = UserId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && UserId.hasOwnProperty('constructFromObject')) {
+          parsedValue = UserId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('email')) {
-        obj['email'] = Email.constructFromObject(data['email']);
+        var originalValue = data['email'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Email.hasOwnProperty('constructFromObject')) {
+          parsedValue = Email.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['email'] = parsedValue;
       }
     }
     return obj;

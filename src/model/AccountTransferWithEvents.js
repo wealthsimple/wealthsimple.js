@@ -51,7 +51,14 @@
 
       AccountTransfer.constructFromObject(data, obj);
       if (data.hasOwnProperty('events')) {
-        obj['events'] = ApiClient.convertToType(data['events'], [AccountTransferEvent]);
+        var originalValue = data['events'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['events'] = parsedValue;
       }
     }
     return obj;

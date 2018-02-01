@@ -54,25 +54,74 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('unit')) {
-        obj['unit'] = ApiClient.convertToType(data['unit'], 'String');
+        var originalValue = data['unit'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['unit'] = parsedValue;
       }
       if (data.hasOwnProperty('street_number')) {
-        obj['street_number'] = ApiClient.convertToType(data['street_number'], 'String');
+        var originalValue = data['street_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['street_number'] = parsedValue;
       }
       if (data.hasOwnProperty('street_name')) {
-        obj['street_name'] = ApiClient.convertToType(data['street_name'], 'String');
+        var originalValue = data['street_name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['street_name'] = parsedValue;
       }
       if (data.hasOwnProperty('city')) {
-        obj['city'] = ApiClient.convertToType(data['city'], 'String');
+        var originalValue = data['city'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['city'] = parsedValue;
       }
       if (data.hasOwnProperty('province_state_region')) {
-        obj['province_state_region'] = ApiClient.convertToType(data['province_state_region'], 'String');
+        var originalValue = data['province_state_region'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['province_state_region'] = parsedValue;
       }
       if (data.hasOwnProperty('postal_code')) {
-        obj['postal_code'] = ApiClient.convertToType(data['postal_code'], 'String');
+        var originalValue = data['postal_code'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['postal_code'] = parsedValue;
       }
       if (data.hasOwnProperty('country')) {
-        obj['country'] = CountryCode.constructFromObject(data['country']);
+        var originalValue = data['country'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CountryCode.hasOwnProperty('constructFromObject')) {
+          parsedValue = CountryCode.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['country'] = parsedValue;
       }
     }
     return obj;

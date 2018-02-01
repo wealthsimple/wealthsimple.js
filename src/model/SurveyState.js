@@ -52,16 +52,44 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('complete')) {
-        obj['complete'] = ApiClient.convertToType(data['complete'], 'Boolean');
+        var originalValue = data['complete'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['complete'] = parsedValue;
       }
       if (data.hasOwnProperty('percent_complete')) {
-        obj['percent_complete'] = Percent.constructFromObject(data['percent_complete']);
+        var originalValue = data['percent_complete'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
+          parsedValue = Percent.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['percent_complete'] = parsedValue;
       }
       if (data.hasOwnProperty('question')) {
-        obj['question'] = SurveyQuestion.constructFromObject(data['question']);
+        var originalValue = data['question'];
+        var parsedValue;
+        if (typeof originalValue === "object" && SurveyQuestion.hasOwnProperty('constructFromObject')) {
+          parsedValue = SurveyQuestion.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['question'] = parsedValue;
       }
       if (data.hasOwnProperty('answer_options')) {
-        obj['answer_options'] = AnswerOptions.constructFromObject(data['answer_options']);
+        var originalValue = data['answer_options'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AnswerOptions.hasOwnProperty('constructFromObject')) {
+          parsedValue = AnswerOptions.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['answer_options'] = parsedValue;
       }
     }
     return obj;

@@ -66,52 +66,164 @@
 
       ClientBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('preferred_first_name')) {
-        obj['preferred_first_name'] = PreferredFirstName.constructFromObject(data['preferred_first_name']);
+        var originalValue = data['preferred_first_name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && PreferredFirstName.hasOwnProperty('constructFromObject')) {
+          parsedValue = PreferredFirstName.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['preferred_first_name'] = parsedValue;
       }
       if (data.hasOwnProperty('full_legal_name')) {
-        obj['full_legal_name'] = FullLegalName.constructFromObject(data['full_legal_name']);
+        var originalValue = data['full_legal_name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FullLegalName.hasOwnProperty('constructFromObject')) {
+          parsedValue = FullLegalName.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['full_legal_name'] = parsedValue;
       }
       if (data.hasOwnProperty('gender')) {
-        obj['gender'] = Gender.constructFromObject(data['gender']);
+        var originalValue = data['gender'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Gender.hasOwnProperty('constructFromObject')) {
+          parsedValue = Gender.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['gender'] = parsedValue;
       }
       if (data.hasOwnProperty('date_of_birth')) {
-        obj['date_of_birth'] = 'Date'.constructFromObject(data['date_of_birth']);
+        var originalValue = data['date_of_birth'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
+          parsedValue = Date.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['date_of_birth'] = parsedValue;
       }
       if (data.hasOwnProperty('citizenships')) {
-        obj['citizenships'] = Citizenships.constructFromObject(data['citizenships']);
+        var originalValue = data['citizenships'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Citizenships.hasOwnProperty('constructFromObject')) {
+          parsedValue = Citizenships.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['citizenships'] = parsedValue;
       }
       if (data.hasOwnProperty('marital_status')) {
-        obj['marital_status'] = MaritalStatus.constructFromObject(data['marital_status']);
+        var originalValue = data['marital_status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && MaritalStatus.hasOwnProperty('constructFromObject')) {
+          parsedValue = MaritalStatus.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['marital_status'] = parsedValue;
       }
       if (data.hasOwnProperty('spouse_or_common_law')) {
-        obj['spouse_or_common_law'] = SpouseOrCommonLaw.constructFromObject(data['spouse_or_common_law']);
+        var originalValue = data['spouse_or_common_law'];
+        var parsedValue;
+        if (typeof originalValue === "object" && SpouseOrCommonLaw.hasOwnProperty('constructFromObject')) {
+          parsedValue = SpouseOrCommonLaw.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['spouse_or_common_law'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_identification_numbers')) {
-        obj['tax_identification_numbers'] = TaxIdentificationNumbers.constructFromObject(data['tax_identification_numbers']);
+        var originalValue = data['tax_identification_numbers'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TaxIdentificationNumbers.hasOwnProperty('constructFromObject')) {
+          parsedValue = TaxIdentificationNumbers.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_identification_numbers'] = parsedValue;
       }
       if (data.hasOwnProperty('residential_address')) {
-        obj['residential_address'] = Address.constructFromObject(data['residential_address']);
+        var originalValue = data['residential_address'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
+          parsedValue = Address.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['residential_address'] = parsedValue;
       }
       if (data.hasOwnProperty('mailing_address')) {
-        obj['mailing_address'] = Address.constructFromObject(data['mailing_address']);
+        var originalValue = data['mailing_address'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Address.hasOwnProperty('constructFromObject')) {
+          parsedValue = Address.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['mailing_address'] = parsedValue;
       }
       if (data.hasOwnProperty('employment')) {
-        obj['employment'] = Employment.constructFromObject(data['employment']);
+        var originalValue = data['employment'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Employment.hasOwnProperty('constructFromObject')) {
+          parsedValue = Employment.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['employment'] = parsedValue;
       }
       if (data.hasOwnProperty('power_of_attorney')) {
-        obj['power_of_attorney'] = Name.constructFromObject(data['power_of_attorney']);
+        var originalValue = data['power_of_attorney'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Name.hasOwnProperty('constructFromObject')) {
+          parsedValue = Name.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['power_of_attorney'] = parsedValue;
       }
       if (data.hasOwnProperty('dependents')) {
-        obj['dependents'] = Dependents.constructFromObject(data['dependents']);
+        var originalValue = data['dependents'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Dependents.hasOwnProperty('constructFromObject')) {
+          parsedValue = Dependents.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['dependents'] = parsedValue;
       }
       if (data.hasOwnProperty('regulated_people')) {
-        obj['regulated_people'] = RegulatedPeople.constructFromObject(data['regulated_people']);
+        var originalValue = data['regulated_people'];
+        var parsedValue;
+        if (typeof originalValue === "object" && RegulatedPeople.hasOwnProperty('constructFromObject')) {
+          parsedValue = RegulatedPeople.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['regulated_people'] = parsedValue;
       }
       if (data.hasOwnProperty('politically_exposed_people')) {
-        obj['politically_exposed_people'] = PoliticallyExposedPeople.constructFromObject(data['politically_exposed_people']);
+        var originalValue = data['politically_exposed_people'];
+        var parsedValue;
+        if (typeof originalValue === "object" && PoliticallyExposedPeople.hasOwnProperty('constructFromObject')) {
+          parsedValue = PoliticallyExposedPeople.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['politically_exposed_people'] = parsedValue;
       }
       if (data.hasOwnProperty('insiders')) {
-        obj['insiders'] = Insiders.constructFromObject(data['insiders']);
+        var originalValue = data['insiders'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Insiders.hasOwnProperty('constructFromObject')) {
+          parsedValue = Insiders.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['insiders'] = parsedValue;
       }
     }
     return obj;

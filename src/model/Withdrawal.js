@@ -65,31 +65,94 @@
       FundsTransferBase.constructFromObject(data, obj);
       CreatedUpdatedAt.constructFromObject(data, obj);
       if (data.hasOwnProperty('object')) {
-        obj['object'] = ApiClient.convertToType(data['object'], 'String');
+        var originalValue = data['object'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['object'] = parsedValue;
       }
       if (data.hasOwnProperty('id')) {
-        obj['id'] = FundsTransferId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferId.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = FundsTransferType.constructFromObject(data['type']);
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferType.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = FundsTransferStatus.constructFromObject(data['status']);
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferStatus.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferStatus.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('funds_transfer_schedule_id')) {
-        obj['funds_transfer_schedule_id'] = FundsTransferScheduleId.constructFromObject(data['funds_transfer_schedule_id']);
+        var originalValue = data['funds_transfer_schedule_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferScheduleId.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferScheduleId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['funds_transfer_schedule_id'] = parsedValue;
       }
       if (data.hasOwnProperty('reject_reason')) {
-        obj['reject_reason'] = FundsTransferRejectReason.constructFromObject(data['reject_reason']);
+        var originalValue = data['reject_reason'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferRejectReason.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferRejectReason.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['reject_reason'] = parsedValue;
       }
       if (data.hasOwnProperty('withdrawal_type')) {
-        obj['withdrawal_type'] = WithdrawalType.constructFromObject(data['withdrawal_type']);
+        var originalValue = data['withdrawal_type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && WithdrawalType.hasOwnProperty('constructFromObject')) {
+          parsedValue = WithdrawalType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['withdrawal_type'] = parsedValue;
       }
       if (data.hasOwnProperty('withdrawal_reason')) {
-        obj['withdrawal_reason'] = WithdrawalReason.constructFromObject(data['withdrawal_reason']);
+        var originalValue = data['withdrawal_reason'];
+        var parsedValue;
+        if (typeof originalValue === "object" && WithdrawalReason.hasOwnProperty('constructFromObject')) {
+          parsedValue = WithdrawalReason.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['withdrawal_reason'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_detail')) {
-        obj['tax_detail'] = TaxDetail.constructFromObject(data['tax_detail']);
+        var originalValue = data['tax_detail'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TaxDetail.hasOwnProperty('constructFromObject')) {
+          parsedValue = TaxDetail.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_detail'] = parsedValue;
       }
     }
     return obj;

@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('email')) {
-        obj['email'] = Email.constructFromObject(data['email']);
+        var originalValue = data['email'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Email.hasOwnProperty('constructFromObject')) {
+          parsedValue = Email.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['email'] = parsedValue;
       }
       if (data.hasOwnProperty('password')) {
-        obj['password'] = Password.constructFromObject(data['password']);
+        var originalValue = data['password'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Password.hasOwnProperty('constructFromObject')) {
+          parsedValue = Password.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['password'] = parsedValue;
       }
     }
     return obj;

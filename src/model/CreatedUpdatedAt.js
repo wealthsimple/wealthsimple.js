@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('created_at')) {
-        obj['created_at'] = CreatedAt.constructFromObject(data['created_at']);
+        var originalValue = data['created_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CreatedAt.hasOwnProperty('constructFromObject')) {
+          parsedValue = CreatedAt.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['created_at'] = parsedValue;
       }
       if (data.hasOwnProperty('updated_at')) {
-        obj['updated_at'] = UpdatedAt.constructFromObject(data['updated_at']);
+        var originalValue = data['updated_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && UpdatedAt.hasOwnProperty('constructFromObject')) {
+          parsedValue = UpdatedAt.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['updated_at'] = parsedValue;
       }
     }
     return obj;

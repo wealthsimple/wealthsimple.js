@@ -50,13 +50,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('client_id')) {
-        obj['client_id'] = ClientId.constructFromObject(data['client_id']);
+        var originalValue = data['client_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ClientId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ClientId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['client_id'] = parsedValue;
       }
       if (data.hasOwnProperty('ownership_percent')) {
-        obj['ownership_percent'] = Percent.constructFromObject(data['ownership_percent']);
+        var originalValue = data['ownership_percent'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Percent.hasOwnProperty('constructFromObject')) {
+          parsedValue = Percent.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['ownership_percent'] = parsedValue;
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = CorporationOwnerType.constructFromObject(data['type']);
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CorporationOwnerType.hasOwnProperty('constructFromObject')) {
+          parsedValue = CorporationOwnerType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
     }
     return obj;

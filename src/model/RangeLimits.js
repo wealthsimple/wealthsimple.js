@@ -50,13 +50,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('min')) {
-        obj['min'] = ApiClient.convertToType(data['min'], 'Number');
+        var originalValue = data['min'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['min'] = parsedValue;
       }
       if (data.hasOwnProperty('max')) {
-        obj['max'] = ApiClient.convertToType(data['max'], 'Number');
+        var originalValue = data['max'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['max'] = parsedValue;
       }
       if (data.hasOwnProperty('step')) {
-        obj['step'] = StepType.constructFromObject(data['step']);
+        var originalValue = data['step'];
+        var parsedValue;
+        if (typeof originalValue === "object" && StepType.hasOwnProperty('constructFromObject')) {
+          parsedValue = StepType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['step'] = parsedValue;
       }
     }
     return obj;

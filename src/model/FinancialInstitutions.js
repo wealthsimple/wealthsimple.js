@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('object')) {
-        obj['object'] = ApiClient.convertToType(data['object'], 'String');
+        var originalValue = data['object'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['object'] = parsedValue;
       }
       if (data.hasOwnProperty('results')) {
-        obj['results'] = ApiClient.convertToType(data['results'], [FinancialInstitution]);
+        var originalValue = data['results'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['results'] = parsedValue;
       }
     }
     return obj;

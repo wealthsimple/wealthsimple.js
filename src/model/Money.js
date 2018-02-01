@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('amount')) {
-        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+        var originalValue = data['amount'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Number.hasOwnProperty('constructFromObject')) {
+          parsedValue = Number.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['amount'] = parsedValue;
       }
       if (data.hasOwnProperty('currency')) {
-        obj['currency'] = Currency.constructFromObject(data['currency']);
+        var originalValue = data['currency'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Currency.hasOwnProperty('constructFromObject')) {
+          parsedValue = Currency.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['currency'] = parsedValue;
       }
     }
     return obj;

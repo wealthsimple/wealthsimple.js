@@ -52,10 +52,24 @@
 
       VerificationBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('status')) {
-        obj['status'] = VerificationStatus.constructFromObject(data['status']);
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && VerificationStatus.hasOwnProperty('constructFromObject')) {
+          parsedValue = VerificationStatus.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
-      if (data.hasOwnProperty('accepted_at')) {
-        obj['accepted_at'] = 'Date'.constructFromObject(data['accepted_at']);
+      if (data.hasOwnProperty('processed_at')) {
+        var originalValue = data['processed_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && DateTime.hasOwnProperty('constructFromObject')) {
+          parsedValue = DateTime.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['processed_at'] = parsedValue;
       }
     }
     return obj;
@@ -66,9 +80,9 @@
    */
   exports.prototype['status'] = undefined;
   /**
-   * @member {module:model/Date} accepted_at
+   * @member {module:model/Date} processed_at
    */
-  exports.prototype['accepted_at'] = undefined;
+  exports.prototype['processed_at'] = undefined;
 
   // Implement VerificationBase interface:
   /**

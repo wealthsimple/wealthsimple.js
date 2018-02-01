@@ -55,10 +55,24 @@
 
       FundsTransferBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('withdrawal_type')) {
-        obj['withdrawal_type'] = WithdrawalType.constructFromObject(data['withdrawal_type']);
+        var originalValue = data['withdrawal_type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && WithdrawalType.hasOwnProperty('constructFromObject')) {
+          parsedValue = WithdrawalType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['withdrawal_type'] = parsedValue;
       }
       if (data.hasOwnProperty('withdrawal_reason')) {
-        obj['withdrawal_reason'] = WithdrawalReason.constructFromObject(data['withdrawal_reason']);
+        var originalValue = data['withdrawal_reason'];
+        var parsedValue;
+        if (typeof originalValue === "object" && WithdrawalReason.hasOwnProperty('constructFromObject')) {
+          parsedValue = WithdrawalReason.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['withdrawal_reason'] = parsedValue;
       }
     }
     return obj;

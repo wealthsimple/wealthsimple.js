@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('type')) {
-        obj['type'] = AccountType.constructFromObject(data['type']);
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountType.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('nickname')) {
-        obj['nickname'] = ApiClient.convertToType(data['nickname'], 'String');
+        var originalValue = data['nickname'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['nickname'] = parsedValue;
       }
     }
     return obj;

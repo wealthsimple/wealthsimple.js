@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('status')) {
-        obj['status'] = EmploymentStatus.constructFromObject(data['status']);
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && EmploymentStatus.hasOwnProperty('constructFromObject')) {
+          parsedValue = EmploymentStatus.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('employer_info')) {
-        obj['employer_info'] = EmploymentEmployerInfo.constructFromObject(data['employer_info']);
+        var originalValue = data['employer_info'];
+        var parsedValue;
+        if (typeof originalValue === "object" && EmploymentEmployerInfo.hasOwnProperty('constructFromObject')) {
+          parsedValue = EmploymentEmployerInfo.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['employer_info'] = parsedValue;
       }
     }
     return obj;

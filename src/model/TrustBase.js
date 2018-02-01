@@ -52,10 +52,24 @@
 
       ClientBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('tax_identification_number')) {
-        obj['tax_identification_number'] = TaxIdentification.constructFromObject(data['tax_identification_number']);
+        var originalValue = data['tax_identification_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TaxIdentification.hasOwnProperty('constructFromObject')) {
+          parsedValue = TaxIdentification.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_identification_number'] = parsedValue;
       }
       if (data.hasOwnProperty('name')) {
-        obj['name'] = TrustName.constructFromObject(data['name']);
+        var originalValue = data['name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && TrustName.hasOwnProperty('constructFromObject')) {
+          parsedValue = TrustName.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['name'] = parsedValue;
       }
     }
     return obj;

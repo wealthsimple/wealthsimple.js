@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('external_id')) {
-        obj['external_id'] = ExternalId.constructFromObject(data['external_id']);
+        var originalValue = data['external_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ExternalId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ExternalId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['external_id'] = parsedValue;
       }
       if (data.hasOwnProperty('tags')) {
-        obj['tags'] = Tags.constructFromObject(data['tags']);
+        var originalValue = data['tags'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Tags.hasOwnProperty('constructFromObject')) {
+          parsedValue = Tags.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tags'] = parsedValue;
       }
     }
     return obj;

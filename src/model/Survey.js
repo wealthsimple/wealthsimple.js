@@ -56,13 +56,34 @@
       SurveyBase.constructFromObject(data, obj);
       CreatedUpdatedAt.constructFromObject(data, obj);
       if (data.hasOwnProperty('current_state')) {
-        obj['current_state'] = SurveyState.constructFromObject(data['current_state']);
+        var originalValue = data['current_state'];
+        var parsedValue;
+        if (typeof originalValue === "object" && SurveyState.hasOwnProperty('constructFromObject')) {
+          parsedValue = SurveyState.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['current_state'] = parsedValue;
       }
       if (data.hasOwnProperty('target_portfolio_id')) {
-        obj['target_portfolio_id'] = ApiClient.convertToType(data['target_portfolio_id'], 'String');
+        var originalValue = data['target_portfolio_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['target_portfolio_id'] = parsedValue;
       }
       if (data.hasOwnProperty('completed_at')) {
-        obj['completed_at'] = CompletedAt.constructFromObject(data['completed_at']);
+        var originalValue = data['completed_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CompletedAt.hasOwnProperty('constructFromObject')) {
+          parsedValue = CompletedAt.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['completed_at'] = parsedValue;
       }
     }
     return obj;

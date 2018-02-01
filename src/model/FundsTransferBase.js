@@ -55,19 +55,54 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('bank_account_id')) {
-        obj['bank_account_id'] = BankAccountId.constructFromObject(data['bank_account_id']);
+        var originalValue = data['bank_account_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && BankAccountId.hasOwnProperty('constructFromObject')) {
+          parsedValue = BankAccountId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['bank_account_id'] = parsedValue;
       }
       if (data.hasOwnProperty('account_id')) {
-        obj['account_id'] = AccountId.constructFromObject(data['account_id']);
+        var originalValue = data['account_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && AccountId.hasOwnProperty('constructFromObject')) {
+          parsedValue = AccountId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_id'] = parsedValue;
       }
       if (data.hasOwnProperty('value')) {
-        obj['value'] = Money.constructFromObject(data['value']);
+        var originalValue = data['value'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Money.hasOwnProperty('constructFromObject')) {
+          parsedValue = Money.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['value'] = parsedValue;
       }
       if (data.hasOwnProperty('post_dated')) {
-        obj['post_dated'] = 'Date'.constructFromObject(data['post_dated']);
+        var originalValue = data['post_dated'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Date.hasOwnProperty('constructFromObject')) {
+          parsedValue = Date.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['post_dated'] = parsedValue;
       }
       if (data.hasOwnProperty('external_id')) {
-        obj['external_id'] = ExternalId.constructFromObject(data['external_id']);
+        var originalValue = data['external_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && ExternalId.hasOwnProperty('constructFromObject')) {
+          parsedValue = ExternalId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['external_id'] = parsedValue;
       }
     }
     return obj;

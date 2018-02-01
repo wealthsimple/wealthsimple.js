@@ -2,18 +2,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BankAccountBase', 'model/BankAccountCreatedAt', 'model/BankAccountType', 'model/BankAccountUpdatedAt', 'model/ClientId', 'model/CountryCode', 'model/InstitutionNumber'], factory);
+    define(['ApiClient', 'model/BankAccountBase', 'model/BankAccountCreatedAt', 'model/BankAccountType', 'model/BankAccountUpdatedAt', 'model/ClientId', 'model/CountryCode', 'model/InstitutionNumber', 'model/Verification'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./BankAccountBase'), require('./BankAccountCreatedAt'), require('./BankAccountType'), require('./BankAccountUpdatedAt'), require('./ClientId'), require('./CountryCode'), require('./InstitutionNumber'));
+    module.exports = factory(require('../ApiClient'), require('./BankAccountBase'), require('./BankAccountCreatedAt'), require('./BankAccountType'), require('./BankAccountUpdatedAt'), require('./ClientId'), require('./CountryCode'), require('./InstitutionNumber'), require('./Verification'));
   } else {
     // Browser globals (root is window)
     if (!root.Wealthsimple) {
       root.Wealthsimple = {};
     }
-    root.Wealthsimple.BankAccountWithFundableAccounts = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.BankAccountBase, root.Wealthsimple.BankAccountCreatedAt, root.Wealthsimple.BankAccountType, root.Wealthsimple.BankAccountUpdatedAt, root.Wealthsimple.ClientId, root.Wealthsimple.CountryCode, root.Wealthsimple.InstitutionNumber);
+    root.Wealthsimple.BankAccountWithFundableAccounts = factory(root.Wealthsimple.ApiClient, root.Wealthsimple.BankAccountBase, root.Wealthsimple.BankAccountCreatedAt, root.Wealthsimple.BankAccountType, root.Wealthsimple.BankAccountUpdatedAt, root.Wealthsimple.ClientId, root.Wealthsimple.CountryCode, root.Wealthsimple.InstitutionNumber, root.Wealthsimple.Verification);
   }
-}(this, function(ApiClient, BankAccountBase, BankAccountCreatedAt, BankAccountType, BankAccountUpdatedAt, ClientId, CountryCode, InstitutionNumber) {
+}(this, function(ApiClient, BankAccountBase, BankAccountCreatedAt, BankAccountType, BankAccountUpdatedAt, ClientId, CountryCode, InstitutionNumber, Verification) {
   'use strict';
 
 
@@ -37,6 +37,7 @@
     BankAccountBase.call(_this);
 
 
+
   };
 
   /**
@@ -52,10 +53,34 @@
 
       BankAccountBase.constructFromObject(data, obj);
       if (data.hasOwnProperty('account_number')) {
-        obj['account_number'] = ApiClient.convertToType(data['account_number'], 'String');
+        var originalValue = data['account_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_number'] = parsedValue;
       }
       if (data.hasOwnProperty('owners')) {
-        obj['owners'] = ApiClient.convertToType(data['owners'], [ClientId]);
+        var originalValue = data['owners'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['owners'] = parsedValue;
+      }
+      if (data.hasOwnProperty('verifications')) {
+        var originalValue = data['verifications'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Array.hasOwnProperty('constructFromObject')) {
+          parsedValue = Array.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['verifications'] = parsedValue;
       }
     }
     return obj;
@@ -70,6 +95,10 @@
    * @member {Array.<module:model/ClientId>} owners
    */
   exports.prototype['owners'] = undefined;
+  /**
+   * @member {Array.<module:model/Verification>} verifications
+   */
+  exports.prototype['verifications'] = undefined;
 
   // Implement BankAccountBase interface:
   /**

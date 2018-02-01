@@ -57,34 +57,104 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('marketing')) {
-        obj['marketing'] = ApiClient.convertToType(data['marketing'], 'Boolean');
+        var originalValue = data['marketing'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['marketing'] = parsedValue;
       }
       if (data.hasOwnProperty('news_and_announcements')) {
-        obj['news_and_announcements'] = ApiClient.convertToType(data['news_and_announcements'], 'Boolean');
+        var originalValue = data['news_and_announcements'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['news_and_announcements'] = parsedValue;
       }
       if (data.hasOwnProperty('corporate_actions')) {
-        obj['corporate_actions'] = ApiClient.convertToType(data['corporate_actions'], 'Boolean');
+        var originalValue = data['corporate_actions'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['corporate_actions'] = parsedValue;
       }
       if (data.hasOwnProperty('deposits')) {
-        obj['deposits'] = ApiClient.convertToType(data['deposits'], 'Boolean');
+        var originalValue = data['deposits'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['deposits'] = parsedValue;
       }
       if (data.hasOwnProperty('withdrawals')) {
-        obj['withdrawals'] = ApiClient.convertToType(data['withdrawals'], 'Boolean');
+        var originalValue = data['withdrawals'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['withdrawals'] = parsedValue;
       }
       if (data.hasOwnProperty('trade_confirms')) {
-        obj['trade_confirms'] = ApiClient.convertToType(data['trade_confirms'], 'Boolean');
+        var originalValue = data['trade_confirms'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['trade_confirms'] = parsedValue;
       }
       if (data.hasOwnProperty('tax_statements')) {
-        obj['tax_statements'] = ApiClient.convertToType(data['tax_statements'], 'Boolean');
+        var originalValue = data['tax_statements'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['tax_statements'] = parsedValue;
       }
       if (data.hasOwnProperty('disclosures')) {
-        obj['disclosures'] = ApiClient.convertToType(data['disclosures'], 'Boolean');
+        var originalValue = data['disclosures'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['disclosures'] = parsedValue;
       }
       if (data.hasOwnProperty('daily_statements')) {
-        obj['daily_statements'] = ApiClient.convertToType(data['daily_statements'], 'Boolean');
+        var originalValue = data['daily_statements'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['daily_statements'] = parsedValue;
       }
       if (data.hasOwnProperty('monthly_statements')) {
-        obj['monthly_statements'] = ApiClient.convertToType(data['monthly_statements'], 'Boolean');
+        var originalValue = data['monthly_statements'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['monthly_statements'] = parsedValue;
       }
     }
     return obj;

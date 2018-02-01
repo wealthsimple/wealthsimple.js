@@ -49,10 +49,24 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('question_id')) {
-        obj['question_id'] = QuestionId.constructFromObject(data['question_id']);
+        var originalValue = data['question_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && QuestionId.hasOwnProperty('constructFromObject')) {
+          parsedValue = QuestionId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['question_id'] = parsedValue;
       }
       if (data.hasOwnProperty('answers')) {
-        obj['answers'] = Answers.constructFromObject(data['answers']);
+        var originalValue = data['answers'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Answers.hasOwnProperty('constructFromObject')) {
+          parsedValue = Answers.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['answers'] = parsedValue;
       }
     }
     return obj;

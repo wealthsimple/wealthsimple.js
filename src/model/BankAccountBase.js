@@ -54,25 +54,74 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('type')) {
-        obj['type'] = BankAccountType.constructFromObject(data['type']);
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && BankAccountType.hasOwnProperty('constructFromObject')) {
+          parsedValue = BankAccountType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('corporate')) {
-        obj['corporate'] = ApiClient.convertToType(data['corporate'], 'Boolean');
+        var originalValue = data['corporate'];
+        var parsedValue;
+        if (typeof originalValue === "object" && Boolean.hasOwnProperty('constructFromObject')) {
+          parsedValue = Boolean.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['corporate'] = parsedValue;
       }
       if (data.hasOwnProperty('jursidiction')) {
-        obj['jursidiction'] = CountryCode.constructFromObject(data['jursidiction']);
+        var originalValue = data['jursidiction'];
+        var parsedValue;
+        if (typeof originalValue === "object" && CountryCode.hasOwnProperty('constructFromObject')) {
+          parsedValue = CountryCode.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['jursidiction'] = parsedValue;
       }
       if (data.hasOwnProperty('account_name')) {
-        obj['account_name'] = ApiClient.convertToType(data['account_name'], 'String');
+        var originalValue = data['account_name'];
+        var parsedValue;
+        if (typeof originalValue === "object" && String.hasOwnProperty('constructFromObject')) {
+          parsedValue = String.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['account_name'] = parsedValue;
       }
       if (data.hasOwnProperty('institution_number')) {
-        obj['institution_number'] = InstitutionNumber.constructFromObject(data['institution_number']);
+        var originalValue = data['institution_number'];
+        var parsedValue;
+        if (typeof originalValue === "object" && InstitutionNumber.hasOwnProperty('constructFromObject')) {
+          parsedValue = InstitutionNumber.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['institution_number'] = parsedValue;
       }
       if (data.hasOwnProperty('created_at')) {
-        obj['created_at'] = BankAccountCreatedAt.constructFromObject(data['created_at']);
+        var originalValue = data['created_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && BankAccountCreatedAt.hasOwnProperty('constructFromObject')) {
+          parsedValue = BankAccountCreatedAt.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['created_at'] = parsedValue;
       }
       if (data.hasOwnProperty('udpated_at')) {
-        obj['udpated_at'] = BankAccountUpdatedAt.constructFromObject(data['udpated_at']);
+        var originalValue = data['udpated_at'];
+        var parsedValue;
+        if (typeof originalValue === "object" && BankAccountUpdatedAt.hasOwnProperty('constructFromObject')) {
+          parsedValue = BankAccountUpdatedAt.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['udpated_at'] = parsedValue;
       }
     }
     return obj;

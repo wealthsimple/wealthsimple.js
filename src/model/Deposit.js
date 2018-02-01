@@ -61,19 +61,54 @@
       FundsTransferBase.constructFromObject(data, obj);
       CreatedUpdatedAt.constructFromObject(data, obj);
       if (data.hasOwnProperty('id')) {
-        obj['id'] = FundsTransferId.constructFromObject(data['id']);
+        var originalValue = data['id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferId.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['id'] = parsedValue;
       }
       if (data.hasOwnProperty('type')) {
-        obj['type'] = FundsTransferType.constructFromObject(data['type']);
+        var originalValue = data['type'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferType.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferType.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['type'] = parsedValue;
       }
       if (data.hasOwnProperty('status')) {
-        obj['status'] = FundsTransferStatus.constructFromObject(data['status']);
+        var originalValue = data['status'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferStatus.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferStatus.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['status'] = parsedValue;
       }
       if (data.hasOwnProperty('funds_transfer_schedule_id')) {
-        obj['funds_transfer_schedule_id'] = FundsTransferScheduleId.constructFromObject(data['funds_transfer_schedule_id']);
+        var originalValue = data['funds_transfer_schedule_id'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferScheduleId.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferScheduleId.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['funds_transfer_schedule_id'] = parsedValue;
       }
       if (data.hasOwnProperty('reject_reason')) {
-        obj['reject_reason'] = FundsTransferRejectReason.constructFromObject(data['reject_reason']);
+        var originalValue = data['reject_reason'];
+        var parsedValue;
+        if (typeof originalValue === "object" && FundsTransferRejectReason.hasOwnProperty('constructFromObject')) {
+          parsedValue = FundsTransferRejectReason.constructFromObject(originalValue);
+        } else {
+          parsedValue = ApiClient.convertToType(originalValue, 'String');
+        }
+        obj['reject_reason'] = parsedValue;
       }
     }
     return obj;
