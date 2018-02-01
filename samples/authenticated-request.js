@@ -18,6 +18,7 @@ wealthsimple.auth({
     if (error) {
       return console.error('Auth error: ', response.status, response.body);
     }
+
     // Step 2: Once successfully authenticated, fetch user data.
     const usersApi = new Wealthsimple.UsersApi();
     const userId = data.resource_owner_id;
