@@ -17,7 +17,7 @@ var postBody = {
 var authNames = ['Bearer'];
 var contentTypes = ['application/json'];
 var accepts = ['application/json'];
-var returnType = 'String';
+var returnType = 'Object';
 
 wealthsimple.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {},
   postBody, authNames, contentTypes, accepts, returnType, (error, data, response) => {
@@ -25,8 +25,7 @@ wealthsimple.callApi('/oauth/token', 'POST', {}, {}, {}, {}, {},
   if (error) {
     console.log('Auth error: ', error);
   } else {
-    const responseJSON = JSON.parse(data);
-    wealthsimple.authentications['Bearer']['apiKey'] = responseJSON.access_token;
+    wealthsimple.authentications['Bearer']['apiKey'] = data.access_token;
 
     const usersApi = new Wealthsimple.UsersApi();
 
