@@ -14,12 +14,43 @@ const wealthsimple = new Wealthsimple({
 });
 
 // Login with email + password:
-wealthsimple.login('peter@example.com', 'my-password')
-  .then((auth) => {
-    // Make any authenticated calls here..
-    wealthsimple.get(`/v1/accounts`)
-      .then((data) => console.log(data))
+const authPromise = wealthsimple.login('peter@example.com', 'my-password');
 
-    wealthsimple.get(`/v1/bank_accounts`)
-      .then((data) => console.log(data))
-  })
+// BASIC PROMISE USAGE
+
+// Guard authenticated endpoints with the auth promise: Note this will not repeat
+// the auth request each time.
+authPromise.then(() => wealthsimple.get(`/v1/accounts`))
+  .then((data) => console.log(data));
+
+authPromise.then(() => wealthsimple.get(`/v1/bank_accounts`))
+  .then((data => console.log(data));
+
+// Or even:
+        
+authPromise.then(Promise.all([
+  wealthsimple.get(`/v1/accounts`),
+  wealthsimple.get(`/v1/bank_accounts`),
+])
+  .then(([accounts, bankAccounts] => {
+    // do something.
+  });
+
+// ASYNC/AWAIT
+
+// If you're set up for async/await:
+const getPetersStuff = async () => {
+  await wealthsimple.login('peter@example.com', 'my-password');
+  const accounts = await wealthsimple.get(`/v1/accounts`);
+  const bankAccounts = await  wealthsimple.get(`/v1/bank_accounts`);
+  return {
+    accounts,
+    bankAccounts,
+  };
+}
+
+try {
+  getPetersStuff();
+} catch (error) {
+  console.log('Oh noes');
+}
