@@ -5,8 +5,9 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
+    "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
-    "test": "npm run retire && jest --runInBand",
+    "test": "npm run retire && npm run lint && jest --runInBand",
     "test:watch": "jest --watch"
   },
   "browser": {
@@ -20,6 +21,11 @@
   },
   "devDependencies": {
     "dotenv": "^5.0.0",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
     "jest": "^22.2.1",
     "retire": "^1.5.1"
   },

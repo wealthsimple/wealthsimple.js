@@ -1,0 +1,28 @@
+{
+  "extends": [ "airbnb" ],
+  "rules": {
+    "class-methods-use-this": "off",
+    "func-names": "off",
+    "func-style": ["warn", "declaration", { "allowArrowFunctions": true }],
+    "function-paren-newline": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "max-len": "off",
+    "no-alert": "off",
+    "no-confusing-arrow": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-plusplus": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-prototype-builtins": "off",
+    "no-underscore-dangle": "off",
+    "strict": "off",
+    "global-require": "off",
+    // NodeJS script. A legit use case for console.log.
+    "no-console": "off"
+  },
+  "env": {
+    browser: true,
+    es6: true,
+    node: true,
+    jest: true
+  }
+}
