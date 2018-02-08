@@ -98,8 +98,8 @@ class Wealthsimple {
     if (!this.isAuthExpired()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     } else {
-      // TODO: Use `this.auth.refresh_token` to automatically refresh OAuth
-      //       credentials here (waiting on AuthService backend implementation).
+      // TODO: If available, use `this.auth.refresh_token` to automatically
+      //       refresh OAuth credentials here (waiting on backend implementation).
     }
 
     return this.fetch(this.urlFor(path), {
