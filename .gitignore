@@ -57,10 +57,4 @@ typings/
 # next.js build output
 .next
 
-# Unneeded swagger-generated files
-docs/*
-.swagger-codegen/*
-git_push.sh
-.travis.yml
-
 .env
