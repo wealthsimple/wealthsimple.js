@@ -51,18 +51,26 @@ class Wealthsimple {
   }
 
   authenticate(body) {
-    body = snakeCaseKeys(body);
-    Object.assign(body, {
-      client_id: this.clientId,
-      client_secret: this.clientSecret,
-      scope: 'read write',
-    });
-    return this.post('/oauth/token', { body })
-      .then((json) => {
-        // Save auth details for use in subsequent requests:
-        this.auth = json;
-        return json;
+    if (!this._authenticatePromise) {
+      body = snakeCaseKeys(body);
+      Object.assign(body, {
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
+        scope: 'read write',
       });
+      this._authenticatePromise = this.post('/oauth/token', { body })
+        .then((json) => {
+          // Save auth details for use in subsequent requests:
+          this.auth = json;
+          return json;
+        });
+    }
+    return this._authenticatePromise;
+  }
+
+  // Clears any cached references to promises:
+  clear() {
+    this._authenticatePromise = null;
   }
 
   _request(method, path, { query = {}, body = null }) {
