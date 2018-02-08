@@ -3,14 +3,26 @@
 require('es6-promise').polyfill();
 const snakeCaseKeys = require('snakecase-keys');
 
+const ENVIRONMENTS = ['sandbox', 'production'];
+const API_VERSIONS = ['v1'];
+
 class Wealthsimple {
   constructor({clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1'}) {
     // OAuth client details:
+    if (!clientId || typeof clientId !== 'string') {
+      throw new Error(`Please specify a valid OAuth 'clientId'.`);
+    }
     this.clientId = clientId;
     this.clientSecret = clientSecret;
 
     // API environment (either 'sandbox' or 'production') and version:
+    if (!ENVIRONMENTS.includes(env)) {
+      throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`)
+    }
     this.env = env;
+    if (!API_VERSIONS.includes(apiVersion)) {
+      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`)
+    }
     this.apiVersion = apiVersion;
 
     // Optionally pass in existing OAuth details (access_token + refresh_token)
