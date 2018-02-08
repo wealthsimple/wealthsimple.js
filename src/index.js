@@ -32,14 +32,19 @@ class Wealthsimple {
       password: password,
       scope: 'read write',
     };
-    return this._request('POST', '/oauth/token', { body });
+    return this.post('/oauth/token', { body });
   }
 
-  _request(method, path, options = {}) {
-    let body = options.body;
-    if (options.body && typeof options.body !== 'string') {
-      body = JSON.stringify(options.body);
+  _request(method, path, { params = {}, body = null, auth = true }) {
+    if (params && Object.keys(params).length > 0) {
+      path += `?${this._queryString(params)}`;
     }
+
+    if (body && typeof body !== 'string') {
+      body = JSON.stringify(body);
+    }
+
+    console.log("BODY", body, "PATH", path, "METBHOD",method);
     return fetch(this.urlFor(path), {
       method: method,
       body: body,
@@ -48,6 +53,16 @@ class Wealthsimple {
       }),
     });
   }
+
+  _queryString(params) {
+    return Object.keys(params).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&');
+  }
 };
+
+['GET', 'PATCH', 'PUT', 'POST', 'DELETE'].forEach((method) => {
+  Wealthsimple.prototype[method.toLowerCase()] = function (path, options = {}) {
+    return this._request(method, path, options);
+  };
+});
 
 module.exports = Wealthsimple;
