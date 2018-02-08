@@ -75,9 +75,7 @@ class Wealthsimple {
       body = JSON.stringify(body);
     }
 
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-    });
+    const headers = new Headers({'Content-Type': 'application/json'});
     if (this.isAuthValid()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     }
