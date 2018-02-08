@@ -5,8 +5,8 @@ require('es6-promise').polyfill();
 class Wealthsimple {
   constructor(config) {
     this.clientId = config.clientId;
-    this.accessToken = config.accessToken;
-    this.refreshToken = config.refreshToken;
+    this.clientSecret = config.clientSecret;
+    this.auth = config.auth;
     this.env = config.env;
     this.apiVersion = config.apiVersion || 'v1';
     if (config.requestAdapter) {
@@ -24,18 +24,27 @@ class Wealthsimple {
     return `https://api.${this.env}.wealthsimple.com/${this.apiVersion}${path}`;
   }
 
+  setAuth(authObject) {
+    this.auth = authObject;
+  }
+
   login(email, password) {
     const body = {
-      clientId: this.clientId,
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
       grant_type: 'password',
       username: email,
       password: password,
       scope: 'read write',
     };
-    return this.post('/oauth/token', { body });
+    return this.post('/oauth/token', { body , auth: false });
   }
 
   _request(method, path, { params = {}, body = null, auth = true }) {
+    if (auth && !this.auth) {
+      throw new Error('Must authenticate first');
+    }
+
     if (params && Object.keys(params).length > 0) {
       path += `?${this._queryString(params)}`;
     }
@@ -44,17 +53,26 @@ class Wealthsimple {
       body = JSON.stringify(body);
     }
 
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    if (auth) {
+      headers.set('Authorization', `Bearer ${this.auth.access_token}`);
+    }
+
     return fetch(this.urlFor(path), {
       method: method,
       body: body,
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
+      headers: headers,
     }).then((response) => {
-      if(!response.ok) {
-        return response.json().then(err => { throw err; })
-      }
-      return response.json();
+      return response.json().then((json) => {
+        if (!response.ok) {
+          throw response;
+        }
+        // Save auth details for use in subsequent requests:
+        this.setAuth(json);
+        return json;
+      });
     });
   }
 

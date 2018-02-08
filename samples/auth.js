@@ -11,5 +11,8 @@ const wealthsimple = new Wealthsimple({
 });
 
 wealthsimple.login(process.env.EMAIL, process.env.PASSWORD)
-  .then(response => console.log('Success:', response))
+  .then((response) => {
+    console.log('Success:', response);
+    console.log("AUTH", wealthsimple.auth);
+  })
   .catch(error => console.error('Error:', error));
