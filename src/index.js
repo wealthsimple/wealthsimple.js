@@ -69,7 +69,6 @@ class Wealthsimple {
       Object.assign(body, {
         client_id: this.clientId,
         client_secret: this.clientSecret,
-        scope: 'read write',
       });
       this._authenticatePromise = this.post('/oauth/token', { body })
         .then((json) => {
@@ -79,6 +78,17 @@ class Wealthsimple {
         });
     }
     return this._authenticatePromise;
+  }
+
+  refreshAuth() {
+    if (!this.auth || !this.auth.refresh_token) {
+      throw new Error('Must have a refresh_token set in order to refresh auth.');
+    }
+    this.clear();
+    return this.authenticate({
+      grantType: 'refresh_token',
+      refreshToken: this.auth.refresh_token,
+    });
   }
 
   // Clears any cached references to promises:
