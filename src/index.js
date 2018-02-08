@@ -49,10 +49,6 @@ class Wealthsimple {
     return expiresAt && expiresAt > new Date();
   }
 
-  setAuth(authObject) {
-    this.auth = authObject;
-  }
-
   authenticate({ grantType, username, password, scope = 'read write' }) {
     const body = {
       client_id: this.clientId,
@@ -65,7 +61,7 @@ class Wealthsimple {
     return this.post('/oauth/token', { body })
       .then((json) => {
         // Save auth details for use in subsequent requests:
-        this.setAuth(json);
+        this.auth = json;
         return json;
       });
   }
