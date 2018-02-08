@@ -10,9 +10,7 @@
   "browser": {
     "fs": false
   },
-  "dependencies": {
-    "superagent": "3.5.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "dotenv": "^5.0.0",
     "expect.js": "~0.3.1",
