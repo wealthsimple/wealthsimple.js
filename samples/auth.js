@@ -27,6 +27,6 @@ authPromise
   .catch(error => console.error('Error:', error));
 
 authPromise
-  .then(() => wealthsimple.get(`/deposits`, {query: {limit: 2, sort_by: 'amount', sort_order: 'desc'}}))
+  .then(() => wealthsimple.get('/deposits', { query: { limit: 2, sort_by: 'amount', sort_order: 'desc' } }))
   .then(data => console.log('Success: ', data))
   .catch(error => console.error('Error:', error));

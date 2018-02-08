@@ -8,22 +8,24 @@ const ENVIRONMENTS = ['sandbox', 'production'];
 const API_VERSIONS = ['v1'];
 
 class Wealthsimple {
-  constructor({clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1'}) {
+  constructor({
+    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1',
+  }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
-      throw new Error(`Please specify a valid OAuth 'clientId'.`);
+      throw new Error('Please specify a valid OAuth \'clientId\'.');
     }
     this.clientId = clientId;
     this.clientSecret = clientSecret;
 
     // API environment (either 'sandbox' or 'production') and version:
     if (!ENVIRONMENTS.includes(env)) {
-      throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`)
+      throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`);
     }
     this.env = env;
 
     if (!API_VERSIONS.includes(apiVersion)) {
-      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`)
+      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`);
     }
     this.apiVersion = apiVersion;
 
@@ -42,10 +44,11 @@ class Wealthsimple {
   }
 
   urlFor(path) {
+    let newPath = path;
     if (!path.startsWith('/')) {
-      path = `/${path}`;
+      newPath = `/${path}`;
     }
-    return `https://api.${this.env}.wealthsimple.com/${this.apiVersion}${path}`;
+    return `https://api.${this.env}.wealthsimple.com/${this.apiVersion}${newPath}`;
   }
 
   resourceOwnerId() {
@@ -57,6 +60,7 @@ class Wealthsimple {
       const expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
       return new Date(expiresAtTimestamp * 1000);
     }
+    return undefined;
   }
 
   isAuthExpired() {
@@ -66,12 +70,12 @@ class Wealthsimple {
 
   authenticate(body) {
     if (!this._authenticatePromise) {
-      body = snakeCaseKeys(body);
-      Object.assign(body, {
+      const newBody = snakeCaseKeys(body);
+      Object.assign(newBody, {
         client_id: this.clientId,
         client_secret: this.clientSecret,
       });
-      this._authenticatePromise = this.post('/oauth/token', { body })
+      this._authenticatePromise = this.post('/oauth/token', { body: newBody })
         .then((json) => {
           // Save auth details for use in subsequent requests:
           this.auth = json;
@@ -98,15 +102,18 @@ class Wealthsimple {
   }
 
   _request(method, path, { query = {}, body = null }) {
+    let newPath = path;
+    let newBody = body;
+
     if (query && Object.keys(query).length > 0) {
-      path += `?${queryString.stringify(query)}`;
+      newPath += `?${queryString.stringify(query)}`;
     }
 
-    if (body && typeof body !== 'string') {
-      body = JSON.stringify(body);
+    if (newBody && typeof newBody !== 'string') {
+      newBody = JSON.stringify(newBody);
     }
 
-    const headers = new Headers({'Content-Type': 'application/json'});
+    const headers = new Headers({ 'Content-Type': 'application/json' });
     if (!this.isAuthExpired()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     } else {
@@ -114,20 +121,17 @@ class Wealthsimple {
       //       refresh OAuth credentials here (waiting on backend implementation).
     }
 
-    return this.fetch(this.urlFor(path), {
-      method: method,
-      body: body,
-      headers: headers,
-    }).then((response) => {
-      return response.json().then((json) => {
+    return this.fetch(this.urlFor(newPath), { method, body: newBody, headers }).then((response) => {
+      const parsedResponsePromise = response.json().then((json) => {
         if (!response.ok) {
           throw json;
         }
         return json;
       });
+      return parsedResponsePromise;
     });
   }
-};
+}
 
 ['get', 'patch', 'put', 'post', 'delete'].forEach((method) => {
   Wealthsimple.prototype[method] = function (path, options = {}) {

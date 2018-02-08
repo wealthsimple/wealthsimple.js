@@ -3,7 +3,7 @@ const Wealthsimple = require('./index');
 describe('Wealthsimple', () => {
   let wealthsimple;
   beforeEach(() => {
-    wealthsimple = new Wealthsimple({clientId: 'clientid', env: 'sandbox', apiVersion: 'v1'});
+    wealthsimple = new Wealthsimple({ clientId: 'clientid', env: 'sandbox', apiVersion: 'v1' });
   });
 
   describe('urlFor()', () => {
