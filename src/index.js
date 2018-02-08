@@ -57,9 +57,9 @@ class Wealthsimple {
     }
   }
 
-  isAuthValid() {
+  isAuthExpired() {
     const expiresAt = this.authExpiresAt();
-    return expiresAt && expiresAt > new Date();
+    return !expiresAt || expiresAt <= new Date();
   }
 
   authenticate(body) {
@@ -95,7 +95,7 @@ class Wealthsimple {
     }
 
     const headers = new Headers({'Content-Type': 'application/json'});
-    if (this.isAuthValid()) {
+    if (!this.isAuthExpired()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     } else {
       // TODO: Use `this.auth.refresh_token` to automatically refresh OAuth
