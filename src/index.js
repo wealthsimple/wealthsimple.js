@@ -86,7 +86,7 @@ class Wealthsimple {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     }
 
-    return fetch(this.urlFor(path), {
+    return this.fetch(this.urlFor(path), {
       method: method,
       body: body,
       headers: headers,
