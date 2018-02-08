@@ -9,6 +9,9 @@ class Wealthsimple {
     this.auth = config.auth;
     this.env = config.env;
     this.apiVersion = config.apiVersion || 'v1';
+
+    // Optionally allow a custom request adapter to be specified (e.g. for
+    // react-native).
     if (config.requestAdapter) {
       this.fetch = config.requestAdapter;
     } else {
@@ -25,7 +28,19 @@ class Wealthsimple {
   }
 
   resourceOwnerId() {
-    return this.auth.resource_owner_id;
+    return this.auth && this.auth.resource_owner_id;
+  }
+
+  authExpiresAt() {
+    if (this.auth && this.auth.created_at && this.auth.expires_in) {
+      const expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
+      return new Date(expiresAtTimestamp * 1000);
+    }
+  }
+
+  isAuthValid() {
+    const expiresAt = this.authExpiresAt();
+    return expiresAt && expiresAt > new Date();
   }
 
   setAuth(authObject) {
@@ -41,7 +56,7 @@ class Wealthsimple {
       password: password,
       scope: 'read write',
     };
-    return this.post('/oauth/token', { body , auth: false })
+    return this.post('/oauth/token', { body })
       .then((json) => {
         // Save auth details for use in subsequent requests:
         this.setAuth(json);
@@ -49,9 +64,9 @@ class Wealthsimple {
       });
   }
 
-  _request(method, path, { params = {}, body = null, auth = true }) {
-    if (params && Object.keys(params).length > 0) {
-      path += `?${this._queryString(params)}`;
+  _request(method, path, { queryParams = {}, body = null }) {
+    if (queryParams && Object.keys(queryParams).length > 0) {
+      path += `?${this._queryString(queryParams)}`;
     }
 
     if (body && typeof body !== 'string') {
@@ -61,7 +76,7 @@ class Wealthsimple {
     let headers = new Headers({
       'Content-Type': 'application/json',
     });
-    if (auth && this.auth) {
+    if (this.isAuthValid()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     }
 
