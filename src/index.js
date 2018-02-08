@@ -41,10 +41,6 @@ class Wealthsimple {
   }
 
   _request(method, path, { params = {}, body = null, auth = true }) {
-    if (auth && !this.auth) {
-      throw new Error('Must authenticate first');
-    }
-
     if (params && Object.keys(params).length > 0) {
       path += `?${this._queryString(params)}`;
     }
@@ -56,7 +52,7 @@ class Wealthsimple {
     let headers = new Headers({
       'Content-Type': 'application/json',
     });
-    if (auth) {
+    if (auth && this.auth) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
     }
 
