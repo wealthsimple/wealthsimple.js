@@ -20,6 +20,7 @@ class Wealthsimple {
       throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`)
     }
     this.env = env;
+
     if (!API_VERSIONS.includes(apiVersion)) {
       throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`)
     }
@@ -121,8 +122,8 @@ class Wealthsimple {
   }
 };
 
-['GET', 'PATCH', 'PUT', 'POST', 'DELETE'].forEach((method) => {
-  Wealthsimple.prototype[method.toLowerCase()] = function (path, options = {}) {
+['get', 'patch', 'put', 'post', 'delete'].forEach((method) => {
+  Wealthsimple.prototype[method] = function (path, options = {}) {
     return this._request(method, path, options);
   };
 });
