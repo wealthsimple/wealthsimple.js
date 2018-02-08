@@ -28,6 +28,10 @@ class Wealthsimple {
     this.auth = authObject;
   }
 
+  resourceOwnerId() {
+    return this.auth.resource_owner_id;
+  }
+
   login(email, password) {
     const body = {
       client_id: this.clientId,
@@ -63,7 +67,7 @@ class Wealthsimple {
     }).then((response) => {
       return response.json().then((json) => {
         if (!response.ok) {
-          throw response;
+          throw json;
         }
         // Save auth details for use in subsequent requests:
         this.setAuth(json);
