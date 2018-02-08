@@ -4,23 +4,23 @@ require('es6-promise').polyfill();
 const snakeCaseKeys = require('snakecase-keys');
 
 class Wealthsimple {
-  constructor(config) {
+  constructor({clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1'}) {
     // OAuth client details:
-    this.clientId = config.clientId;
-    this.clientSecret = config.clientSecret;
+    this.clientId = clientId;
+    this.clientSecret = clientSecret;
 
     // API environment (either 'sandbox' or 'production') and version:
-    this.env = config.env;
-    this.apiVersion = config.apiVersion || 'v1';
+    this.env = env;
+    this.apiVersion = apiVersion;
 
     // Optionally pass in existing OAuth details (access_token + refresh_token)
     // so that the user does not have to be prompted to log in again:
-    this.auth = config.auth;
+    this.auth = auth;
 
     // Optionally allow a custom request adapter to be specified (e.g. for
-    // react-native):
-    if (config.requestAdapter) {
-      this.fetch = config.requestAdapter;
+    // react-native) which must implement the `fetch` interface:
+    if (fetchAdapter) {
+      this.fetch = fetchAdapter;
     } else {
       require('isomorphic-fetch');
       this.fetch = fetch;
