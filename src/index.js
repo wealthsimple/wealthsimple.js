@@ -24,12 +24,12 @@ class Wealthsimple {
     return `https://api.${this.env}.wealthsimple.com/${this.apiVersion}${path}`;
   }
 
-  setAuth(authObject) {
-    this.auth = authObject;
-  }
-
   resourceOwnerId() {
     return this.auth.resource_owner_id;
+  }
+
+  setAuth(authObject) {
+    this.auth = authObject;
   }
 
   login(email, password) {
@@ -41,7 +41,12 @@ class Wealthsimple {
       password: password,
       scope: 'read write',
     };
-    return this.post('/oauth/token', { body , auth: false });
+    return this.post('/oauth/token', { body , auth: false })
+      .then((json) => {
+        // Save auth details for use in subsequent requests:
+        this.setAuth(json);
+        return json;
+      });
   }
 
   _request(method, path, { params = {}, body = null, auth = true }) {
@@ -69,8 +74,6 @@ class Wealthsimple {
         if (!response.ok) {
           throw json;
         }
-        // Save auth details for use in subsequent requests:
-        this.setAuth(json);
         return json;
       });
     });
