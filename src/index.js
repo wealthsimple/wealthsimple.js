@@ -53,14 +53,14 @@ class Wealthsimple {
     this.auth = authObject;
   }
 
-  login(email, password) {
+  authenticate({ grantType, username, password, scope = 'read write' }) {
     const body = {
       client_id: this.clientId,
       client_secret: this.clientSecret,
-      grant_type: 'password',
-      username: email,
+      grant_type: grantType,
+      username: username,
       password: password,
-      scope: 'read write',
+      scope: scope,
     };
     return this.post('/oauth/token', { body })
       .then((json) => {

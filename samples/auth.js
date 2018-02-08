@@ -9,7 +9,11 @@ const wealthsimple = new Wealthsimple({
   clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
 });
 
-const authPromise = wealthsimple.login(process.env.EMAIL, process.env.PASSWORD);
+const authPromise = wealthsimple.authenticate({
+  grantType: 'password',
+  username: process.env.EMAIL,
+  password: process.env.PASSWORD,
+});
 
 // Guard authenticated endpoints with the auth promise: Note this will not
 // repeat the auth request each time.
