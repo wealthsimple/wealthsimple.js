@@ -1,6 +1,7 @@
 'use strict';
 
 require('es6-promise').polyfill();
+const queryString = require('query-string');
 const snakeCaseKeys = require('snakecase-keys');
 
 const ENVIRONMENTS = ['sandbox', 'production'];
@@ -98,7 +99,7 @@ class Wealthsimple {
 
   _request(method, path, { query = {}, body = null }) {
     if (query && Object.keys(query).length > 0) {
-      path += `?${this._queryString(query)}`;
+      path += `?${queryString.stringify(query)}`;
     }
 
     if (body && typeof body !== 'string') {
@@ -125,10 +126,6 @@ class Wealthsimple {
         return json;
       });
     });
-  }
-
-  _queryString(params) {
-    return Object.keys(params).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&');
   }
 };
 
