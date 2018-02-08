@@ -1,5 +1,54 @@
 const Wealthsimple = require('./index');
 
-test('succeeds', () => {
-  expect(true).toBe(true);
+describe('Wealthsimple', () => {
+  let wealthsimple;
+  beforeEach(() => {
+    wealthsimple = new Wealthsimple({clientId: 'clientid', env: 'sandbox', apiVersion: 'v1'});
+  });
+
+  describe('urlFor()', () => {
+    it('returns the full API URL', () => {
+      expect(wealthsimple.urlFor('/users/123')).toEqual('https://api.sandbox.wealthsimple.com/v1/users/123');
+
+      wealthsimple.env = 'production';
+      expect(wealthsimple.urlFor('healthcheck')).toEqual('https://api.production.wealthsimple.com/v1/healthcheck');
+    });
+  });
+
+  describe('isAuthExpired()', () => {
+    describe('auth is present and not expired', () => {
+      it('returns false', () => {
+        wealthsimple.auth = { expires_in: 7200, created_at: new Date() / 1000 };
+        expect(wealthsimple.isAuthExpired()).toBe(false);
+      });
+    });
+
+    describe('auth is present but expired', () => {
+      it('returns true', () => {
+        wealthsimple.auth = { expires_in: 7200, created_at: new Date(2017, 4, 1) / 1000 };
+        expect(wealthsimple.isAuthExpired()).toBe(true);
+      });
+    });
+
+    describe('auth is not present', () => {
+      it('returns true', () => {
+        expect(wealthsimple.isAuthExpired()).toBe(true);
+      });
+    });
+  });
+
+  describe('authExpiresAt()', () => {
+    describe('auth is present', () => {
+      it('returns false', () => {
+        wealthsimple.auth = { expires_in: 7200, created_at: Date.parse('2018-02-01T04:20:12Z') / 1000 };
+        expect(wealthsimple.authExpiresAt()).toEqual(new Date(Date.parse('2018-02-01T06:20:12Z')));
+      });
+    });
+
+    describe('auth is not present', () => {
+      it('returns falsy', () => {
+        expect(wealthsimple.authExpiresAt()).toBeFalsy();
+      });
+    });
+  });
 });
