@@ -3,7 +3,6 @@
 
 require('dotenv').config();
 const Wealthsimple = require('../src/index');
-const util = require('util');
 
 const wealthsimple = new Wealthsimple({
   env: 'sandbox',
