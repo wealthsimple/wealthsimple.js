@@ -5,7 +5,9 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive"
+    "retire": "retire --ignore dist",
+    "test": "npm run retire && jest --runInBand",
+    "test:watch": "jest --watch"
   },
   "browser": {
     "fs": false
@@ -17,8 +19,10 @@
   },
   "devDependencies": {
     "dotenv": "^5.0.0",
-    "expect.js": "~0.3.1",
-    "mocha": "~2.3.4",
-    "sinon": "1.17.3"
+    "jest": "^22.2.1",
+    "retire": "^1.5.1"
+  },
+  "jest": {
+    "verbose": true
   }
 }
