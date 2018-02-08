@@ -77,6 +77,9 @@ class Wealthsimple {
     const headers = new Headers({'Content-Type': 'application/json'});
     if (this.isAuthValid()) {
       headers.set('Authorization', `Bearer ${this.auth.access_token}`);
+    } else {
+      // TODO: Use `this.auth.refresh_token` to automatically refresh OAuth
+      //       credentials here (waiting on AuthService backend implementation).
     }
 
     return this.fetch(this.urlFor(path), {
