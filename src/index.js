@@ -44,13 +44,17 @@ class Wealthsimple {
       body = JSON.stringify(body);
     }
 
-    console.log("BODY", body, "PATH", path, "METBHOD",method);
     return fetch(this.urlFor(path), {
       method: method,
       body: body,
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
+    }).then((response) => {
+      if(!response.ok) {
+        return response.json().then(err => { throw err; })
+      }
+      return response.json();
     });
   }
 
