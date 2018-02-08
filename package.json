@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.4",
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "snakecase-keys": "^1.1.0"
   },
   "devDependencies": {
     "dotenv": "^5.0.0",

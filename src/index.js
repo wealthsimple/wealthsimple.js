@@ -1,6 +1,7 @@
 'use strict';
 
 require('es6-promise').polyfill();
+const snakeCaseKeys = require('snakecase-keys');
 
 class Wealthsimple {
   constructor(config) {
@@ -49,15 +50,13 @@ class Wealthsimple {
     return expiresAt && expiresAt > new Date();
   }
 
-  authenticate({ grantType, username, password, scope = 'read write' }) {
-    const body = {
+  authenticate(body) {
+    body = snakeCaseKeys(body);
+    Object.assign(body, {
       client_id: this.clientId,
       client_secret: this.clientSecret,
-      grant_type: grantType,
-      username: username,
-      password: password,
-      scope: scope,
-    };
+      scope: 'read write',
+    });
     return this.post('/oauth/token', { body })
       .then((json) => {
         // Save auth details for use in subsequent requests:
