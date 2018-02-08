@@ -27,19 +27,25 @@ class Wealthsimple {
   login(email, password) {
     const body = {
       clientId: this.clientId,
-      grantType: 'password',
+      grant_type: 'password',
       username: email,
       password: password,
       scope: 'read write',
     };
-    console.log(this.urlFor('/oauth/token'), JSON.stringify(body));
-    return fetch(this.urlFor('/oauth/token'), {
-      method: 'POST',
-      body: JSON.stringify(body),
+    return this._request('POST', '/oauth/token', { body });
+  }
+
+  _request(method, path, options = {}) {
+    let body = options.body;
+    if (options.body && typeof options.body !== 'string') {
+      body = JSON.stringify(options.body);
+    }
+    return fetch(this.urlFor(path), {
+      method: method,
+      body: body,
       headers: new Headers({
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
-      })
+      }),
     });
   }
 };
