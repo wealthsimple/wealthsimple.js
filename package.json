@@ -7,8 +7,8 @@
   "scripts": {
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
-    "test": "npm run retire && npm run lint && jest --runInBand",
-    "test:watch": "jest --watch"
+    "test": "jest --watch",
+    "test:all": "npm run retire && npm run lint && jest --runInBand"
   },
   "browser": {
     "fs": false
