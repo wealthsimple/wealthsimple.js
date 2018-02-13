@@ -27,9 +27,19 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "jest": "^22.2.1",
+    "jest-runner-eslint": "^0.4.0",
     "retire": "^1.5.1"
   },
   "jest": {
-    "verbose": true
+    "projects": [
+      {
+        "displayName": "test"
+      },
+      {
+        "displayName": "lint",
+        "runner": "jest-runner-eslint",
+        "testMatch": ["<rootDir>/**/*.js"]
+      }
+    ]
   }
 }

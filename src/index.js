@@ -62,6 +62,10 @@ class Wealthsimple {
     return !expiresAt || expiresAt <= new Date();
   }
 
+  isAuthRefreshable() {
+    return !!(this.auth && typeof this.auth.refresh_token === 'string');
+  }
+
   authenticate(body) {
     if (!this._authenticatePromise) {
       const newBody = snakeCaseKeys(body);
@@ -80,7 +84,7 @@ class Wealthsimple {
   }
 
   refreshAuth() {
-    if (!this.auth || !this.auth.refresh_token) {
+    if (!this.isAuthRefreshable()) {
       throw new Error('Must have a refresh_token set in order to refresh auth.');
     }
     this.clear();
@@ -97,13 +101,15 @@ class Wealthsimple {
 
   _fetch(method, path, { headers = {}, query = {}, body = null }) {
     if (!this.isAuthExpired()) {
-      headers['Authorization'] = `Bearer ${this.auth.access_token}`;
+      headers.Authorization = `Bearer ${this.auth.access_token}`;
     } else {
       // TODO: If available, use `this.auth.refresh_token` to automatically
       //       refresh OAuth credentials here (waiting on backend implementation).
     }
 
-    return this.request.fetch( { method, path, headers, query, body } );
+    return this.request.fetch({
+      method, path, headers, query, body,
+    });
   }
 }
 

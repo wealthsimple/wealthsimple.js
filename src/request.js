@@ -1,15 +1,17 @@
 const queryString = require('query-string');
 
 class Request {
-  constructor( { client } ) {
+  constructor({ client }) {
     this.client = client;
   }
 
-  fetch( { method, headers = {}, path, query = {}, body = null } ) {
-    let newHeaders = headers;
+  fetch({
+    method, headers = {}, path, query = {}, body = null,
+  }) {
+    const newHeaders = headers;
     let newPath = path;
     let newBody = body;
-    
+
     if (query && Object.keys(query).length > 0) {
       newPath += `?${queryString.stringify(query)}`;
     }
@@ -45,11 +47,11 @@ class Request {
 
   _defaultHeaders() {
     return {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Date': new Date().toUTCString(),
+      Date: new Date().toUTCString(),
       'X-Wealthsimple-Client': 'wealthsimple.js',
-    }
+    };
   }
 }
 

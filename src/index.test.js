@@ -28,6 +28,28 @@ describe('Wealthsimple', () => {
     });
   });
 
+  describe('isAuthRefreshable()', () => {
+    describe('auth is present and refreshable', () => {
+      it('returns true', () => {
+        wealthsimple.auth = { refresh_token: 'refresh' };
+        expect(wealthsimple.isAuthRefreshable()).toBe(true);
+      });
+    });
+
+    describe('auth is present but not refreshable', () => {
+      it('returns false', () => {
+        wealthsimple.auth = { refresh_token: null };
+        expect(wealthsimple.isAuthRefreshable()).toBe(false);
+      });
+    });
+
+    describe('auth is not present', () => {
+      it('returns false', () => {
+        expect(wealthsimple.isAuthRefreshable()).toBe(false);
+      });
+    });
+  });
+
   describe('authExpiresAt()', () => {
     describe('auth is present', () => {
       it('returns false', () => {

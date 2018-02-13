@@ -6,7 +6,7 @@ describe('Request', () => {
   let request;
   beforeEach(() => {
     wealthsimple = new Wealthsimple({ clientId: 'clientid', env: 'sandbox', apiVersion: 'v1' });
-    request = new Request( { client: wealthsimple } );
+    request = new Request({ client: wealthsimple });
   });
 
   describe('urlFor()', () => {
