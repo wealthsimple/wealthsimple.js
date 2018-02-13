@@ -12,6 +12,9 @@ const wealthsimple = new Wealthsimple({
   // auth: { ...prior server response... }
 });
 
+wealthsimple.get('/healthcheck')
+  .then(data => console.log(data));
+
 const authPromise = wealthsimple.authenticate({
   grantType: 'password',
   scope: 'read write',

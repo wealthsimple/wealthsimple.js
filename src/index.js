@@ -1,8 +1,8 @@
 'use strict';
 
 require('es6-promise').polyfill();
-const queryString = require('query-string');
 const snakeCaseKeys = require('snakecase-keys');
+const Request = require('./request');
 
 const ENVIRONMENTS = ['sandbox', 'production'];
 const API_VERSIONS = ['v1'];
@@ -36,19 +36,13 @@ class Wealthsimple {
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
     if (fetchAdapter) {
-      this.fetch = fetchAdapter;
+      this.fetchAdapter = fetchAdapter;
     } else {
       require('isomorphic-fetch');
-      this.fetch = fetch;
+      this.fetchAdapter = fetch;
     }
-  }
 
-  urlFor(path) {
-    let newPath = path;
-    if (!path.startsWith('/')) {
-      newPath = `/${path}`;
-    }
-    return `https://api.${this.env}.wealthsimple.com/${this.apiVersion}${newPath}`;
+    this.request = new Request({ client: this });
   }
 
   resourceOwnerId() {
@@ -66,6 +60,10 @@ class Wealthsimple {
   isAuthExpired() {
     const expiresAt = this.authExpiresAt();
     return !expiresAt || expiresAt <= new Date();
+  }
+
+  isAuthRefreshable() {
+    return !!(this.auth && typeof this.auth.refresh_token === 'string');
   }
 
   authenticate(body) {
@@ -86,7 +84,7 @@ class Wealthsimple {
   }
 
   refreshAuth() {
-    if (!this.auth || !this.auth.refresh_token) {
+    if (!this.isAuthRefreshable()) {
       throw new Error('Must have a refresh_token set in order to refresh auth.');
     }
     this.clear();
@@ -101,41 +99,28 @@ class Wealthsimple {
     this._authenticatePromise = null;
   }
 
-  _request(method, path, { query = {}, body = null }) {
-    let newPath = path;
-    let newBody = body;
-
-    if (query && Object.keys(query).length > 0) {
-      newPath += `?${queryString.stringify(query)}`;
-    }
-
-    if (newBody && typeof newBody !== 'string') {
-      newBody = JSON.stringify(newBody);
-    }
-
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    if (!this.isAuthExpired()) {
-      headers.set('Authorization', `Bearer ${this.auth.access_token}`);
-    } else {
-      // TODO: If available, use `this.auth.refresh_token` to automatically
-      //       refresh OAuth credentials here (waiting on backend implementation).
-    }
-
-    return this.fetch(this.urlFor(newPath), { method, body: newBody, headers }).then((response) => {
-      const parsedResponsePromise = response.json().then((json) => {
-        if (!response.ok) {
-          throw json;
-        }
-        return json;
+  _fetch(method, path, { headers = {}, query = {}, body = null }) {
+    const exeturePrimaryRequest = () => {
+      if (!this.isAuthExpired()) {
+        headers.Authorization = `Bearer ${this.auth.access_token}`;
+      }
+      return this.request.fetch({
+        method, path, headers, query, body,
       });
-      return parsedResponsePromise;
-    });
+    };
+
+    if (this.isAuthRefreshable() && this.isAuthExpired()) {
+      // Automatically refresh auth using refresh_token, then subsequently
+      // perform the actual request:
+      return this.refreshAuth().then(exeturePrimaryRequest);
+    }
+    return exeturePrimaryRequest();
   }
 }
 
-['get', 'patch', 'put', 'post', 'delete'].forEach((method) => {
+['get', 'patch', 'put', 'post', 'delete', 'head', 'options'].forEach((method) => {
   Wealthsimple.prototype[method] = function (path, options = {}) {
-    return this._request(method, path, options);
+    return this._fetch(method.toUpperCase(), path, options);
   };
 });
 
