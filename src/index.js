@@ -39,7 +39,14 @@ class Wealthsimple {
       this.fetchAdapter = fetchAdapter;
     } else {
       require('isomorphic-fetch');
-      this.fetchAdapter = fetch;
+      if (typeof window !== 'undefined') {
+        // Browser: fixes the following error:
+        // Error: TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+        this.fetchAdapter = window.fetch.bind(window);
+      } else {
+        // Node.js:
+        this.fetchAdapter = fetch;
+      }
     }
 
     this.request = new Request({ client: this });
