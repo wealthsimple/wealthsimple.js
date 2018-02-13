@@ -100,16 +100,21 @@ class Wealthsimple {
   }
 
   _fetch(method, path, { headers = {}, query = {}, body = null }) {
-    if (!this.isAuthExpired()) {
-      headers.Authorization = `Bearer ${this.auth.access_token}`;
-    } else {
-      // TODO: If available, use `this.auth.refresh_token` to automatically
-      //       refresh OAuth credentials here (waiting on backend implementation).
-    }
+    const exeturePrimaryRequest = () => {
+      if (!this.isAuthExpired()) {
+        headers.Authorization = `Bearer ${this.auth.access_token}`;
+      }
+      return this.request.fetch({
+        method, path, headers, query, body,
+      });
+    };
 
-    return this.request.fetch({
-      method, path, headers, query, body,
-    });
+    if (this.isAuthRefreshable() && this.isAuthExpired()) {
+      // Automatically refresh auth using refresh_token, then subsequently
+      // perform the actual request:
+      return this.refreshAuth().then(exeturePrimaryRequest);
+    }
+    return exeturePrimaryRequest();
   }
 }
 
