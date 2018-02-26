@@ -22,5 +22,5 @@ authPromise
     console.log('Original auth: ', data);
     return wealthsimple.revokeAuth();
   })
-  .then(data => console.log('Revoked auth: ', data))
+  .then(data => console.log('Revoked auth: ', wealthsimple.auth))
   .catch(error => console.error('Error:', error));
