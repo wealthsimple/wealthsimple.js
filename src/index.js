@@ -101,6 +101,10 @@ class Wealthsimple {
     });
   }
 
+  revokeAuth() {
+    return this.post('/oauth/revoke');
+  }
+
   // Clears any cached references to promises:
   clear() {
     this._authenticatePromise = null;
