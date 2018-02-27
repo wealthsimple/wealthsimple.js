@@ -9,7 +9,7 @@ const API_VERSIONS = ['v1'];
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1',
+    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -49,6 +49,10 @@ class Wealthsimple {
       }
     }
 
+    // Optionally allow for callbacks on certain key events:
+    this.onAuthSuccess = onAuthSuccess;
+    this.onAuthRevoke = onAuthRevoke;
+
     this.request = new Request({ client: this });
   }
 
@@ -84,6 +88,11 @@ class Wealthsimple {
         .then((json) => {
           // Save auth details for use in subsequent requests:
           this.auth = json;
+
+          if (this.onAuthSuccess) {
+            this.onAuthSuccess(json);
+          }
+
           return json;
         });
     }
@@ -105,6 +114,10 @@ class Wealthsimple {
     return this.post('/oauth/revoke')
       .then(() => {
         this.auth = null;
+
+        if (this.onAuthRevoke) {
+          this.onAuthRevoke();
+        }
       });
   }
 
