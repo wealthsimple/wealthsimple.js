@@ -27,7 +27,6 @@ authPromise
   .then(data => console.log('Success: ', data))
   .catch((error) => {
     if (error.error === 'otp_required') {
-      /// prompt and handle 2fa here
       const otp = prompt('What is your 2FA code? ');
 
       const authWithOtpPromise = wealthsimple.authenticate({
@@ -35,12 +34,11 @@ authPromise
         scope: 'read write',
         username: process.env.EMAIL,
         password: process.env.PASSWORD,
-        otp: otp,
+        otp,
       });
       authWithOtpPromise
         .then(data => console.log('2FA success!', data))
-        .catch(error => console.log('2FA error:', error));
-
+        .catch(otpError => console.log('2FA error:', otpError));
     } else {
       // Report error to Rollbar, etc
       console.error('Error:', error);

@@ -6,6 +6,7 @@ const Request = require('./request');
 
 const ENVIRONMENTS = ['sandbox', 'production'];
 const API_VERSIONS = ['v1'];
+const OTP_HEADER = 'x-wealthsimple-otp';
 
 class Wealthsimple {
   constructor({
@@ -87,11 +88,11 @@ class Wealthsimple {
     // TODO: cleaner way to do this?
     const headers = {};
     if (newBody.otp) {
-      headers['x-wealthsimple-otp'] = newBody.otp;
+      headers[OTP_HEADER] = newBody.otp;
       delete newBody.otp;
     }
 
-    return this.post('/oauth/token', { headers: headers, body: newBody })
+    return this.post('/oauth/token', { headers, body: newBody })
       .then((json) => {
         // Save auth details for use in subsequent requests:
         this.auth = json;
@@ -103,8 +104,9 @@ class Wealthsimple {
         return json;
       })
       .catch((error) => {
-        if (error.doesHaveHeader('x-wealthsimple-otp')) {
-          throw { error: 'otp_required' };
+        if (error.isHeaderPresent(OTP_HEADER)) {
+          const errorJson = { error: 'otp_required' };
+          throw errorJson;
         } else {
           throw error.json;
         }

@@ -10,7 +10,7 @@ class ApiError extends Error {
     Error.captureStackTrace(this, ApiError);
   }
 
-  doesHaveHeader(key) {
+  isHeaderPresent(key) {
     return !!this.response.headers.get(key);
   }
 }
