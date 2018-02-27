@@ -15,7 +15,7 @@ const authPromise = wealthsimple.authenticate({
   password: process.env.PASSWORD,
 });
 
-// Refresh auth when it expires:
+// Revoke auth after successful authentication:
 authPromise
   .then(() => { wealthsimple.revokeAuth(); })
   .catch(error => console.error('Error:', error));
