@@ -20,27 +20,25 @@ const authPromise = wealthsimple.authenticate({
   password: process.env.PASSWORD,
 });
 
-// Guard authenticated endpoints with the auth promise: Note this will not
-// repeat the auth request each time.
+const handleOtp = () => {
+  const otp = prompt('What is your 2FA code? ');
+
+  return wealthsimple.authenticate({
+    grantType: 'password',
+    scope: 'read write',
+    username: process.env.EMAIL,
+    password: process.env.PASSWORD,
+    otp,
+  });
+};
+
 authPromise
-  .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
-  .then(data => console.log('Success: ', data))
   .catch((error) => {
     if (error.error === 'otp_required') {
-      const otp = prompt('What is your 2FA code? ');
-
-      const authWithOtpPromise = wealthsimple.authenticate({
-        grantType: 'password',
-        scope: 'read write',
-        username: process.env.EMAIL,
-        password: process.env.PASSWORD,
-        otp,
-      });
-      authWithOtpPromise
+      handleOtp()
         .then(data => console.log('2FA success!', data))
         .catch(otpError => console.log('2FA error:', otpError));
     } else {
-      // Report error to Rollbar, etc
-      console.error('Error:', error);
+      console.error('Username/password incorrect:', error);
     }
   });
