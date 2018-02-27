@@ -2,6 +2,7 @@
 // You must set EMAIL + PASSWORD in `.env` corresponding to a valid staging user.
 
 require('dotenv').config();
+const prompt = require('prompt-sync')();
 const Wealthsimple = require('../src/index');
 
 const wealthsimple = new Wealthsimple({
@@ -27,7 +28,9 @@ authPromise
   .catch((error) => {
     if (error.error === 'otp_required') {
       /// prompt and handle 2fa here
-      console.log('TODO: OTP here');
+      const otp = prompt('What is your 2FA code? ');
+
+      console.log('TODO: send this code in subsequent auth request header', otp);
     } else {
       // Report error to Rollbar, etc
       console.error('Error:', error);
