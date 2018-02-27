@@ -78,21 +78,20 @@ class Wealthsimple {
     return !!(this.auth && typeof this.auth.refresh_token === 'string');
   }
 
-  authenticate(body) {
-    const newBody = snakeCaseKeys(body);
-    Object.assign(newBody, {
+  authenticate(attributes) {
+    const headers = {};
+    if (attributes.otp) {
+      headers[OTP_HEADER] = attributes.otp;
+      delete attributes.otp;
+    }
+
+    const body = snakeCaseKeys(attributes);
+    Object.assign(body, {
       client_id: this.clientId,
       client_secret: this.clientSecret,
     });
 
-    // TODO: cleaner way to do this?
-    const headers = {};
-    if (newBody.otp) {
-      headers[OTP_HEADER] = newBody.otp;
-      delete newBody.otp;
-    }
-
-    return this.post('/oauth/token', { headers, body: newBody })
+    return this.post('/oauth/token', { headers, body })
       .then((json) => {
         // Save auth details for use in subsequent requests:
         this.auth = json;
