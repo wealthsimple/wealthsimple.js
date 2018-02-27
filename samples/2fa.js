@@ -30,7 +30,17 @@ authPromise
       /// prompt and handle 2fa here
       const otp = prompt('What is your 2FA code? ');
 
-      console.log('TODO: send this code in subsequent auth request header', otp);
+      const authWithOtpPromise = wealthsimple.authenticate({
+        grantType: 'password',
+        scope: 'read write',
+        username: process.env.EMAIL,
+        password: process.env.PASSWORD,
+        otp: otp,
+      });
+      authWithOtpPromise
+        .then(data => console.log('2FA success!', data))
+        .catch(error => console.log('2FA error:', error));
+
     } else {
       // Report error to Rollbar, etc
       console.error('Error:', error);

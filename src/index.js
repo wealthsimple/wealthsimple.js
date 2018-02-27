@@ -78,32 +78,37 @@ class Wealthsimple {
   }
 
   authenticate(body) {
-    if (!this._authenticatePromise) {
-      const newBody = snakeCaseKeys(body);
-      Object.assign(newBody, {
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
-      });
-      this._authenticatePromise = this.post('/oauth/token', { body: newBody })
-        .then((json) => {
-          // Save auth details for use in subsequent requests:
-          this.auth = json;
+    const newBody = snakeCaseKeys(body);
+    Object.assign(newBody, {
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
+    });
 
-          if (this.onAuthSuccess) {
-            this.onAuthSuccess(json);
-          }
-
-          return json;
-        })
-        .catch((error) => {
-          if (error.doesHaveHeader('x-wealthsimple-otp')) {
-            throw { error: 'otp_required' };
-          } else {
-            throw error.json;
-          }
-        });
+    // TODO: cleaner way to do this?
+    const headers = {};
+    if (newBody.otp) {
+      headers['x-wealthsimple-otp'] = newBody.otp;
+      delete newBody.otp;
     }
-    return this._authenticatePromise;
+
+    return this.post('/oauth/token', { headers: headers, body: newBody })
+      .then((json) => {
+        // Save auth details for use in subsequent requests:
+        this.auth = json;
+
+        if (this.onAuthSuccess) {
+          this.onAuthSuccess(json);
+        }
+
+        return json;
+      })
+      .catch((error) => {
+        if (error.doesHaveHeader('x-wealthsimple-otp')) {
+          throw { error: 'otp_required' };
+        } else {
+          throw error.json;
+        }
+      });
   }
 
   refreshAuth() {
