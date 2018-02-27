@@ -1,5 +1,20 @@
 const queryString = require('query-string');
 
+class ApiError extends Error {
+  constructor(response, json) {
+    super(json);
+
+    this.response = response;
+    this.json = json;
+
+    Error.captureStackTrace(this, ApiError);
+  }
+
+  doesHaveHeader(key) {
+    return !!this.response.headers.get(key);
+  }
+}
+
 class Request {
   constructor({ client }) {
     this.client = client;
@@ -29,7 +44,7 @@ class Request {
     }).then((response) => {
       const parsedResponsePromise = response.json().then((json) => {
         if (!response.ok) {
-          throw json;
+          throw new ApiError(response, json);
         }
         return json;
       });

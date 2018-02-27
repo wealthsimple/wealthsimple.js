@@ -94,6 +94,13 @@ class Wealthsimple {
           }
 
           return json;
+        })
+        .catch((error) => {
+          if (error.doesHaveHeader('x-wealthsimple-otp')) {
+            throw { error: 'otp_required' };
+          } else {
+            throw error.json;
+          }
         });
     }
     return this._authenticatePromise;
