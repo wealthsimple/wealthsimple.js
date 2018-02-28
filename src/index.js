@@ -3,9 +3,8 @@
 require('es6-promise').polyfill();
 const snakeCaseKeys = require('snakecase-keys');
 const Request = require('./request');
-
-const ENVIRONMENTS = ['sandbox', 'production'];
-const API_VERSIONS = ['v1'];
+const { AuthenticationError } = require('./errors');
+const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
@@ -19,13 +18,13 @@ class Wealthsimple {
     this.clientSecret = clientSecret;
 
     // API environment (either 'sandbox' or 'production') and version:
-    if (!ENVIRONMENTS.includes(env)) {
-      throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`);
+    if (!constants.ENVIRONMENTS.includes(env)) {
+      throw new Error(`Unrecognized 'env'. Please use one of: ${constants.ENVIRONMENTS.join(', ')}`);
     }
     this.env = env;
 
-    if (!API_VERSIONS.includes(apiVersion)) {
-      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`);
+    if (!constants.API_VERSIONS.includes(apiVersion)) {
+      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${constants.API_VERSIONS.join(', ')}`);
     }
     this.apiVersion = apiVersion;
 
@@ -77,26 +76,33 @@ class Wealthsimple {
     return !!(this.auth && typeof this.auth.refresh_token === 'string');
   }
 
-  authenticate(body) {
-    if (!this._authenticatePromise) {
-      const newBody = snakeCaseKeys(body);
-      Object.assign(newBody, {
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
-      });
-      this._authenticatePromise = this.post('/oauth/token', { body: newBody })
-        .then((json) => {
-          // Save auth details for use in subsequent requests:
-          this.auth = json;
-
-          if (this.onAuthSuccess) {
-            this.onAuthSuccess(json);
-          }
-
-          return json;
-        });
+  authenticate(attributes) {
+    const headers = {};
+    if (attributes.otp) {
+      headers[constants.OTP_HEADER] = attributes.otp;
+      delete attributes.otp;
     }
-    return this._authenticatePromise;
+
+    const body = snakeCaseKeys(attributes);
+    Object.assign(body, {
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
+    });
+
+    return this.post('/oauth/token', { headers, body })
+      .then((json) => {
+        // Save auth details for use in subsequent requests:
+        this.auth = json;
+
+        if (this.onAuthSuccess) {
+          this.onAuthSuccess(json);
+        }
+
+        return json;
+      })
+      .catch((error) => {
+        throw new AuthenticationError(error.response, error.json);
+      });
   }
 
   refreshAuth() {

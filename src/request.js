@@ -1,4 +1,5 @@
 const queryString = require('query-string');
+const { ApiError } = require('./errors');
 
 class Request {
   constructor({ client }) {
@@ -29,7 +30,7 @@ class Request {
     }).then((response) => {
       const parsedResponsePromise = response.json().then((json) => {
         if (!response.ok) {
-          throw json;
+          throw new ApiError(response, json);
         }
         return json;
       });
