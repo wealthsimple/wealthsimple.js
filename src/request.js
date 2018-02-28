@@ -1,19 +1,5 @@
 const queryString = require('query-string');
-
-class ApiError extends Error {
-  constructor(response, json) {
-    super(json);
-
-    this.response = response;
-    this.json = json;
-
-    Error.captureStackTrace(this, ApiError);
-  }
-
-  isHeaderPresent(key) {
-    return !!this.response.headers.get(key);
-  }
-}
+const { ApiError } = require('./errors');
 
 class Request {
   constructor({ client }) {

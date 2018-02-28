@@ -3,10 +3,8 @@
 require('es6-promise').polyfill();
 const snakeCaseKeys = require('snakecase-keys');
 const Request = require('./request');
-
-const ENVIRONMENTS = ['sandbox', 'production'];
-const API_VERSIONS = ['v1'];
-const OTP_HEADER = 'x-wealthsimple-otp';
+const { AuthenticationError } = require('./errors');
+const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
@@ -20,13 +18,13 @@ class Wealthsimple {
     this.clientSecret = clientSecret;
 
     // API environment (either 'sandbox' or 'production') and version:
-    if (!ENVIRONMENTS.includes(env)) {
-      throw new Error(`Unrecognized 'env'. Please use one of: ${ENVIRONMENTS.join(', ')}`);
+    if (!constants.ENVIRONMENTS.includes(env)) {
+      throw new Error(`Unrecognized 'env'. Please use one of: ${constants.ENVIRONMENTS.join(', ')}`);
     }
     this.env = env;
 
-    if (!API_VERSIONS.includes(apiVersion)) {
-      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${API_VERSIONS.join(', ')}`);
+    if (!constants.API_VERSIONS.includes(apiVersion)) {
+      throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${constants.API_VERSIONS.join(', ')}`);
     }
     this.apiVersion = apiVersion;
 
@@ -81,7 +79,7 @@ class Wealthsimple {
   authenticate(attributes) {
     const headers = {};
     if (attributes.otp) {
-      headers[OTP_HEADER] = attributes.otp;
+      headers[constants.OTP_HEADER] = attributes.otp;
       delete attributes.otp;
     }
 
@@ -103,12 +101,7 @@ class Wealthsimple {
         return json;
       })
       .catch((error) => {
-        if (error.isHeaderPresent(OTP_HEADER)) {
-          const errorJson = { error: 'otp_required' };
-          throw errorJson;
-        } else {
-          throw error.json;
-        }
+        throw new AuthenticationError(error.response, error.json);
       });
   }
 
