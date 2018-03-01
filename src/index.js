@@ -85,7 +85,7 @@ class Wealthsimple {
 
     let checkAuthRefresh = true;
     if (attributes.hasOwnProperty('checkAuthRefresh')) {
-      checkAuthRefresh = attributes.checkAuthRefresh;
+      ({ checkAuthRefresh } = attributes);
       delete attributes.checkAuthRefresh;
     }
 
@@ -133,7 +133,12 @@ class Wealthsimple {
       });
   }
 
-  _fetch(method, path, { headers = {}, query = {}, body = null, checkAuthRefresh = true }) {
+  _fetch(method, path, {
+    headers = {},
+    query = {},
+    body = null,
+    checkAuthRefresh = true,
+  }) {
     const exeturePrimaryRequest = () => {
       if (!this.isAuthExpired()) {
         headers.Authorization = `Bearer ${this.auth.access_token}`;
