@@ -8,7 +8,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null,
+    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -22,6 +22,9 @@ class Wealthsimple {
       throw new Error(`Unrecognized 'env'. Please use one of: ${constants.ENVIRONMENTS.join(', ')}`);
     }
     this.env = env;
+
+    // Setting to `true` will add request logging.
+    this.verbose = verbose;
 
     if (!constants.API_VERSIONS.includes(apiVersion)) {
       throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${constants.API_VERSIONS.join(', ')}`);
@@ -83,13 +86,19 @@ class Wealthsimple {
       delete attributes.otp;
     }
 
+    let checkAuthRefresh = true;
+    if (attributes.hasOwnProperty('checkAuthRefresh')) {
+      ({ checkAuthRefresh } = attributes);
+      delete attributes.checkAuthRefresh;
+    }
+
     const body = snakeCaseKeys(attributes);
     Object.assign(body, {
       client_id: this.clientId,
       client_secret: this.clientSecret,
     });
 
-    return this.post('/oauth/token', { headers, body })
+    return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((json) => {
         // Save auth details for use in subsequent requests:
         this.auth = json;
@@ -109,10 +118,10 @@ class Wealthsimple {
     if (!this.isAuthRefreshable()) {
       throw new Error('Must have a refresh_token set in order to refresh auth.');
     }
-    this.clear();
     return this.authenticate({
       grantType: 'refresh_token',
       refreshToken: this.auth.refresh_token,
+      checkAuthRefresh: false,
     });
   }
 
@@ -127,12 +136,12 @@ class Wealthsimple {
       });
   }
 
-  // Clears any cached references to promises:
-  clear() {
-    this._authenticatePromise = null;
-  }
-
-  _fetch(method, path, { headers = {}, query = {}, body = null }) {
+  _fetch(method, path, {
+    headers = {},
+    query = {},
+    body = null,
+    checkAuthRefresh = true,
+  }) {
     const exeturePrimaryRequest = () => {
       if (!this.isAuthExpired()) {
         headers.Authorization = `Bearer ${this.auth.access_token}`;
@@ -142,7 +151,7 @@ class Wealthsimple {
       });
     };
 
-    if (this.isAuthRefreshable() && this.isAuthExpired()) {
+    if (checkAuthRefresh && this.isAuthRefreshable() && this.isAuthExpired()) {
       // Automatically refresh auth using refresh_token, then subsequently
       // perform the actual request:
       return this.refreshAuth().then(exeturePrimaryRequest);
