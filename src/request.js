@@ -16,6 +16,7 @@ class Request {
     if (query && Object.keys(query).length > 0) {
       newPath += `?${queryString.stringify(query)}`;
     }
+    const url = this.urlFor(newPath);
 
     // All request bodies (for now) are JSON:
     if (newBody && typeof newBody !== 'string') {
@@ -23,7 +24,16 @@ class Request {
     }
 
     Object.assign(newHeaders, this._defaultHeaders());
-    return this.client.fetchAdapter(this.urlFor(newPath), {
+
+    if (this.client.verbose) {
+      const logs = [`${method}: ${url}`];
+      if (newBody) {
+        logs.push(newBody);
+      }
+      console.info(logs.join('\n') + '\n');
+    }
+
+    return this.client.fetchAdapter(url, {
       headers: newHeaders,
       method,
       body: newBody,

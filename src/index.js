@@ -8,7 +8,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null,
+    clientId, clientSecret, auth, fetchAdapter, env = 'sandbox', apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -22,6 +22,9 @@ class Wealthsimple {
       throw new Error(`Unrecognized 'env'. Please use one of: ${constants.ENVIRONMENTS.join(', ')}`);
     }
     this.env = env;
+
+    // Setting to `true` will add request logging.
+    this.verbose = verbose;
 
     if (!constants.API_VERSIONS.includes(apiVersion)) {
       throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${constants.API_VERSIONS.join(', ')}`);
