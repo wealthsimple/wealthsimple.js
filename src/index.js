@@ -83,13 +83,19 @@ class Wealthsimple {
       delete attributes.otp;
     }
 
+    let checkAuthRefresh = true;
+    if (attributes.hasOwnProperty('checkAuthRefresh')) {
+      checkAuthRefresh = attributes.checkAuthRefresh;
+      delete attributes.checkAuthRefresh;
+    }
+
     const body = snakeCaseKeys(attributes);
     Object.assign(body, {
       client_id: this.clientId,
       client_secret: this.clientSecret,
     });
 
-    return this.post('/oauth/token', { headers, body })
+    return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((json) => {
         // Save auth details for use in subsequent requests:
         this.auth = json;
@@ -112,6 +118,7 @@ class Wealthsimple {
     return this.authenticate({
       grantType: 'refresh_token',
       refreshToken: this.auth.refresh_token,
+      checkAuthRefresh: false,
     });
   }
 
@@ -126,7 +133,7 @@ class Wealthsimple {
       });
   }
 
-  _fetch(method, path, { headers = {}, query = {}, body = null }) {
+  _fetch(method, path, { headers = {}, query = {}, body = null, checkAuthRefresh = true }) {
     const exeturePrimaryRequest = () => {
       if (!this.isAuthExpired()) {
         headers.Authorization = `Bearer ${this.auth.access_token}`;
@@ -136,7 +143,7 @@ class Wealthsimple {
       });
     };
 
-    if (this.isAuthRefreshable() && this.isAuthExpired()) {
+    if (checkAuthRefresh && this.isAuthRefreshable() && this.isAuthExpired()) {
       // Automatically refresh auth using refresh_token, then subsequently
       // perform the actual request:
       return this.refreshAuth().then(exeturePrimaryRequest);
