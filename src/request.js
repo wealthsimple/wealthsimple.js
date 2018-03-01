@@ -30,7 +30,7 @@ class Request {
       if (newBody) {
         logs.push(newBody);
       }
-      console.info(logs.join('\n') + '\n');
+      console.info(`${logs.join('\n')}\n`);
     }
 
     return this.client.fetchAdapter(url, {
