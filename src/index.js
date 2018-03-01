@@ -109,7 +109,6 @@ class Wealthsimple {
     if (!this.isAuthRefreshable()) {
       throw new Error('Must have a refresh_token set in order to refresh auth.');
     }
-    this.clear();
     return this.authenticate({
       grantType: 'refresh_token',
       refreshToken: this.auth.refresh_token,
@@ -125,11 +124,6 @@ class Wealthsimple {
           this.onAuthRevoke();
         }
       });
-  }
-
-  // Clears any cached references to promises:
-  clear() {
-    this._authenticatePromise = null;
   }
 
   _fetch(method, path, { headers = {}, query = {}, body = null }) {
