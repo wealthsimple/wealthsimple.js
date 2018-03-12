@@ -11,11 +11,11 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-      - run: npm install
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       # run tests!
-      - run: npm run test:all
+      - run: yarn test:all
