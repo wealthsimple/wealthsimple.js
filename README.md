@@ -2,6 +2,19 @@
 
 A JavaScript client for the [Wealthsimple API](https://developers.wealthsimple.com/).
 
+### Installation
+
+Run the following to install:
+
+```sh
+# TODO: Publish to NPM once code is finalized
+npm install --save git+https://git@github.com/wealthsimple/wealthsimple.js.git
+```
+
+### Example usage
+
+See [samples directory](./samples) for a wide range of samples, or see the basic example below:
+
 ```js
 const Wealthsimple = require('wealthsimple');
 
