@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
+    "build": "babel src/index.js --out-file build/wealthsimple.js",
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
     "test": "jest --watch",
@@ -20,6 +21,9 @@
     "snakecase-keys": "^1.1.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
