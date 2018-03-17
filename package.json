@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "build": "babel src/index.js --out-file build/wealthsimple.js",
+    "build": "node tools/build",
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
     "test": "jest --watch",
@@ -14,6 +14,15 @@
   "browser": {
     "fs": false
   },
+  "babel": {
+    "presets": [
+      "latest",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  },
   "dependencies": {
     "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
@@ -21,9 +30,13 @@
     "snakecase-keys": "^1.1.0"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.16.3",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
@@ -33,7 +46,9 @@
     "jest": "^22.4.2",
     "jest-runner-eslint": "^0.4.0",
     "prompt-sync": "^4.1.5",
-    "retire": "^1.6.0"
+    "retire": "^1.6.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-babel": "^2.6.1"
   },
   "jest": {
     "projects": [

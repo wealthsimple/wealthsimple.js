@@ -1,0 +1,30 @@
+{
+  "name": "@wealthsimple/wealthsimple",
+  "version": "1.0.0",
+  "description": "A JavaScript client for the Wealthsimple API",
+  "license": "MIT",
+  "main": "src/index.js",
+  "browser": {
+    "fs": false
+  },
+  "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "query-string": "^5.1.0",
+    "snakecase-keys": "^1.1.0"
+  },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "test"
+      },
+      {
+        "displayName": "lint",
+        "runner": "jest-runner-eslint",
+        "testMatch": [
+          "<rootDir>/**/*.js"
+        ]
+      }
+    ]
+  }
+}
