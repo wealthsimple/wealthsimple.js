@@ -8,7 +8,8 @@
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
     "test": "jest --watch",
-    "test:all": "yarn retire && yarn lint && jest --runInBand"
+    "test:all": "yarn retire && yarn lint && jest --runInBand",
+    "build": "webpack -p"
   },
   "browser": {
     "fs": false
