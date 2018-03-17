@@ -8,7 +8,8 @@
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
     "test": "jest --watch",
-    "test:all": "yarn retire && yarn lint && jest --runInBand"
+    "test:all": "yarn retire && yarn lint && jest --runInBand",
+    "build": "webpack -p"
   },
   "browser": {
     "fs": false
@@ -20,6 +21,8 @@
     "snakecase-keys": "^1.1.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
@@ -29,7 +32,9 @@
     "jest": "^22.4.2",
     "jest-runner-eslint": "^0.4.0",
     "prompt-sync": "^4.1.5",
-    "retire": "^1.6.0"
+    "retire": "^1.6.0",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
   },
   "jest": {
     "projects": [
