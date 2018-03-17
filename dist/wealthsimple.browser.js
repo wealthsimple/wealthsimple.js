@@ -1,6 +1,4 @@
-import _Object$assign from 'babel-runtime/core-js/object/assign';
-import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
-import _createClass from 'babel-runtime/helpers/createClass';
+'use strict';
 
 require('es6-promise').polyfill();
 var snakeCaseKeys = require('snakecase-keys');
@@ -27,8 +25,7 @@ var Wealthsimple = function () {
         onAuthRevoke = _ref$onAuthRevoke === undefined ? null : _ref$onAuthRevoke,
         _ref$verbose = _ref.verbose,
         verbose = _ref$verbose === undefined ? false : _ref$verbose;
-
-    _classCallCheck(this, Wealthsimple);
+    babelHelpers.classCallCheck(this, Wealthsimple);
 
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -78,7 +75,7 @@ var Wealthsimple = function () {
     this.request = new Request({ client: this });
   }
 
-  _createClass(Wealthsimple, [{
+  babelHelpers.createClass(Wealthsimple, [{
     key: 'resourceOwnerId',
     value: function resourceOwnerId() {
       return this.auth && this.auth.resource_owner_id;
@@ -122,7 +119,7 @@ var Wealthsimple = function () {
       }
 
       var body = snakeCaseKeys(attributes);
-      _Object$assign(body, {
+      Object.assign(body, {
         client_id: this.clientId,
         client_secret: this.clientSecret
       });
@@ -196,7 +193,6 @@ var Wealthsimple = function () {
       return exeturePrimaryRequest();
     }
   }]);
-
   return Wealthsimple;
 }();
 
@@ -209,4 +205,4 @@ var Wealthsimple = function () {
 });
 
 module.exports = Wealthsimple;
-//# sourceMappingURL=index.es.js.map
+//# sourceMappingURL=wealthsimple.browser.js.map

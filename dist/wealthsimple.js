@@ -1,12 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('babel-runtime/core-js/object/assign'), require('babel-runtime/helpers/classCallCheck'), require('babel-runtime/helpers/createClass')) :
-  typeof define === 'function' && define.amd ? define(['babel-runtime/core-js/object/assign', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass'], factory) :
-  (factory(global._Object$assign,global._classCallCheck,global._createClass));
-}(this, (function (_Object$assign,_classCallCheck,_createClass) { 'use strict';
-
-_Object$assign = 'default' in _Object$assign ? _Object$assign['default'] : _Object$assign;
-_classCallCheck = 'default' in _classCallCheck ? _classCallCheck['default'] : _classCallCheck;
-_createClass = 'default' in _createClass ? _createClass['default'] : _createClass;
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (factory());
+}(this, (function () { 'use strict';
 
 require('es6-promise').polyfill();
 var snakeCaseKeys = require('snakecase-keys');
@@ -33,8 +29,7 @@ var Wealthsimple = function () {
         onAuthRevoke = _ref$onAuthRevoke === undefined ? null : _ref$onAuthRevoke,
         _ref$verbose = _ref.verbose,
         verbose = _ref$verbose === undefined ? false : _ref$verbose;
-
-    _classCallCheck(this, Wealthsimple);
+    babelHelpers.classCallCheck(this, Wealthsimple);
 
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -84,7 +79,7 @@ var Wealthsimple = function () {
     this.request = new Request({ client: this });
   }
 
-  _createClass(Wealthsimple, [{
+  babelHelpers.createClass(Wealthsimple, [{
     key: 'resourceOwnerId',
     value: function resourceOwnerId() {
       return this.auth && this.auth.resource_owner_id;
@@ -128,7 +123,7 @@ var Wealthsimple = function () {
       }
 
       var body = snakeCaseKeys(attributes);
-      _Object$assign(body, {
+      Object.assign(body, {
         client_id: this.clientId,
         client_secret: this.clientSecret
       });
@@ -202,7 +197,6 @@ var Wealthsimple = function () {
       return exeturePrimaryRequest();
     }
   }]);
-
   return Wealthsimple;
 }();
 
@@ -217,4 +211,4 @@ var Wealthsimple = function () {
 module.exports = Wealthsimple;
 
 })));
-//# sourceMappingURL=index.umd.js.map
+//# sourceMappingURL=wealthsimple.js.map

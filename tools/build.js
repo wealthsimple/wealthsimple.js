@@ -13,31 +13,65 @@ const fs = require('fs');
 const del = require('del');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
+const uglify = require('rollup-plugin-uglify');
 const pkg = require('../package.json');
+
+const bundles = [
+  {
+    format: 'cjs', ext: '.js', plugins: [],
+    babelPresets: ['stage-1'], babelPlugins: [
+      'transform-es2015-destructuring',
+      'transform-es2015-function-name',
+      'transform-es2015-parameters'
+    ]
+  },
+  {
+    format: 'es', ext: '.mjs', plugins: [],
+    babelPresets: ['stage-1'], babelPlugins: [
+      'transform-es2015-destructuring',
+      'transform-es2015-function-name',
+      'transform-es2015-parameters'
+    ]
+  },
+  {
+    format: 'cjs', ext: '.browser.js', plugins: [],
+    babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: []
+  },
+  {
+    format: 'umd', ext: '.js', plugins: [],
+    babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [],
+  },
+  {
+    format: 'umd', ext: '.min.js', plugins: [uglify()],
+    babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [],
+  }
+];
 
 let promise = Promise.resolve();
 
 // Clean up the output directory
 promise = promise.then(() => del(['dist/*']));
 
-// Compile source code into a distributable format with Babel
-['es', 'cjs', 'umd'].forEach((format) => {
+// Compile source code into a distributable format with Babel and Rollup
+for (const config of bundles) {
   promise = promise.then(() => rollup.rollup({
     entry: 'src/index.js',
     external: Object.keys(pkg.dependencies),
-    plugins: [babel(Object.assign(pkg.babel, {
-      babelrc: false,
-      exclude: 'node_modules/**',
-      runtimeHelpers: true,
-      presets: pkg.babel.presets.map(x => (x === 'latest' ? ['latest', { es2015: { modules: false } }] : x)),
-    }))],
+    plugins: [
+      babel({
+        babelrc: false,
+        exclude: 'node_modules/**',
+        presets: config.babelPresets,
+        plugins: config.babelPlugins,
+      })
+    ].concat(config.plugins),
   }).then(bundle => bundle.write({
-    dest: `dist/${format === 'cjs' ? 'index' : `index.${format}`}.js`,
-    format,
-    sourceMap: true,
-    moduleName: format === 'umd' ? pkg.name : undefined,
+    dest: `dist/${config.moduleName || 'wealthsimple'}${config.ext}`,
+    format: config.format,
+    sourceMap: !config.minify,
+    moduleName: config.moduleName,
   })));
-});
+}
 
 // Copy package.json and LICENSE.txt
 promise = promise.then(() => {
