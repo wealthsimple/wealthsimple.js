@@ -7,7 +7,9 @@ class ApiError extends Error {
     this.response = response;
     this.json = json;
 
-    Error.captureStackTrace(this, ApiError);
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApiError);
+    }
   }
 
   isHeaderPresent(key) {
