@@ -1,6 +1,6 @@
 'use strict';
 
-require('es6-promise').polyfill();
+require('babel-polyfill');
 const snakeCaseKeys = require('snakecase-keys');
 const Request = require('./request');
 const { AuthenticationError } = require('./errors');
