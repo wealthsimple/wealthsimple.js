@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "dist/wealthsimple.js",
   "scripts": {
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
