@@ -1,6 +1,6 @@
 'use strict';
 
-require('es6-promise').polyfill();
+require('babel-polyfill');
 const snakeCaseKeys = require('snakecase-keys');
 const Request = require('./request');
 const { AuthenticationError } = require('./errors');
@@ -92,11 +92,11 @@ class Wealthsimple {
       delete attributes.checkAuthRefresh;
     }
 
-    const body = snakeCaseKeys(attributes);
-    Object.assign(body, {
+    const body = {
+      ...snakeCaseKeys(attributes),
       client_id: this.clientId,
       client_secret: this.clientSecret,
-    });
+    };
 
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((json) => {
