@@ -92,11 +92,11 @@ class Wealthsimple {
       delete attributes.checkAuthRefresh;
     }
 
-    const body = snakeCaseKeys(attributes);
-    Object.assign(body, {
+    const body = {
+      ...snakeCaseKeys(attributes),
       client_id: this.clientId,
       client_secret: this.clientSecret,
-    });
+    };
 
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((json) => {

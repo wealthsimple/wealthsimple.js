@@ -9,7 +9,7 @@ class Request {
   fetch({
     method, headers = {}, path, query = {}, body = null,
   }) {
-    const newHeaders = headers;
+    let newHeaders = headers;
     let newPath = path;
     let newBody = body;
 
@@ -23,7 +23,10 @@ class Request {
       newBody = JSON.stringify(newBody);
     }
 
-    Object.assign(newHeaders, this._defaultHeaders());
+    newHeaders = {
+      ...newHeaders,
+      ...this._defaultHeaders(),
+    };
 
     if (this.client.verbose) {
       const logs = [`${method}: ${url}`];

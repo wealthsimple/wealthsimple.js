@@ -4,18 +4,19 @@
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
   "main": "dist/wealthsimple.js",
+  "engines" : { "node" : ">=8.11.1" },
   "scripts": {
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
     "test": "jest --watch",
     "test:all": "yarn retire && yarn lint && jest --runInBand",
+    "prebuild": "rm -rf dist",
     "build": "webpack -p"
   },
   "browser": {
     "fs": false
   },
   "dependencies": {
-    "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^5.1.0",
     "snakecase-keys": "^1.1.0"
@@ -23,6 +24,12 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
