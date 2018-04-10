@@ -4,7 +4,7 @@
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
   "main": "dist/wealthsimple.js",
-  "engines" : { "node" : ">=8.11.1" },
+  "engines": { "node" : ">=8.3.0" },
   "scripts": {
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist",
