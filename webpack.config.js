@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   // This is where we start to crawl the tree looking for imports to
@@ -16,6 +17,12 @@ module.exports = {
   plugins: [
     // Don't output broken code; die instead.
     new webpack.NoEmitOnErrorsPlugin(),
+
+    // Creates a bundle contents report at dist/report.html
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+    }),
   ],
 
   // Output sourcemaps too, so people can debug their usage of this lib.
