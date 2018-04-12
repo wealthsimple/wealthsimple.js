@@ -23,10 +23,10 @@ authPromise
     return wealthsimple.revokeAuth();
   })
   .then(() => {
-    console.log('Revoked auth: ', wealthsimple.auth)
+    console.log('Revoked auth: ', wealthsimple.auth);
 
-    wealthsimple.revokeAuth().then(() => {
-      console.log('Did not fail on multiple revokes.');
-    }).catch(error => console.error('Failed on second revoke:', error.json));
+    wealthsimple.revokeAuth()
+      .then(() => console.log('Did not fail on multiple revokes.'))
+      .catch(error => console.error('Failed on second revoke:', error.json));
   })
   .catch(error => console.error('Error:', error));

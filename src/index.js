@@ -126,14 +126,23 @@ class Wealthsimple {
   }
 
   revokeAuth() {
-    return this.post('/oauth/revoke')
-      .then(() => {
-        this.auth = null;
+    if (this.auth) {
+      return this.post('/oauth/revoke')
+        .then(() => {
+          this.auth = null;
 
-        if (this.onAuthRevoke) {
-          this.onAuthRevoke();
-        }
-      });
+          if (this.onAuthRevoke) {
+            this.onAuthRevoke();
+          }
+        });
+    }
+    // Not authenticated
+    return new Promise((resolve) => {
+      if (this.onAuthRevoke) {
+        this.onAuthRevoke();
+      }
+      resolve();
+    });
   }
 
   _fetch(method, path, {
