@@ -56,7 +56,13 @@ class Request {
     if (!newPath.startsWith('/')) {
       newPath = `/${newPath}`;
     }
-    return `https://api.${this.client.env}.wealthsimple.com/${this.client.apiVersion}${newPath}`;
+    let baseUrl;
+    if (this.client.env === 'development') {
+      baseUrl = 'http://localhost:5349';
+    } else {
+      baseUrl = `https://api.${this.client.env}.wealthsimple.com`;
+    }
+    return `${baseUrl}/${this.client.apiVersion}${newPath}`;
   }
 
   _defaultHeaders() {
