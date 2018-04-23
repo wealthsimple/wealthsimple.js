@@ -11,6 +11,12 @@ Run the following to install:
 npm install --save git+https://git@github.com/wealthsimple/wealthsimple.js.git
 ```
 
+or if you use yarn:
+
+```sh
+yarn add git+https://git@github.com/wealthsimple/wealthsimple.js.git
+```
+
 ### Example usage
 
 See [samples directory](./samples) for a wide range of samples, or see the basic example below:

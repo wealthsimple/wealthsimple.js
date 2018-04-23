@@ -9,7 +9,7 @@ class Request {
   fetch({
     method, headers = {}, path, query = {}, body = null,
   }) {
-    const newHeaders = headers;
+    let newHeaders = headers;
     let newPath = path;
     let newBody = body;
 
@@ -23,7 +23,10 @@ class Request {
       newBody = JSON.stringify(newBody);
     }
 
-    Object.assign(newHeaders, this._defaultHeaders());
+    newHeaders = {
+      ...newHeaders,
+      ...this._defaultHeaders(),
+    };
 
     if (this.client.verbose) {
       const logs = [`${method}: ${url}`];
@@ -53,7 +56,13 @@ class Request {
     if (!newPath.startsWith('/')) {
       newPath = `/${newPath}`;
     }
-    return `https://api.${this.client.env}.wealthsimple.com/${this.client.apiVersion}${newPath}`;
+    let baseUrl;
+    if (this.client.env === 'development') {
+      baseUrl = 'http://localhost:5349';
+    } else {
+      baseUrl = `https://api.${this.client.env}.wealthsimple.com`;
+    }
+    return `${baseUrl}/${this.client.apiVersion}${newPath}`;
   }
 
   _defaultHeaders() {

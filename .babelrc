@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "babel-preset-env",
+      {
+        "targets": { "browsers": ["> 1%", "IE >= 10", "Safari >= 9"] },
+        "useBuiltIns": true
+      }
+    ]
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-async-to-generator"
+  ]
+}
