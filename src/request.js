@@ -57,8 +57,8 @@ class Request {
       newPath = `/${newPath}`;
     }
     let baseUrl;
-    if (this.client.env === 'development') {
-      baseUrl = 'http://localhost:5349';
+    if (this.client.baseUrl) {
+      ({ baseUrl } = this.client);
     } else {
       baseUrl = `https://api.${this.client.env}.wealthsimple.com`;
     }
