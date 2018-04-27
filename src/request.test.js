@@ -16,8 +16,9 @@ describe('Request', () => {
       wealthsimple.env = 'production';
       expect(request.urlFor('healthcheck')).toEqual('https://api.production.wealthsimple.com/v1/healthcheck');
 
-      wealthsimple.env = 'development';
-      expect(request.urlFor('healthcheck')).toEqual('http://localhost:5349/v1/healthcheck');
+      wealthsimple.env = undefined;
+      wealthsimple.baseUrl = 'http://localhost:3000';
+      expect(request.urlFor('healthcheck')).toEqual('http://localhost:3000/v1/healthcheck');
     });
   });
 });
