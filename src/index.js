@@ -1,7 +1,8 @@
 'use strict';
 
 require('babel-polyfill');
-const snakeCaseKeys = require('snakecase-keys');
+const snakeCase = require('lodash.snakecase');
+const mapKeys = require('lodash.mapkeys');
 const Request = require('./request');
 const { AuthenticationError } = require('./errors');
 const constants = require('./constants');
@@ -93,7 +94,7 @@ class Wealthsimple {
     }
 
     const body = {
-      ...snakeCaseKeys(attributes),
+      ...mapKeys(attributes, (v, k) => snakeCase(k)),
       client_id: this.clientId,
       client_secret: this.clientSecret,
     };
