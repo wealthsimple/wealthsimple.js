@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-module.exports = {
+module.exports = (env, argv) => ({
   // This is where we start to crawl the tree looking for imports to
   // tell us what the output bundle should include.
   entry: './src/index.js',
@@ -10,8 +10,9 @@ module.exports = {
   // This is where we're putting the output.
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'wealthsimple.js',
+    filename: argv.mode === 'production' ? 'wealthsimple.min.js' : 'wealthsimple.js',
     library: 'Wealthsimple',
+    libraryTarget: 'umd',
   },
 
   plugins: [
@@ -40,4 +41,4 @@ module.exports = {
       },
     ],
   },
-};
+});
