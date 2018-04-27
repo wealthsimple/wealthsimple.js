@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
-  "main": "dist/wealthsimple.js",
+  "main": "dist/wealthsimple.min.js",
   "engines": {
     "node": ">=8.3.0"
   },
@@ -13,7 +13,9 @@
     "test": "jest --watch",
     "test:all": "yarn retire && yarn lint && jest --runInBand",
     "prebuild": "rm -rf dist",
-    "build": "webpack -p"
+    "build": "npm run build:dev && npm run build:prod",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production"
   },
   "browser": {
     "fs": false

@@ -58,3 +58,4 @@ typings/
 .next
 
 .env
+.DS_Store
