@@ -1,5 +1,6 @@
 const queryString = require('query-string');
 const { ApiError } = require('./errors');
+const constants = require('./constants');
 
 class Request {
   constructor({ client }) {
@@ -68,6 +69,7 @@ class Request {
   _defaultHeaders() {
     return {
       Accept: 'application/json',
+      'Access-Control-Request-Headers': constants.ACCESS_CONTROL_REQUEST_HEADERS.join(', '),
       'Content-Type': 'application/json',
       Date: new Date().toUTCString(),
       'X-Wealthsimple-Client': 'wealthsimple.js',

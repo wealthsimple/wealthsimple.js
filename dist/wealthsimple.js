@@ -11368,11 +11368,16 @@ module.exports = function (module) {
 "use strict";
 
 
-module.exports = {
+var constants = {
   API_VERSIONS: ['v1'],
   ENVIRONMENTS: ['development', 'sandbox', 'production'],
   OTP_HEADER: 'x-wealthsimple-otp'
 };
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Headers
+constants.ACCESS_CONTROL_REQUEST_HEADERS = ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'x-request-id', constants.OTP_HEADER];
+
+module.exports = constants;
 
 /***/ }),
 
@@ -11914,6 +11919,8 @@ var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-
 var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
     ApiError = _require.ApiError;
 
+var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
+
 var Request = function () {
   function Request(_ref) {
     var client = _ref.client;
@@ -11993,6 +12000,7 @@ var Request = function () {
     value: function _defaultHeaders() {
       return {
         Accept: 'application/json',
+        'Access-Control-Request-Headers': constants.ACCESS_CONTROL_REQUEST_HEADERS.join(', '),
         'Content-Type': 'application/json',
         Date: new Date().toUTCString(),
         'X-Wealthsimple-Client': 'wealthsimple.js'
