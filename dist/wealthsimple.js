@@ -11358,6 +11358,187 @@ module.exports = function (module) {
 
 /***/ }),
 
+/***/ "./src/api-request.js":
+/*!****************************!*\
+  !*** ./src/api-request.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+
+var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
+    ApiError = _require.ApiError;
+
+var ApiResponse = __webpack_require__(/*! ./api-response */ "./src/api-response.js");
+
+var ApiRequest = function () {
+  function ApiRequest(_ref) {
+    var client = _ref.client;
+
+    _classCallCheck(this, ApiRequest);
+
+    this.client = client;
+  }
+
+  _createClass(ApiRequest, [{
+    key: 'fetch',
+    value: function fetch(_ref2) {
+      var method = _ref2.method,
+          _ref2$headers = _ref2.headers,
+          headers = _ref2$headers === undefined ? {} : _ref2$headers,
+          path = _ref2.path,
+          _ref2$query = _ref2.query,
+          query = _ref2$query === undefined ? {} : _ref2$query,
+          _ref2$body = _ref2.body,
+          body = _ref2$body === undefined ? null : _ref2$body;
+
+      var newHeaders = headers;
+      var newPath = path;
+      var newBody = body;
+
+      if (query && Object.keys(query).length > 0) {
+        newPath += '?' + queryString.stringify(query);
+      }
+      var url = this.urlFor(newPath);
+
+      // All request bodies (for now) are JSON:
+      if (newBody && typeof newBody !== 'string') {
+        newBody = JSON.stringify(newBody);
+      }
+
+      newHeaders = _extends({}, newHeaders, this._defaultHeaders());
+
+      if (this.client.verbose) {
+        var logs = [method + ': ' + url];
+        if (newBody) {
+          logs.push(newBody);
+        }
+        console.info(logs.join('\n') + '\n');
+      }
+
+      return this.client.fetchAdapter(url, {
+        headers: newHeaders,
+        method: method,
+        body: newBody
+      }).then(function (response) {
+        var parsedResponsePromise = response.json().then(function (json) {
+          var apiResponse = new ApiResponse({
+            json: json,
+            status: response.status,
+            headers: response.headers
+          });
+          if (!response.ok) {
+            throw new ApiError(apiResponse);
+          }
+          return apiResponse;
+        });
+        return parsedResponsePromise;
+      });
+    }
+  }, {
+    key: 'urlFor',
+    value: function urlFor(path) {
+      var newPath = path;
+      if (!newPath.startsWith('/')) {
+        newPath = '/' + newPath;
+      }
+      var baseUrl = void 0;
+      if (this.client.baseUrl) {
+        baseUrl = this.client.baseUrl;
+      } else {
+        baseUrl = 'https://api.' + this.client.env + '.wealthsimple.com';
+      }
+      return baseUrl + '/' + this.client.apiVersion + newPath;
+    }
+  }, {
+    key: '_defaultHeaders',
+    value: function _defaultHeaders() {
+      return {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Date: new Date().toUTCString(),
+        'X-Wealthsimple-Client': 'wealthsimple.js'
+      };
+    }
+  }]);
+
+  return ApiRequest;
+}();
+
+module.exports = ApiRequest;
+
+/***/ }),
+
+/***/ "./src/api-response.js":
+/*!*****************************!*\
+  !*** ./src/api-response.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ApiResponse = function () {
+  function ApiResponse(_ref) {
+    var headers = _ref.headers,
+        status = _ref.status,
+        json = _ref.json;
+
+    _classCallCheck(this, ApiResponse);
+
+    this.headers = headers;
+    this.status = status;
+    this.json = json;
+  }
+
+  _createClass(ApiResponse, [{
+    key: 'getRateLimitReset',
+    value: function getRateLimitReset() {
+      if (this.headers.has('x-ratelimit-reset')) {
+        return new Date(Date.parse(this.headers.get('x-ratelimit-reset')));
+      }
+      return null;
+    }
+  }, {
+    key: 'getRateLimitLimit',
+    value: function getRateLimitLimit() {
+      if (this.headers.has('x-ratelimit-limit')) {
+        return parseInt(this.headers.get('x-ratelimit-limit'), 10);
+      }
+      return null;
+    }
+  }, {
+    key: 'getRateLimitRemaining',
+    value: function getRateLimitRemaining() {
+      if (this.headers.has('x-ratelimit-remaining')) {
+        return parseInt(this.headers.get('x-ratelimit-remaining'), 10);
+      }
+      return null;
+    }
+  }]);
+
+  return ApiResponse;
+}();
+
+module.exports = ApiResponse;
+
+/***/ }),
+
 /***/ "./src/constants.js":
 /*!**************************!*\
   !*** ./src/constants.js ***!
@@ -11399,31 +11580,18 @@ var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
 var ApiError = function (_Error) {
   _inherits(ApiError, _Error);
 
-  function ApiError(response, json) {
+  function ApiError(response) {
     _classCallCheck(this, ApiError);
 
-    var _this = _possibleConstructorReturn(this, (ApiError.__proto__ || Object.getPrototypeOf(ApiError)).call(this, json));
+    var _this = _possibleConstructorReturn(this, (ApiError.__proto__ || Object.getPrototypeOf(ApiError)).call(this, response.json));
 
     _this.response = response;
-    _this.json = json;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(_this, ApiError);
     }
     return _this;
   }
-
-  _createClass(ApiError, [{
-    key: 'isHeaderPresent',
-    value: function isHeaderPresent(key) {
-      return !!this.header(key);
-    }
-  }, {
-    key: 'header',
-    value: function header(key) {
-      return this.response.headers.get(key);
-    }
-  }]);
 
   return ApiError;
 }(Error);
@@ -11440,12 +11608,12 @@ var AuthenticationError = function (_ApiError) {
   _createClass(AuthenticationError, [{
     key: 'isOTP',
     value: function isOTP() {
-      return this.isHeaderPresent(constants.OTP_HEADER);
+      return this.response.headers.has(constants.OTP_HEADER);
     }
   }, {
     key: 'isOTPRequired',
     value: function isOTPRequired() {
-      return this.header(constants.OTP_HEADER).startsWith('required');
+      return this.response.headers.get(constants.OTP_HEADER).startsWith('required');
     }
   }]);
 
@@ -11669,7 +11837,7 @@ __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerat
 
 var snakeCase = __webpack_require__(/*! lodash.snakecase */ "./node_modules/lodash.snakecase/index.js");
 var mapKeys = __webpack_require__(/*! lodash.mapkeys */ "./node_modules/lodash.mapkeys/index.js");
-var Request = __webpack_require__(/*! ./request */ "./src/request.js");
+var ApiRequest = __webpack_require__(/*! ./api-request */ "./src/api-request.js");
 
 var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
     AuthenticationError = _require.AuthenticationError;
@@ -11746,7 +11914,7 @@ var Wealthsimple = function () {
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
 
-    this.request = new Request({ client: this });
+    this.request = new ApiRequest({ client: this });
   }
 
   _createClass(Wealthsimple, [{
@@ -11799,17 +11967,17 @@ var Wealthsimple = function () {
         client_secret: this.clientSecret
       });
 
-      return this.post('/oauth/token', { headers: headers, body: body, checkAuthRefresh: checkAuthRefresh }).then(function (json) {
+      return this.post('/oauth/token', { headers: headers, body: body, checkAuthRefresh: checkAuthRefresh }).then(function (response) {
         // Save auth details for use in subsequent requests:
-        _this.auth = json;
+        _this.auth = response.json;
 
         if (_this.onAuthSuccess) {
-          _this.onAuthSuccess(json);
+          _this.onAuthSuccess(response.json);
         }
 
-        return json;
+        return response;
       }).catch(function (error) {
-        throw new AuthenticationError(error.response, error.json);
+        throw new AuthenticationError(error.response);
       });
     }
   }, {
@@ -11890,120 +12058,6 @@ var Wealthsimple = function () {
 });
 
 module.exports = Wealthsimple;
-
-/***/ }),
-
-/***/ "./src/request.js":
-/*!************************!*\
-  !*** ./src/request.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-
-var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
-    ApiError = _require.ApiError;
-
-var Request = function () {
-  function Request(_ref) {
-    var client = _ref.client;
-
-    _classCallCheck(this, Request);
-
-    this.client = client;
-  }
-
-  _createClass(Request, [{
-    key: 'fetch',
-    value: function fetch(_ref2) {
-      var method = _ref2.method,
-          _ref2$headers = _ref2.headers,
-          headers = _ref2$headers === undefined ? {} : _ref2$headers,
-          path = _ref2.path,
-          _ref2$query = _ref2.query,
-          query = _ref2$query === undefined ? {} : _ref2$query,
-          _ref2$body = _ref2.body,
-          body = _ref2$body === undefined ? null : _ref2$body;
-
-      var newHeaders = headers;
-      var newPath = path;
-      var newBody = body;
-
-      if (query && Object.keys(query).length > 0) {
-        newPath += '?' + queryString.stringify(query);
-      }
-      var url = this.urlFor(newPath);
-
-      // All request bodies (for now) are JSON:
-      if (newBody && typeof newBody !== 'string') {
-        newBody = JSON.stringify(newBody);
-      }
-
-      newHeaders = _extends({}, newHeaders, this._defaultHeaders());
-
-      if (this.client.verbose) {
-        var logs = [method + ': ' + url];
-        if (newBody) {
-          logs.push(newBody);
-        }
-        console.info(logs.join('\n') + '\n');
-      }
-
-      return this.client.fetchAdapter(url, {
-        headers: newHeaders,
-        method: method,
-        body: newBody
-      }).then(function (response) {
-        var parsedResponsePromise = response.json().then(function (json) {
-          if (!response.ok) {
-            throw new ApiError(response, json);
-          }
-          return json;
-        });
-        return parsedResponsePromise;
-      });
-    }
-  }, {
-    key: 'urlFor',
-    value: function urlFor(path) {
-      var newPath = path;
-      if (!newPath.startsWith('/')) {
-        newPath = '/' + newPath;
-      }
-      var baseUrl = void 0;
-      if (this.client.baseUrl) {
-        baseUrl = this.client.baseUrl;
-      } else {
-        baseUrl = 'https://api.' + this.client.env + '.wealthsimple.com';
-      }
-      return baseUrl + '/' + this.client.apiVersion + newPath;
-    }
-  }, {
-    key: '_defaultHeaders',
-    value: function _defaultHeaders() {
-      return {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Date: new Date().toUTCString(),
-        'X-Wealthsimple-Client': 'wealthsimple.js'
-      };
-    }
-  }]);
-
-  return Request;
-}();
-
-module.exports = Request;
 
 /***/ })
 
