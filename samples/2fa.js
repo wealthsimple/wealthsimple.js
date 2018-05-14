@@ -36,7 +36,7 @@ authPromise
   .catch((error) => {
     if (error.isOTPRequired()) {
       handleOtp()
-        .then(data => console.log('2FA success!', data))
+        .then(response => console.log('2FA success!', response.json))
         .catch(otpError => console.log('2FA error:', otpError));
     } else {
       console.error('Username/password incorrect:', error);

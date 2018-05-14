@@ -45,7 +45,11 @@ class Request {
         if (!response.ok) {
           throw new ApiError(response, json);
         }
-        return json;
+        return {
+          json,
+          status: response.status,
+          headers: response.headers,
+        };
       });
       return parsedResponsePromise;
     });
