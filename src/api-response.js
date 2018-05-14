@@ -7,23 +7,17 @@ class ApiResponse {
     this.json = json;
   }
 
-  getRateLimitReset() {
-    if (this.headers.has('x-ratelimit-reset')) {
-      return new Date(Date.parse(this.headers.get('x-ratelimit-reset')));
-    }
-    return null;
+  hasHeaders(...headerKeys) {
+    return headerKeys.every(headerKey => this.headers.has(headerKey));
   }
 
-  getRateLimitLimit() {
-    if (this.headers.has('x-ratelimit-limit')) {
-      return parseInt(this.headers.get('x-ratelimit-limit'), 10);
-    }
-    return null;
-  }
-
-  getRateLimitRemaining() {
-    if (this.headers.has('x-ratelimit-remaining')) {
-      return parseInt(this.headers.get('x-ratelimit-remaining'), 10);
+  getRateLimit() {
+    if (this.hasHeaders('x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset')) {
+      return {
+        limit: parseInt(this.headers.get('x-ratelimit-limit'), 10),
+        remaining: parseInt(this.headers.get('x-ratelimit-remaining'), 10),
+        reset: new Date(Date.parse(this.headers.get('x-ratelimit-reset'))),
+      };
     }
     return null;
   }

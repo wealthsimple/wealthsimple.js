@@ -26,12 +26,10 @@ describe('ApiResponse', () => {
     });
   });
 
-  describe('rate limit methods', () => {
+  describe('getRateLimit', () => {
     describe('without rate limit headers', () => {
       it('return null if no rate limit details present', () => {
-        expect(response.getRateLimitRemaining()).toBe(null);
-        expect(response.getRateLimitLimit()).toBe(null);
-        expect(response.getRateLimitReset()).toBe(null);
+        expect(response.getRateLimit()).toBe(null);
       });
     });
 
@@ -42,10 +40,12 @@ describe('ApiResponse', () => {
         headers['x-ratelimit-reset'] = '2018-05-14T19:00:00Z';
       });
 
-      it('returns the integer limit remaining', () => {
-        expect(response.getRateLimitRemaining()).toEqual(987);
-        expect(response.getRateLimitLimit()).toEqual(1000);
-        expect(response.getRateLimitReset()).toBeInstanceOf(Date);
+      it('returns rate limit details', () => {
+        expect(response.getRateLimit()).toEqual({
+          limit: 1000,
+          remaining: 987,
+          reset: new Date(Date.parse('2018-05-14T19:00:00Z')),
+        });
       });
     });
   });
