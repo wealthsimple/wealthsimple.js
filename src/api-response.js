@@ -1,4 +1,4 @@
-class Response {
+class ApiResponse {
   constructor({ headers, status, json }) {
     this.headers = headers;
     this.status = status;
@@ -24,4 +24,4 @@ class Response {
   }
 }
 
-module.exports = Response;
+module.exports = ApiResponse;

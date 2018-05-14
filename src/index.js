@@ -3,7 +3,7 @@
 require('babel-polyfill');
 const snakeCase = require('lodash.snakecase');
 const mapKeys = require('lodash.mapkeys');
-const Request = require('./request');
+const ApiRequest = require('./api-request');
 const { AuthenticationError } = require('./errors');
 const constants = require('./constants');
 
@@ -60,7 +60,7 @@ class Wealthsimple {
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
 
-    this.request = new Request({ client: this });
+    this.request = new ApiRequest({ client: this });
   }
 
   resourceOwnerId() {
@@ -115,7 +115,7 @@ class Wealthsimple {
         return response;
       })
       .catch((error) => {
-        throw new AuthenticationError(error.response, error.json);
+        throw new AuthenticationError(error.response);
       });
   }
 

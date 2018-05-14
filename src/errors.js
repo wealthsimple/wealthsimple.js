@@ -1,33 +1,24 @@
 const constants = require('./constants');
 
 class ApiError extends Error {
-  constructor(response, json) {
-    super(json);
+  constructor(response) {
+    super(response.json);
 
     this.response = response;
-    this.json = json;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ApiError);
     }
   }
-
-  isHeaderPresent(key) {
-    return !!this.header(key);
-  }
-
-  header(key) {
-    return this.response.headers.get(key);
-  }
 }
 
 class AuthenticationError extends ApiError {
   isOTP() {
-    return this.isHeaderPresent(constants.OTP_HEADER);
+    return this.response.headers.has(constants.OTP_HEADER);
   }
 
   isOTPRequired() {
-    return this.header(constants.OTP_HEADER).startsWith('required');
+    return this.response.headers.get(constants.OTP_HEADER).startsWith('required');
   }
 }
 
