@@ -41,20 +41,7 @@ class ApiRequest {
       headers: newHeaders,
       method,
       body: newBody,
-    }).then((response) => {
-      const parsedResponsePromise = response.json().then((json) => {
-        const apiResponse = new ApiResponse({
-          json,
-          status: response.status,
-          headers: response.headers,
-        });
-        if (!response.ok) {
-          throw new ApiError(apiResponse);
-        }
-        return apiResponse;
-      });
-      return parsedResponsePromise;
-    });
+    }).then(this._handleResponse);
   }
 
   urlFor(path) {
@@ -69,6 +56,27 @@ class ApiRequest {
       baseUrl = `https://api.${this.client.env}.wealthsimple.com`;
     }
     return `${baseUrl}/${this.client.apiVersion}${newPath}`;
+  }
+
+  // Given a Response object ( https://developer.mozilla.org/en-US/docs/Web/API/Response )
+  // either parse it and wrap it in our own ApiResponse class, or throw an ApiError.
+  _handleResponse(response) {
+    const apiResponse = new ApiResponse({
+      status: response.status,
+      headers: response.headers,
+    })
+    return response.json()
+      .then((json) => {
+        apiResponse.json = json;
+      }).catch((error) => {
+        // Fail silently if response body is not present or malformed JSON:
+        apiResponse.json = null;
+      }).then(() => {
+        if (!response.ok) {
+          throw new ApiError(apiResponse);
+        }
+        return apiResponse;
+      });
   }
 
   _defaultHeaders() {
