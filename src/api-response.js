@@ -28,14 +28,30 @@ class ApiResponse {
     return null;
   }
 
-  isOTPRequired() {
-    return this.headers.has(constants.OTP_HEADER);
+  getOTP() {
+    const otpString = this.headers.get(constants.OTP_HEADER);
+    if (!otpString) {
+      return null;
+    }
+    const otp = {};
+
+    // Parse out OTP details into a more usable format. It is expected to be
+    // in the format like `invalid` or `required; method=sms; digits=1234`
+    otpString.split('; ').forEach((otpAttribute) => {
+      if (otpAttribute.includes('=')) {
+        const [key, value] = otpAttribute.split('=');
+        otp[key] = value;
+      } else {
+        otp[otpAttribute] = true;
+      }
+    });
+    return otp;
   }
 
   toString() {
     let message = `Response status: ${this.status}`;
     try {
-      message += `, body: ${JSON.stringify(this.json)}`;
+      message += `, body: ${JSON.stringify(this.json).substring(0, 500)}`;
     } catch (e) {
       // Ignore JSON stringify errors.
     }
