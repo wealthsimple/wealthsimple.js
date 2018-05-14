@@ -4,7 +4,7 @@ require('babel-polyfill');
 const snakeCase = require('lodash.snakecase');
 const mapKeys = require('lodash.mapkeys');
 const ApiRequest = require('./api-request');
-const { AuthenticationError } = require('./errors');
+const ApiError = require('./api-error');
 const constants = require('./constants');
 
 class Wealthsimple {
@@ -115,7 +115,7 @@ class Wealthsimple {
         return response;
       })
       .catch((error) => {
-        throw new AuthenticationError(error.response);
+        throw new ApiError(error.response);
       });
   }
 

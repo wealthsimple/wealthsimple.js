@@ -11358,6 +11358,45 @@ module.exports = function (module) {
 
 /***/ }),
 
+/***/ "./src/api-error.js":
+/*!**************************!*\
+  !*** ./src/api-error.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ApiError = function (_Error) {
+  _inherits(ApiError, _Error);
+
+  function ApiError(response) {
+    _classCallCheck(this, ApiError);
+
+    var _this = _possibleConstructorReturn(this, (ApiError.__proto__ || Object.getPrototypeOf(ApiError)).call(this, response.toString()));
+
+    _this.response = response;
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(_this, ApiError);
+    }
+    return _this;
+  }
+
+  return ApiError;
+}(Error);
+
+module.exports = ApiError;
+
+/***/ }),
+
 /***/ "./src/api-request.js":
 /*!****************************!*\
   !*** ./src/api-request.js ***!
@@ -11375,10 +11414,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-
-var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
-    ApiError = _require.ApiError;
-
+var ApiError = __webpack_require__(/*! ./api-error */ "./src/api-error.js");
 var ApiResponse = __webpack_require__(/*! ./api-response */ "./src/api-response.js");
 
 var ApiRequest = function () {
@@ -11493,6 +11529,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
+
 var ApiResponse = function () {
   function ApiResponse(_ref) {
     var headers = _ref.headers,
@@ -11530,6 +11568,22 @@ var ApiResponse = function () {
       }
       return null;
     }
+  }, {
+    key: 'isOTPRequired',
+    value: function isOTPRequired() {
+      return this.headers.has(constants.OTP_HEADER);
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      var message = 'Response status: ' + this.status;
+      try {
+        message += ', body: ' + JSON.stringify(this.json);
+      } catch (e) {
+        // Ignore JSON stringify errors.
+      }
+      return message;
+    }
   }]);
 
   return ApiResponse;
@@ -11553,76 +11607,6 @@ module.exports = {
   API_VERSIONS: ['v1'],
   ENVIRONMENTS: ['development', 'sandbox', 'production'],
   OTP_HEADER: 'x-wealthsimple-otp'
-};
-
-/***/ }),
-
-/***/ "./src/errors.js":
-/*!***********************!*\
-  !*** ./src/errors.js ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
-
-var ApiError = function (_Error) {
-  _inherits(ApiError, _Error);
-
-  function ApiError(response) {
-    _classCallCheck(this, ApiError);
-
-    var _this = _possibleConstructorReturn(this, (ApiError.__proto__ || Object.getPrototypeOf(ApiError)).call(this, response.json));
-
-    _this.response = response;
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(_this, ApiError);
-    }
-    return _this;
-  }
-
-  return ApiError;
-}(Error);
-
-var AuthenticationError = function (_ApiError) {
-  _inherits(AuthenticationError, _ApiError);
-
-  function AuthenticationError() {
-    _classCallCheck(this, AuthenticationError);
-
-    return _possibleConstructorReturn(this, (AuthenticationError.__proto__ || Object.getPrototypeOf(AuthenticationError)).apply(this, arguments));
-  }
-
-  _createClass(AuthenticationError, [{
-    key: 'isOTP',
-    value: function isOTP() {
-      return this.response.headers.has(constants.OTP_HEADER);
-    }
-  }, {
-    key: 'isOTPRequired',
-    value: function isOTPRequired() {
-      return this.response.headers.get(constants.OTP_HEADER).startsWith('required');
-    }
-  }]);
-
-  return AuthenticationError;
-}(ApiError);
-
-module.exports = {
-  ApiError: ApiError,
-  AuthenticationError: AuthenticationError
 };
 
 /***/ }),
@@ -11838,10 +11822,7 @@ __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerat
 var snakeCase = __webpack_require__(/*! lodash.snakecase */ "./node_modules/lodash.snakecase/index.js");
 var mapKeys = __webpack_require__(/*! lodash.mapkeys */ "./node_modules/lodash.mapkeys/index.js");
 var ApiRequest = __webpack_require__(/*! ./api-request */ "./src/api-request.js");
-
-var _require = __webpack_require__(/*! ./errors */ "./src/errors.js"),
-    AuthenticationError = _require.AuthenticationError;
-
+var ApiError = __webpack_require__(/*! ./api-error */ "./src/api-error.js");
 var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
 
 var Wealthsimple = function () {
@@ -11977,7 +11958,7 @@ var Wealthsimple = function () {
 
         return response;
       }).catch(function (error) {
-        throw new AuthenticationError(error.response);
+        throw new ApiError(error.response);
       });
     }
   }, {

@@ -1,3 +1,5 @@
+const constants = require('./constants');
+
 class ApiResponse {
   constructor({ headers, status, json }) {
     this.headers = headers;
@@ -24,6 +26,20 @@ class ApiResponse {
       return parseInt(this.headers.get('x-ratelimit-remaining'), 10);
     }
     return null;
+  }
+
+  isOTPRequired() {
+    return this.headers.has(constants.OTP_HEADER);
+  }
+
+  toString() {
+    let message = `Response status: ${this.status}`;
+    try {
+      message += `, body: ${JSON.stringify(this.json)}`;
+    } catch (e) {
+      // Ignore JSON stringify errors.
+    }
+    return message;
   }
 }
 

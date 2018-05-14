@@ -1,5 +1,5 @@
 const queryString = require('query-string');
-const { ApiError } = require('./errors');
+const ApiError = require('./api-error');
 const ApiResponse = require('./api-response');
 
 class ApiRequest {
