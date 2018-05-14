@@ -11466,20 +11466,7 @@ var ApiRequest = function () {
         headers: newHeaders,
         method: method,
         body: newBody
-      }).then(function (response) {
-        var parsedResponsePromise = response.json().then(function (json) {
-          var apiResponse = new ApiResponse({
-            json: json,
-            status: response.status,
-            headers: response.headers
-          });
-          if (!response.ok) {
-            throw new ApiError(apiResponse);
-          }
-          return apiResponse;
-        });
-        return parsedResponsePromise;
-      });
+      }).then(this._handleResponse);
     }
   }, {
     key: 'urlFor',
@@ -11495,6 +11482,29 @@ var ApiRequest = function () {
         baseUrl = 'https://api.' + this.client.env + '.wealthsimple.com';
       }
       return baseUrl + '/' + this.client.apiVersion + newPath;
+    }
+
+    // Given a Response object ( https://developer.mozilla.org/en-US/docs/Web/API/Response )
+    // either parse it and wrap it in our own ApiResponse class, or throw an ApiError.
+
+  }, {
+    key: '_handleResponse',
+    value: function _handleResponse(response) {
+      var apiResponse = new ApiResponse({
+        status: response.status,
+        headers: response.headers
+      });
+      return response.json().then(function (json) {
+        apiResponse.json = json;
+      }).catch(function (error) {
+        // Fail silently if response body is not present or malformed JSON:
+        apiResponse.json = null;
+      }).then(function () {
+        if (!response.ok) {
+          throw new ApiError(apiResponse);
+        }
+        return apiResponse;
+      });
     }
   }, {
     key: '_defaultHeaders',
@@ -11547,26 +11557,27 @@ var ApiResponse = function () {
   }
 
   _createClass(ApiResponse, [{
-    key: 'getRateLimitReset',
-    value: function getRateLimitReset() {
-      if (this.headers.has('x-ratelimit-reset')) {
-        return new Date(Date.parse(this.headers.get('x-ratelimit-reset')));
+    key: 'hasHeaders',
+    value: function hasHeaders() {
+      var _this = this;
+
+      for (var _len = arguments.length, headerKeys = Array(_len), _key = 0; _key < _len; _key++) {
+        headerKeys[_key] = arguments[_key];
       }
-      return null;
+
+      return headerKeys.every(function (headerKey) {
+        return _this.headers.has(headerKey);
+      });
     }
   }, {
-    key: 'getRateLimitLimit',
-    value: function getRateLimitLimit() {
-      if (this.headers.has('x-ratelimit-limit')) {
-        return parseInt(this.headers.get('x-ratelimit-limit'), 10);
-      }
-      return null;
-    }
-  }, {
-    key: 'getRateLimitRemaining',
-    value: function getRateLimitRemaining() {
-      if (this.headers.has('x-ratelimit-remaining')) {
-        return parseInt(this.headers.get('x-ratelimit-remaining'), 10);
+    key: 'getRateLimit',
+    value: function getRateLimit() {
+      if (this.hasHeaders('x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset')) {
+        return {
+          limit: parseInt(this.headers.get('x-ratelimit-limit'), 10),
+          remaining: parseInt(this.headers.get('x-ratelimit-remaining'), 10),
+          reset: new Date(Date.parse(this.headers.get('x-ratelimit-reset')))
+        };
       }
       return null;
     }
