@@ -1,7 +1,8 @@
 const queryString = require('query-string');
-const { ApiError } = require('./errors');
+const ApiError = require('./api-error');
+const ApiResponse = require('./api-response');
 
-class Request {
+class ApiRequest {
   constructor({ client }) {
     this.client = client;
   }
@@ -42,14 +43,15 @@ class Request {
       body: newBody,
     }).then((response) => {
       const parsedResponsePromise = response.json().then((json) => {
-        if (!response.ok) {
-          throw new ApiError(response, json);
-        }
-        return {
+        const apiResponse = new ApiResponse({
           json,
           status: response.status,
           headers: response.headers,
-        };
+        });
+        if (!response.ok) {
+          throw new ApiError(apiResponse);
+        }
+        return apiResponse;
       });
       return parsedResponsePromise;
     });
@@ -79,4 +81,4 @@ class Request {
   }
 }
 
-module.exports = Request;
+module.exports = ApiRequest;

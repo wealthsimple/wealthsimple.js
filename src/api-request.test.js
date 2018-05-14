@@ -1,12 +1,12 @@
 const Wealthsimple = require('./index');
-const Request = require('./request');
+const ApiRequest = require('./api-request');
 
-describe('Request', () => {
+describe('ApiRequest', () => {
   let wealthsimple;
   let request;
   beforeEach(() => {
     wealthsimple = new Wealthsimple({ clientId: 'clientid', env: 'sandbox', apiVersion: 'v1' });
-    request = new Request({ client: wealthsimple });
+    request = new ApiRequest({ client: wealthsimple });
   });
 
   describe('urlFor()', () => {

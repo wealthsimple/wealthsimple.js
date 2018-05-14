@@ -34,7 +34,9 @@ const handleOtp = () => {
 
 authPromise
   .catch((error) => {
-    if (error.isOTPRequired()) {
+    const otp = error.response.getOTP();
+    console.log('OTP? ', otp);
+    if (otp) {
       handleOtp()
         .then(response => console.log('2FA success!', response.json))
         .catch(otpError => console.log('2FA error:', otpError));
