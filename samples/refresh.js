@@ -20,5 +20,5 @@ authPromise
     wealthsimple.auth.created_at = 1519775956;
   })
   .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
-  .then(data => console.log('Success: ', data))
+  .then(response => console.log('Success: ', response.json))
   .catch(error => console.error('Error:', error));

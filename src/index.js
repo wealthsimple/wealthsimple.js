@@ -104,15 +104,15 @@ class Wealthsimple {
     };
 
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
-      .then((json) => {
+      .then((response) => {
         // Save auth details for use in subsequent requests:
-        this.auth = json;
+        this.auth = response.json;
 
         if (this.onAuthSuccess) {
-          this.onAuthSuccess(json);
+          this.onAuthSuccess(response.json);
         }
 
-        return json;
+        return response;
       })
       .catch((error) => {
         throw new AuthenticationError(error.response, error.json);

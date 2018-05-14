@@ -13,7 +13,7 @@ const wealthsimple = new Wealthsimple({
 });
 
 wealthsimple.get('/healthcheck')
-  .then(data => console.log(data));
+  .then(response => console.log(response.json));
 
 const authPromise = wealthsimple.authenticate({
   grantType: 'password',
@@ -26,10 +26,10 @@ const authPromise = wealthsimple.authenticate({
 // repeat the auth request each time.
 authPromise
   .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
-  .then(data => console.log('Success: ', data))
+  .then(response => console.log('Success: ', response.json))
   .catch(error => console.error('Error:', error));
 
 authPromise
   .then(() => wealthsimple.get('/deposits', { query: { limit: 2, sort_by: 'amount', sort_order: 'desc' } }))
-  .then(data => console.log('Success: ', data))
+  .then(response => console.log('Success: ', response.json))
   .catch(error => console.error('Error:', error));
