@@ -11496,7 +11496,7 @@ var ApiRequest = function () {
       });
       return response.json().then(function (json) {
         apiResponse.json = json;
-      }).catch(function (error) {
+      }).catch(function () {
         // Fail silently if response body is not present or malformed JSON:
         apiResponse.json = null;
       }).then(function () {
@@ -12063,7 +12063,7 @@ var Wealthsimple = function () {
   return Wealthsimple;
 }();
 
-['get', 'patch', 'put', 'post', 'delete', 'head', 'options'].forEach(function (method) {
+['get', 'patch', 'put', 'post', 'delete', 'head'].forEach(function (method) {
   Wealthsimple.prototype[method] = function (path) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 

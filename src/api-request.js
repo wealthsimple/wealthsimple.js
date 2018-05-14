@@ -64,11 +64,11 @@ class ApiRequest {
     const apiResponse = new ApiResponse({
       status: response.status,
       headers: response.headers,
-    })
+    });
     return response.json()
       .then((json) => {
         apiResponse.json = json;
-      }).catch((error) => {
+      }).catch(() => {
         // Fail silently if response body is not present or malformed JSON:
         apiResponse.json = null;
       }).then(() => {
