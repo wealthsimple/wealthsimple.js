@@ -174,7 +174,7 @@ class Wealthsimple {
   }
 }
 
-['get', 'patch', 'put', 'post', 'delete', 'head', 'options'].forEach((method) => {
+['get', 'patch', 'put', 'post', 'delete', 'head'].forEach((method) => {
   Wealthsimple.prototype[method] = function (path, options = {}) {
     return this._fetch(method.toUpperCase(), path, options);
   };

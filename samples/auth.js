@@ -31,5 +31,5 @@ authPromise
 
 authPromise
   .then(() => wealthsimple.get('/deposits', { query: { limit: 2, sort_by: 'amount', sort_order: 'desc' } }))
-  .then(response => console.log('Success: ', response.json, response.getRateLimitRemaining()))
+  .then(response => console.log('Success: ', response.json, response.getRateLimit()))
   .catch(error => console.error('Error:', error));
