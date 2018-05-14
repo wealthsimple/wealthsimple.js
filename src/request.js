@@ -1,5 +1,6 @@
 const queryString = require('query-string');
 const { ApiError } = require('./errors');
+const Response = require('./response');
 
 class Request {
   constructor({ client }) {
@@ -45,11 +46,11 @@ class Request {
         if (!response.ok) {
           throw new ApiError(response, json);
         }
-        return {
+        return new Response({
           json,
           status: response.status,
           headers: response.headers,
-        };
+        });
       });
       return parsedResponsePromise;
     });
