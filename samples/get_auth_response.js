@@ -6,7 +6,7 @@ const Wealthsimple = require('../src/index');
 
 const wealthsimple = new Wealthsimple({
   env: 'sandbox',
-  clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
+  clientId: '476a51893b1c1c9c633f85b976706baa653bea41c1b1c62913128cc588b47e26',
 });
 
 const authPromise = wealthsimple.authenticate({
