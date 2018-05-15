@@ -25,7 +25,10 @@ const authPromise = wealthsimple.authenticate({
 // Guard authenticated endpoints with the auth promise: Note this will not
 // repeat the auth request each time.
 authPromise
-  .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
+  .then(() => {
+    console.log('Client ID:', wealthsimple.clientCanonicalId());
+    return wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`);
+  })
   .then(response => console.log('Success: ', response.json))
   .catch(error => console.error('Error:', error));
 

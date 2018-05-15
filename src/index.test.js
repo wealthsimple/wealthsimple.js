@@ -64,4 +64,31 @@ describe('Wealthsimple', () => {
       });
     });
   });
+
+  describe('resourceOwnerId and clientCanonicalId', () => {
+    describe('auth is not present', () => {
+      beforeEach(() => {
+        wealthsimple.auth = null;
+      });
+
+      it('returns falsy', () => {
+        expect(wealthsimple.resourceOwnerId()).toBeFalsy();
+        expect(wealthsimple.clientCanonicalId()).toBeFalsy();
+      });
+    });
+
+    describe('auth is present', () => {
+      beforeEach(() => {
+        wealthsimple.auth = {
+          resource_owner_id: 'user-abc123',
+          client_canonical_id: 'person-def345',
+        };
+      });
+
+      it('returns the IDs', () => {
+        expect(wealthsimple.resourceOwnerId()).toEqual('user-abc123');
+        expect(wealthsimple.clientCanonicalId()).toEqual('person-def345');
+      });
+    });
+  });
 });

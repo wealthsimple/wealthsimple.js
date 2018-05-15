@@ -11937,6 +11937,11 @@ var Wealthsimple = function () {
       return this.auth && this.auth.resource_owner_id;
     }
   }, {
+    key: 'clientCanonicalId',
+    value: function clientCanonicalId() {
+      return this.auth && this.auth.client_canonical_id;
+    }
+  }, {
     key: 'authExpiresAt',
     value: function authExpiresAt() {
       if (this.auth) {
