@@ -67,6 +67,10 @@ class Wealthsimple {
     return this.auth && this.auth.resource_owner_id;
   }
 
+  clientCanonicalId() {
+    return this.auth && this.auth.client_canonical_id;
+  }
+
   authExpiresAt() {
     if (this.auth) {
       const expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
