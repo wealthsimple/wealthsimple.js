@@ -9,7 +9,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, auth, fetchAdapter, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, verbose = false,
+    clientId, clientSecret, auth, fetchAdapter, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onResponse = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -59,6 +59,7 @@ class Wealthsimple {
     // Optionally allow for callbacks on certain key events:
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
+    this.onResponse = onResponse;
 
     this.request = new ApiRequest({ client: this });
   }

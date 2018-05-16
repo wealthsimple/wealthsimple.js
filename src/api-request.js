@@ -41,7 +41,7 @@ class ApiRequest {
       headers: newHeaders,
       method,
       body: newBody,
-    }).then(this._handleResponse);
+    }).then(this._handleResponse.bind(this));
   }
 
   urlFor(path) {
@@ -72,6 +72,9 @@ class ApiRequest {
         // Fail silently if response body is not present or malformed JSON:
         apiResponse.json = null;
       }).then(() => {
+        if (this.client.onResponse) {
+          this.client.onResponse(apiResponse);
+        }
         if (!response.ok) {
           throw new ApiError(apiResponse);
         }
