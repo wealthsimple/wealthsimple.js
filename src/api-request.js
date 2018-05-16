@@ -41,7 +41,7 @@ class ApiRequest {
       headers: newHeaders,
       method,
       body: newBody,
-    }).then(this._handleResponse);
+    }).then(this._handleResponse.bind(this));
   }
 
   urlFor(path) {
