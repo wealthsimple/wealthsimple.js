@@ -11466,7 +11466,7 @@ var ApiRequest = function () {
         headers: newHeaders,
         method: method,
         body: newBody
-      }).then(this._handleResponse);
+      }).then(this._handleResponse.bind(this));
     }
   }, {
     key: 'urlFor',
@@ -11490,6 +11490,8 @@ var ApiRequest = function () {
   }, {
     key: '_handleResponse',
     value: function _handleResponse(response) {
+      var _this = this;
+
       var apiResponse = new ApiResponse({
         status: response.status,
         headers: response.headers
@@ -11500,6 +11502,9 @@ var ApiRequest = function () {
         // Fail silently if response body is not present or malformed JSON:
         apiResponse.json = null;
       }).then(function () {
+        if (_this.client.onResponse) {
+          _this.client.onResponse(apiResponse);
+        }
         if (!response.ok) {
           throw new ApiError(apiResponse);
         }
@@ -11589,6 +11594,11 @@ var ApiResponse = function () {
         return null;
       }
       var otp = {};
+
+      if (otpString.match(/^[a-z]{16}$/i)) {
+        otp.recovery_code = otpString;
+        return otp;
+      }
 
       // Parse out OTP details into a more usable format. It is expected to be
       // in the format like `invalid` or `required; method=sms; digits=1234`
@@ -11874,6 +11884,8 @@ var Wealthsimple = function () {
         onAuthSuccess = _ref$onAuthSuccess === undefined ? null : _ref$onAuthSuccess,
         _ref$onAuthRevoke = _ref.onAuthRevoke,
         onAuthRevoke = _ref$onAuthRevoke === undefined ? null : _ref$onAuthRevoke,
+        _ref$onResponse = _ref.onResponse,
+        onResponse = _ref$onResponse === undefined ? null : _ref$onResponse,
         _ref$verbose = _ref.verbose,
         verbose = _ref$verbose === undefined ? false : _ref$verbose;
 
@@ -11927,6 +11939,7 @@ var Wealthsimple = function () {
     // Optionally allow for callbacks on certain key events:
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
+    this.onResponse = onResponse;
 
     this.request = new ApiRequest({ client: this });
   }

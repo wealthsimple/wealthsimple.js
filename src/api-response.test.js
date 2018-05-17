@@ -77,6 +77,16 @@ describe('ApiResponse', () => {
       });
     });
 
+    describe('with OTP recovery code', () => {
+      beforeEach(() => {
+        headers['x-wealthsimple-otp'] = 'YUTXHURQMPDSVTZQ';
+      });
+
+      it('returns OTP details', () => {
+        expect(response.getOTP()).toEqual({ recovery_code: 'YUTXHURQMPDSVTZQ' });
+      });
+    });
+
     describe('with OTP invalid', () => {
       beforeEach(() => {
         headers['x-wealthsimple-otp'] = 'invalid';

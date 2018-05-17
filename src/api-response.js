@@ -29,6 +29,11 @@ class ApiResponse {
     }
     const otp = {};
 
+    if (otpString.match(/^[a-z]{16}$/i)) {
+      otp.recovery_code = otpString;
+      return otp;
+    }
+
     // Parse out OTP details into a more usable format. It is expected to be
     // in the format like `invalid` or `required; method=sms; digits=1234`
     otpString.split('; ').forEach((otpAttribute) => {
