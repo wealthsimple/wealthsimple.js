@@ -7,7 +7,7 @@
 		exports["Wealthsimple"] = factory();
 	else
 		root["Wealthsimple"] = factory();
-})(window, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
