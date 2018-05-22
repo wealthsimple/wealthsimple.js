@@ -13,6 +13,9 @@ module.exports = (env, argv) => ({
     filename: argv.mode === 'production' ? 'wealthsimple.min.js' : 'wealthsimple.js',
     library: 'Wealthsimple',
     libraryTarget: 'umd',
+
+    // See https://github.com/webpack/webpack/issues/6522
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
 
   plugins: [
