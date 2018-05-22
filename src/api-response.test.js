@@ -26,6 +26,22 @@ describe('ApiResponse', () => {
     });
   });
 
+  describe('isOK', () => {
+    describe('response status is 2XX', () => {
+      it('returns true', () => {
+        response.status = 200;
+        expect(response.isOK()).toBe(true);
+      });
+    });
+
+    describe('response status is not 2XX', () => {
+      it('returns true', () => {
+        response.status = 400;
+        expect(response.isOK()).toBe(false);
+      });
+    });
+  });
+
   describe('getRateLimit', () => {
     describe('without rate limit headers', () => {
       it('return null if no rate limit details present', () => {
