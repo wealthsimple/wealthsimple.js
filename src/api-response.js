@@ -11,6 +11,10 @@ class ApiResponse {
     return headerKeys.every(headerKey => this.headers.has(headerKey));
   }
 
+  isSuccess() {
+    return this.status >= 200 && this.status < 300;
+  }
+
   getRateLimit() {
     if (this.hasHeaders('x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset')) {
       return {
