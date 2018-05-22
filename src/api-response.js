@@ -11,7 +11,7 @@ class ApiResponse {
     return headerKeys.every(headerKey => this.headers.has(headerKey));
   }
 
-  isOK() {
+  isSuccess() {
     return this.status >= 200 && this.status < 300;
   }
 
