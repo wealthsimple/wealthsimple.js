@@ -73,7 +73,7 @@ class Wealthsimple {
   }
 
   authExpiresAt() {
-    if (this.auth) {
+    if (this.auth && this.auth.created_at && this.auth.expires_in) {
       const expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
       return new Date(expiresAtTimestamp * 1000);
     }
