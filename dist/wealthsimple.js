@@ -11575,6 +11575,11 @@ var ApiResponse = function () {
       });
     }
   }, {
+    key: 'isSuccess',
+    value: function isSuccess() {
+      return this.status >= 200 && this.status < 300;
+    }
+  }, {
     key: 'getRateLimit',
     value: function getRateLimit() {
       if (this.hasHeaders('x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset')) {
@@ -11957,7 +11962,7 @@ var Wealthsimple = function () {
   }, {
     key: 'authExpiresAt',
     value: function authExpiresAt() {
-      if (this.auth) {
+      if (this.auth && this.auth.created_at && this.auth.expires_in) {
         var expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
         return new Date(expiresAtTimestamp * 1000);
       }
