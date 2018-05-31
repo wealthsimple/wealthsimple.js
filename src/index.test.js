@@ -22,8 +22,8 @@ describe('Wealthsimple', () => {
     });
 
     describe('auth is not present', () => {
-      it('returns true', () => {
-        expect(wealthsimple.isAuthExpired()).toBe(true);
+      it('returns false', () => {
+        expect(wealthsimple.isAuthExpired()).toBe(false);
       });
     });
   });

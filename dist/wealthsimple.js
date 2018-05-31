@@ -11972,7 +11972,7 @@ var Wealthsimple = function () {
     key: 'isAuthExpired',
     value: function isAuthExpired() {
       var expiresAt = this.authExpiresAt();
-      return !expiresAt || expiresAt <= new Date();
+      return !!expiresAt && expiresAt <= new Date();
     }
   }, {
     key: 'isAuthRefreshable',
@@ -12066,7 +12066,7 @@ var Wealthsimple = function () {
           checkAuthRefresh = _ref2$checkAuthRefres === undefined ? true : _ref2$checkAuthRefres;
 
       var exeturePrimaryRequest = function exeturePrimaryRequest() {
-        if (!_this3.isAuthExpired()) {
+        if (!_this3.isAuthExpired() && _this3.auth) {
           headers.Authorization = 'Bearer ' + _this3.auth.access_token;
         }
         return _this3.request.fetch({

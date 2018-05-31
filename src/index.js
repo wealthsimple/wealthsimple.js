@@ -82,7 +82,7 @@ class Wealthsimple {
 
   isAuthExpired() {
     const expiresAt = this.authExpiresAt();
-    return !expiresAt || expiresAt <= new Date();
+    return !!expiresAt && expiresAt <= new Date();
   }
 
   isAuthRefreshable() {
@@ -162,7 +162,7 @@ class Wealthsimple {
     checkAuthRefresh = true,
   }) {
     const exeturePrimaryRequest = () => {
-      if (!this.isAuthExpired()) {
+      if (!this.isAuthExpired() && this.auth) {
         headers.Authorization = `Bearer ${this.auth.access_token}`;
       }
       return this.request.fetch({
