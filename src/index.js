@@ -96,6 +96,11 @@ class Wealthsimple {
       delete attributes.otp;
     }
 
+    if (attributes.claim_otp) {
+      headers[constants.CLAIM_OTP_HEADER] = attributes.claim_otp;
+      delete attributes.claim_otp;
+    }
+
     let checkAuthRefresh = true;
     if (attributes.hasOwnProperty('checkAuthRefresh')) {
       ({ checkAuthRefresh } = attributes);
