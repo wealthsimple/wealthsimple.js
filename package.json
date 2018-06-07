@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint '**/*.js'",
-    "retire": "retire --ignore dist",
+    "retire": "retire --ignore dist -n -p",
     "test": "jest --watch",
     "test:all": "yarn retire && yarn lint && jest --runInBand",
     "prebuild": "rm -rf dist",
