@@ -9,7 +9,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, auth, fetchAdapter, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onResponse = null, verbose = false,
+    clientId, clientSecret, authOrAccessToken, fetchAdapter, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -36,10 +36,6 @@ class Wealthsimple {
     }
     this.apiVersion = apiVersion;
 
-    // Optionally pass in existing OAuth details (access_token + refresh_token)
-    // so that the user does not have to be prompted to log in again:
-    this.auth = auth;
-
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
     if (fetchAdapter) {
@@ -59,9 +55,31 @@ class Wealthsimple {
     // Optionally allow for callbacks on certain key events:
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
+    this.onAuthInvalid = onAuthInvalid;
     this.onResponse = onResponse;
 
     this.request = new ApiRequest({ client: this });
+
+    // Optionally pass in existing OAuth details (access_token + refresh_token)
+    // or just the access token (then fetching the details) so that the user
+    // does not have to be prompted to log in again:
+    if (authOrAccessToken && typeof authOrAccessToken === 'string') {
+      this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authOrAccessToken}` }, checkAuthRefresh: false })
+        .then((response) => {
+          this.auth = response.json.token; // the info endpoint nests auth in a `token` root key
+          return response;
+        }).catch((error) => {
+          if (error.response.status === 401) {
+            if (this.onAuthInvalid) {
+              this.onAuthInvalid(error.response.json);
+            }
+            return;
+          }
+          throw new ApiError(error.response);
+        });
+    } else {
+      this.auth = authOrAccessToken;
+    }
   }
 
   resourceOwnerId() {
@@ -180,7 +198,12 @@ class Wealthsimple {
       // perform the actual request:
       return this.refreshAuth().then(exeturePrimaryRequest);
     }
-    return exeturePrimaryRequest();
+    return exeturePrimaryRequest().catch((error) => {
+      if (error.response.status === 401 && this.onAuthInvalid) {
+        this.onAuthInvalid(error.response.json);
+      }
+      throw error;
+    });
   }
 }
 
