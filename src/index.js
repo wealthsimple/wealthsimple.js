@@ -184,7 +184,7 @@ class Wealthsimple {
     body = null,
     checkAuthRefresh = true,
   }) {
-    const exeturePrimaryRequest = () => {
+    const executePrimaryRequest = () => {
       if (!this.isAuthExpired() && this.auth) {
         headers.Authorization = `Bearer ${this.auth.access_token}`;
       }
@@ -196,9 +196,9 @@ class Wealthsimple {
     if (checkAuthRefresh && this.isAuthRefreshable() && this.isAuthExpired()) {
       // Automatically refresh auth using refresh_token, then subsequently
       // perform the actual request:
-      return this.refreshAuth().then(exeturePrimaryRequest);
+      return this.refreshAuth().then(executePrimaryRequest);
     }
-    return exeturePrimaryRequest().catch((error) => {
+    return executePrimaryRequest().catch((error) => {
       if (error.response.status === 401 && this.onAuthInvalid) {
         this.onAuthInvalid(error.response.json);
       }
