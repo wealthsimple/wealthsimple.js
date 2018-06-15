@@ -9,7 +9,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, authOrAccessToken, fetchAdapter, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
+    clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -63,8 +63,8 @@ class Wealthsimple {
     // Optionally pass in existing OAuth details (access_token + refresh_token)
     // or just the access token (then fetching the details) so that the user
     // does not have to be prompted to log in again:
-    if (authOrAccessToken && typeof authOrAccessToken === 'string') {
-      this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authOrAccessToken}` }, checkAuthRefresh: false })
+    if (authAccessToken && typeof authAccessToken === 'string') {
+      this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authAccessToken}` }, checkAuthRefresh: false })
         .then((response) => {
           this.auth = response.json.token; // the info endpoint nests auth in a `token` root key
           return response;
@@ -78,7 +78,7 @@ class Wealthsimple {
           throw new ApiError(error.response);
         });
     } else {
-      this.auth = authOrAccessToken;
+      this.auth = auth;
     }
   }
 

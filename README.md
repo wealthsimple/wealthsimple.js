@@ -31,9 +31,13 @@ const wealthsimple = new Wealthsimple({
   // Optional: Depending on grant_type may or may not be needed:
   clientSecret: '<oauth_client_secret>',
 
-  // Optional: If available, you can optionally specify a previous auth response
-  // so that the user does not have to login again:
-  auth: { ...prior server response... },
+  // Optional: If available, you can optionally specify a previous auth
+  // response's access token so that the user does not have to login again:
+  authAccessToken: '<your_current_access_token>',
+
+  // (Deprecated) Optional: If available, you can optionally specify a previous
+  // auth response so that the user does not have to login again:
+  auth: { ... previous auth response ... },
 });
 
 wealthsimple.get('/healthcheck')
