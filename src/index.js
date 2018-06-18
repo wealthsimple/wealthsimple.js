@@ -75,9 +75,9 @@ class Wealthsimple {
   }
 
   // TODO: Should this have the side-effect of updating this.auth?
-  accessTokenInfo(accessToken) {
+  accessTokenInfo(accessToken = null) {
     return this.get('/oauth/token/info', {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken || this.accessToken()}` },
       ignoreAuthPromise: true,
       checkAuthRefresh: false,
     }).then(response =>
