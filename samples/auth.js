@@ -27,6 +27,8 @@ const authPromise = wealthsimple.authenticate({
 authPromise
   .then(() => {
     console.log('Client ID:', wealthsimple.clientCanonicalId());
+    console.log('Access token:', wealthsimple.accessToken());
+    console.log('Refresh token:', wealthsimple.refreshToken());
     return wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`);
   })
   .then(response => console.log('Success: ', response.json))

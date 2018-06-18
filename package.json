@@ -1,6 +1,6 @@
 {
   "name": "@wealthsimple/wealthsimple",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
   "main": "dist/wealthsimple.min.js",

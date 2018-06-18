@@ -33,6 +33,9 @@ const handleOtp = () => {
 };
 
 authPromise
+  .then((resp) => {
+    console.error('No OTP/2FA required!', resp.json);
+  })
   .catch((error) => {
     const otp = error.response.getOTP();
     console.log('OTP? ', otp);
