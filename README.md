@@ -24,7 +24,7 @@ See [samples directory](./samples) for a wide range of samples, or see the basic
 ```js
 const Wealthsimple = require('wealthsimple');
 
-const wealthsimple = new Wealthsimple({
+const wealthsimple = await new Wealthsimple({
   env: 'sandbox',
   clientId: '<oauth_client_id>',
 
@@ -33,12 +33,14 @@ const wealthsimple = new Wealthsimple({
 
   // Optional: If available, you can optionally specify a previous auth
   // response's access token so that the user does not have to login again:
+  //
+  // NOTE: Makes constructor return a promise!
   authAccessToken: '<your_current_access_token>',
 
   // (Deprecated) Optional: If available, you can optionally specify a previous
   // auth response so that the user does not have to login again:
   auth: { ... previous auth response ... },
-});
+}).then((wealthsimple) => { console.log('Previous access token is valid and client is ready'); return wealthsimple; }); // .then() only needed if `authAccessToken` is set
 
 wealthsimple.get('/healthcheck')
   .then(data => console.log(data));

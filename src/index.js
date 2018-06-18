@@ -64,22 +64,31 @@ class Wealthsimple {
     // or just the access token (then fetching the details) so that the user
     // does not have to be prompted to log in again:
     if (authAccessToken && typeof authAccessToken === 'string') {
-      this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authAccessToken}` }, checkAuthRefresh: false })
+      return this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authAccessToken}` }, checkAuthRefresh: false })
         .then((response) => {
           this.auth = response.json.token; // the info endpoint nests auth in a `token` root key
-          return response;
+          return this;
         }).catch((error) => {
           if (error.response.status === 401) {
             if (this.onAuthInvalid) {
               this.onAuthInvalid(error.response.json);
             }
-            return;
+            return this;
           }
           throw new ApiError(error.response);
         });
     } else {
       this.auth = auth;
     }
+  }
+
+  accessToken() {
+    // info endpoint and POST response have different structures
+    return this.auth && (this.auth.access_token || this.auth.token);
+  }
+
+  refreshToken() {
+    return this.auth && this.auth.refresh_token;
   }
 
   resourceOwnerId() {
