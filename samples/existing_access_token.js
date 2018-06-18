@@ -27,26 +27,36 @@ let existingAccessToken;
 authPromise
   .then(() => { existingAccessToken = previousWealthsimple.accessToken(); })
   .catch(error => console.error('Error:', error))
-  .then(async () => {
-    const wealthsimple = await new Wealthsimple({
+  .then(() => {
+    const wealthsimple = new Wealthsimple({
       env: 'sandbox',
       clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
       authAccessToken: existingAccessToken,
-    }).then((wsClient) => {
-      console.log('Verified previous access token!', wsClient.accessToken());
-      console.log('Refresh:', wsClient.refreshToken());
-      return wsClient;
     });
-    console.log(wealthsimple);
+    console.log(existingAccessToken);
+    console.log('Chances are Wealthsimple.auth is null:', wealthsimple.auth);
+    console.log('Chances are Wealthsimple.authPromise is pending:', wealthsimple.authPromise);
+    wealthsimple.get('/users').then(() => {
+      console.log('Wealthsimple.authPromise is resolved by now', wealthsimple.authPromise);
+      console.log('Wealthsimple.auth is set by now', wealthsimple.auth);
+      console.log('Verified previous access token!', wealthsimple.accessToken());
+      console.log('Refresh:', wealthsimple.refreshToken());
+    });
   });
 
-new Wealthsimple({
+const badWealthsimple = new Wealthsimple({
   env: 'sandbox',
   clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
   authAccessToken: 'd7feff351056fcb22c73a5d7a2fcd6958a99e4862a1b246a7745523ca230e61d',
-}).then((wealthsimple) => {
-  console.log('Previous access token didn\'t work! Ignored:', wealthsimple.accessToken());
-  console.log('Refresh should be empty:', wealthsimple.refreshToken());
-  console.log(wealthsimple);
-  return wealthsimple;
+});
+
+console.log('Chances are Wealthsimple.auth is null:', badWealthsimple.auth);
+console.log('Chances are Wealthsimple.authPromise is pending:', badWealthsimple.authPromise);
+
+badWealthsimple.get('/oauth/token/info').then(() => {
+  console.log('This should never run');
+}).catch((error) => {
+  console.log('Wealthsimple.authPromise is resolved by now', badWealthsimple.authPromise);
+  console.log('Wealthsimple.auth is set by now (should be null)', badWealthsimple.auth);
+  console.log('Error is available:', error);
 });
