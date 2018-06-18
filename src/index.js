@@ -65,9 +65,12 @@ class Wealthsimple {
     // does not have to be prompted to log in again:
     this.auth = auth;
     if (authAccessToken && typeof authAccessToken === 'string') {
-      this.authPromise = this.accessTokenInfo(authAccessToken).then((auth) => this.auth = auth);
+      this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
+        this.auth = a;
+        return this.auth;
+      });
     } else {
-      this.authPromise = new Promise((resolve) => resolve(this.auth));
+      this.authPromise = new Promise(resolve => resolve(this.auth));
     }
   }
 
@@ -77,10 +80,10 @@ class Wealthsimple {
       headers: { Authorization: `Bearer ${accessToken}` },
       ignoreAuthPromise: true,
       checkAuthRefresh: false,
-    }).then((response) => {
+    }).then(response =>
       // the info endpoint nests auth in a `token` root key
-      return response.json.token;
-    }).catch((error) => {
+      response.json.token,
+    ).catch((error) => {
       if (error.response.status === 401) {
         if (this.onAuthInvalid) {
           this.onAuthInvalid(error.response.json);
