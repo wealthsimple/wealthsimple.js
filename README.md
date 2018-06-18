@@ -40,7 +40,10 @@ const wealthsimple = await new Wealthsimple({
   // (Deprecated) Optional: If available, you can optionally specify a previous
   // auth response so that the user does not have to login again:
   auth: { ... previous auth response ... },
-}).then((wealthsimple) => { console.log('Previous access token is valid and client is ready'); return wealthsimple; }); // .then() only needed if `authAccessToken` is set
+}).then((ws) => {
+  console.log('Previous access token is valid and client is ready');
+  return ws;
+}); // .then() only needed if `authAccessToken` is set
 
 wealthsimple.get('/healthcheck')
   .then(data => console.log(data));
