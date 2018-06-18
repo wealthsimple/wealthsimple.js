@@ -63,22 +63,32 @@ class Wealthsimple {
     // Optionally pass in existing OAuth details (access_token + refresh_token)
     // or just the access token (then fetching the details) so that the user
     // does not have to be prompted to log in again:
-    if (authAccessToken && typeof authAccessToken === 'string') {
-      return this.get('/oauth/token/info', { headers: { Authorization: `Bearer ${authAccessToken}` }, checkAuthRefresh: false })
-        .then((response) => {
-          this.auth = response.json.token; // the info endpoint nests auth in a `token` root key
-          return this;
-        }).catch((error) => {
-          if (error.response.status === 401) {
-            if (this.onAuthInvalid) {
-              this.onAuthInvalid(error.response.json);
-            }
-            return this;
-          }
-          throw new ApiError(error.response);
-        });
-    }
     this.auth = auth;
+    if (authAccessToken && typeof authAccessToken === 'string') {
+      this.authPromise = this.accessTokenInfo(authAccessToken).then((auth) => this.auth = auth);
+    } else {
+      this.authPromise = new Promise((resolve) => resolve(this.auth));
+    }
+  }
+
+  // TODO: Should this have the side-effect of updating this.auth?
+  accessTokenInfo(accessToken) {
+    return this.get('/oauth/token/info', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      ignoreAuthPromise: true,
+      checkAuthRefresh: false,
+    }).then((response) => {
+      // the info endpoint nests auth in a `token` root key
+      return response.json.token;
+    }).catch((error) => {
+      if (error.response.status === 401) {
+        if (this.onAuthInvalid) {
+          this.onAuthInvalid(error.response.json);
+        }
+        return null;
+      }
+      throw new ApiError(error.response);
+    });
   }
 
   accessToken() {
@@ -193,8 +203,8 @@ class Wealthsimple {
     checkAuthRefresh = true,
   }) {
     const executePrimaryRequest = () => {
-      if (!this.isAuthExpired() && this.auth) {
-        headers.Authorization = `Bearer ${this.auth.access_token}`;
+      if (!this.isAuthExpired() && !headers.Authorization) {
+        headers.Authorization = `Bearer ${this.accessToken()}`;
       }
       return this.request.fetch({
         method, path, headers, query, body,
@@ -217,7 +227,12 @@ class Wealthsimple {
 
 ['get', 'patch', 'put', 'post', 'delete', 'head'].forEach((method) => {
   Wealthsimple.prototype[method] = function (path, options = {}) {
-    return this._fetch(method.toUpperCase(), path, options);
+    // Make sure that constructor's context bootstrapping is complete before a
+    // remote call is made
+    if (options.ignoreAuthPromise || !this.authPromise) {
+      return this._fetch(method.toUpperCase(), path, options);
+    }
+    return this.authPromise.then(() => this._fetch(method.toUpperCase(), path, options));
   };
 });
 
