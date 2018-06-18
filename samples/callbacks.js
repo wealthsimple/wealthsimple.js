@@ -21,7 +21,7 @@ authPromise
   .then(() => wealthsimple.revokeAuth())
   .catch(error => console.error('Error:', error))
   .finally(() => {
-    console.info('Should be an invalid call:')
+    console.info('Should be an invalid call:');
     // Make the auth invalid callback fire
     return wealthsimple.get('/oauth/token/info')
       .then(response => console.error('should never reach this point', response))

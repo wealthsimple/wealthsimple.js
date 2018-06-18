@@ -77,9 +77,8 @@ class Wealthsimple {
           }
           throw new ApiError(error.response);
         });
-    } else {
-      this.auth = auth;
     }
+    this.auth = auth;
   }
 
   accessToken() {
