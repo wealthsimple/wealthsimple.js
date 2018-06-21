@@ -67,6 +67,10 @@ class Wealthsimple {
     if (authAccessToken && typeof authAccessToken === 'string') {
       this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
         this.auth = a;
+        // Info endpoint sadly returns a string of a date vs seconds since epoc/int :(
+        if (typeof this.auth.created_at === 'string') {
+          this.auth.created_at = Math.round(new Date(this.auth.created_at) / 1000.0);
+        }
         return this.auth;
       });
     } else {
