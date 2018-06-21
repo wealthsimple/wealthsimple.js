@@ -204,17 +204,17 @@ class Wealthsimple {
         }
         resolve();
       });
-    }).catch(() => {
+    }).catch(() => (
       // Something went wrong server-side, but that doesn't matter to the client
       // The risk is that the token didnt revoke, but we can still forget about
       // The data here on the client side
-      return new Promise((resolve) => {
+      new Promise((resolve) => {
         if (this.onAuthRevoke) {
           this.onAuthRevoke();
         }
         resolve();
-      });
-    });
+      })
+    ));
   }
 
   _fetch(method, path, {
