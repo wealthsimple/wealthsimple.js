@@ -67,6 +67,10 @@ class Wealthsimple {
     if (authAccessToken && typeof authAccessToken === 'string') {
       this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
         this.auth = a;
+        // Info endpoint sadly returns a string of a date vs seconds since epoc/int :(
+        if (typeof this.auth.created_at === 'string') {
+          this.auth.created_at = Math.round(new Date(this.auth.created_at) / 1000.0);
+        }
         return this.auth;
       });
     } else {
@@ -169,34 +173,48 @@ class Wealthsimple {
   }
 
   refreshAuth() {
-    if (!this.isAuthRefreshable()) {
-      throw new Error('Must have a refresh_token set in order to refresh auth.');
-    }
-    return this.authenticate({
-      grantType: 'refresh_token',
-      refreshToken: this.auth.refresh_token,
-      checkAuthRefresh: false,
+    return this.authPromise.then(() => {
+      if (!this.isAuthRefreshable()) {
+        throw new Error('Must have a refresh_token set in order to refresh auth.');
+      }
+      return this.authenticate({
+        grantType: 'refresh_token',
+        refreshToken: this.auth.refresh_token,
+        checkAuthRefresh: false,
+      });
     });
   }
 
   revokeAuth() {
-    if (this.auth) {
-      return this.post('/oauth/revoke')
-        .then(() => {
-          this.auth = null;
+    return this.authPromise.then(() => {
+      if (this.auth) {
+        return this.post('/oauth/revoke')
+          .then(() => {
+            this.auth = null;
 
-          if (this.onAuthRevoke) {
-            this.onAuthRevoke();
-          }
-        });
-    }
-    // Not authenticated
-    return new Promise((resolve) => {
-      if (this.onAuthRevoke) {
-        this.onAuthRevoke();
+            if (this.onAuthRevoke) {
+              this.onAuthRevoke();
+            }
+          });
       }
-      resolve();
-    });
+      // Not authenticated
+      return new Promise((resolve) => {
+        if (this.onAuthRevoke) {
+          this.onAuthRevoke();
+        }
+        resolve();
+      });
+    }).catch(() => (
+      // Something went wrong server-side, but that doesn't matter to the client
+      // The risk is that the token didnt revoke, but we can still forget about
+      // The data here on the client side
+      new Promise((resolve) => {
+        if (this.onAuthRevoke) {
+          this.onAuthRevoke();
+        }
+        resolve();
+      })
+    ));
   }
 
   _fetch(method, path, {
