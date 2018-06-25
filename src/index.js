@@ -9,7 +9,7 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
+    clientId, clientSecret, fetchAdapter, auth = null, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -61,33 +61,19 @@ class Wealthsimple {
     this.request = new ApiRequest({ client: this });
 
     // Optionally pass in existing OAuth details (access_token + refresh_token)
-    // or just the access token (then fetching the details) so that the user
-    // does not have to be prompted to log in again:
+    // so that the user does not have to be prompted to log in again:
     this.auth = auth;
-    if (authAccessToken && typeof authAccessToken === 'string') {
-      this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
-        this.auth = a;
-        // Info endpoint sadly returns a string of a date vs seconds since epoc/int :(
-        if (typeof this.auth.created_at === 'string') {
-          this.auth.created_at = Math.round(new Date(this.auth.created_at) / 1000.0);
-        }
-        return this.auth;
-      });
-    } else {
-      this.authPromise = new Promise(resolve => resolve(this.auth));
-    }
+    this.authPromise = this.auth.access_token ? this.accessTokenInfo(this.auth.access_token) : new Promise(r => r(this.auth));
   }
 
   // TODO: Should this have the side-effect of updating this.auth?
-  accessTokenInfo(accessToken = null) {
+  accessTokenInfo(accessToken = null, checkAuthRefresh: checkAuthRefresh) {
     return this.get('/oauth/token/info', {
       headers: { Authorization: `Bearer ${accessToken || this.accessToken()}` },
-      ignoreAuthPromise: true,
-      checkAuthRefresh: false,
-    }).then(response =>
-      // the info endpoint nests auth in a `token` root key
-      response.json.token,
-    ).catch((error) => {
+      checkAuthRefresh: checkAuthRefresh,
+    })
+    .then(response => response.json )
+    .catch((error) => {
       if (error.response.status === 401) {
         if (this.onAuthInvalid) {
           this.onAuthInvalid(error.response.json);
@@ -99,8 +85,7 @@ class Wealthsimple {
   }
 
   accessToken() {
-    // info endpoint and POST response have different structures
-    return this.auth && (this.auth.access_token || this.auth.token);
+    return this.auth && this.auth.access_token;
   }
 
   refreshToken() {
