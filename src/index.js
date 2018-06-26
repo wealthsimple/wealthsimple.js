@@ -68,7 +68,7 @@ class Wealthsimple {
       this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
         this.auth = a;
         // Info endpoint sadly returns a string of a date vs seconds since epoc/int :(
-        if (typeof this.auth.created_at === 'string') {
+        if (this.auth && typeof this.auth.created_at === 'string') {
           this.auth.created_at = Math.round(new Date(this.auth.created_at) / 1000.0);
         }
         return this.auth;
@@ -88,6 +88,9 @@ class Wealthsimple {
       // the info endpoint nests auth in a `token` root key
       response.json.token,
     ).catch((error) => {
+      if (error.response === null) {
+        throw error;
+      }
       if (error.response.status === 401) {
         if (this.onAuthInvalid) {
           this.onAuthInvalid(error.response.json);
@@ -168,7 +171,11 @@ class Wealthsimple {
         return response;
       })
       .catch((error) => {
-        throw new ApiError(error.response);
+        if (error.response) {
+          throw new ApiError(error.response);
+        } else {
+          throw error;
+        }
       });
   }
 
@@ -238,7 +245,7 @@ class Wealthsimple {
       return this.refreshAuth().then(executePrimaryRequest);
     }
     return executePrimaryRequest().catch((error) => {
-      if (error.response.status === 401 && this.onAuthInvalid) {
+      if (error.response && error.response.status === 401 && this.onAuthInvalid) {
         this.onAuthInvalid(error.response.json);
       }
       throw error;
