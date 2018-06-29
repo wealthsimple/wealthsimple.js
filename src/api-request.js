@@ -41,6 +41,7 @@ class ApiRequest {
       headers: newHeaders,
       method,
       body: newBody,
+      credentials: 'same-origin',
     }).then(this._handleResponse.bind(this));
   }
 
@@ -83,12 +84,16 @@ class ApiRequest {
   }
 
   _defaultHeaders() {
-    return {
+    const h = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Date: new Date().toUTCString(),
       'X-Wealthsimple-Client': 'wealthsimple.js',
     };
+    if (this.client.deviceId) {
+      h['X-WS-Device-ID'] = this.client.deviceId;
+    }
+    return h;
   }
 }
 
