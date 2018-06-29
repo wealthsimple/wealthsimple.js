@@ -9,7 +9,10 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null, env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null, onAuthRevoke = null, onAuthInvalid = null, onResponse = null, verbose = false,
+    clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null,
+    env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null,
+    onAuthRevoke = null, onAuthInvalid = null, onResponse = null,
+    verbose = false, deviceId = null
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -35,6 +38,8 @@ class Wealthsimple {
       throw new Error(`Unrecognized 'apiVersion'. Please use one of: ${constants.API_VERSIONS.join(', ')}`);
     }
     this.apiVersion = apiVersion;
+
+    this.deviceId = deviceId;
 
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
