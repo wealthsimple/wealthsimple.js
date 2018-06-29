@@ -12,7 +12,7 @@ class Wealthsimple {
     clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null,
     env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null,
     onAuthRevoke = null, onAuthInvalid = null, onResponse = null,
-    verbose = false, deviceId = null
+    verbose = false, deviceId = null,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {

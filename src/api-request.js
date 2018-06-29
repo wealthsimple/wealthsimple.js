@@ -84,7 +84,7 @@ class ApiRequest {
   }
 
   _defaultHeaders() {
-    let h = {
+    const h = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Date: new Date().toUTCString(),
