@@ -200,7 +200,11 @@ class Wealthsimple {
   revokeAuth() {
     return this.authPromise.then(() => {
       if (this.auth) {
-        return this.post('/oauth/revoke')
+        const body = {
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+        };
+        return this.post('/oauth/revoke', { body })
           .then(() => {
             this.auth = null;
 
