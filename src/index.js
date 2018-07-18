@@ -203,6 +203,7 @@ class Wealthsimple {
         const body = {
           client_id: this.clientId,
           client_secret: this.clientSecret,
+          token: this.accessToken(),
         };
         return this.post('/oauth/revoke', { body })
           .then(() => {
