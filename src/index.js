@@ -9,10 +9,19 @@ const constants = require('./constants');
 
 class Wealthsimple {
   constructor({
-    clientId, clientSecret, fetchAdapter, auth = null, authAccessToken = null,
-    env = null, baseUrl = null, apiVersion = 'v1', onAuthSuccess = null,
-    onAuthRevoke = null, onAuthInvalid = null, onResponse = null,
-    verbose = false, deviceId = null,
+    clientId,
+    clientSecret,
+    fetchAdapter,
+    auth = null,
+    env = null,
+    baseUrl = null,
+    apiVersion = 'v1',
+    onAuthSuccess = null,
+    onAuthRevoke = null,
+    onAuthInvalid = null,
+    onResponse = null,
+    verbose = false,
+    deviceId = null,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -41,6 +50,31 @@ class Wealthsimple {
 
     this.deviceId = deviceId;
 
+    const credentials = {
+      client: {
+        id: this.clientId,
+      },
+      auth: {
+        tokenHost: (this.baseUrl ? this.baseUrl : `https://api.${this.env}.wealthsimple.com`),
+        tokenPath: `/${this.apiVersion}/oauth/token`,
+        revokePath: `/${this.apiVersion}/oauth/token`,
+        authorizeHost: this.env === 'production' ? 'https://my.wealthsimple.com' : 'https://staging.wealthsimple.com',
+      },
+      http: {
+        Accept: 'application/json',
+        'X-Wealthsimple-Client': 'wealthsimple.js',
+        'X-Device-ID': this.deviceId,
+      },
+      options: {
+        bodyFormat: 'json',
+        authorizationMethod: 'body',
+      }
+    };
+    if (this.clientSecret) {
+      credentials.client.secret = this.clientSecret;
+    }
+    this.oauth2 = require('simple-oauth2').create(credentials);
+
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
     if (fetchAdapter) {
@@ -66,17 +100,12 @@ class Wealthsimple {
     this.request = new ApiRequest({ client: this });
 
     // Optionally pass in existing OAuth details (access_token + refresh_token)
-    // or just the access token (then fetching the details) so that the user
-    // does not have to be prompted to log in again:
-    this.auth = auth;
-    if (authAccessToken && typeof authAccessToken === 'string') {
-      this.authPromise = this.accessTokenInfo(authAccessToken).then((a) => {
-        this.auth = a;
-        // Info endpoint sadly returns a string of a date vs seconds since epoc/int :(
-        if (this.auth && typeof this.auth.created_at === 'string') {
-          this.auth.created_at = Math.round(new Date(this.auth.created_at) / 1000.0);
-        }
-        return this.auth;
+    // so that the user does not have to be prompted to log in again:
+    if (auth) {
+      auth = (auth.constructor.name === 'AccessToken') ? auth : this.oauth2.accessToken.create(auth);
+      // Checks auth validity on bootstrap
+      this.authPromise = this.accessTokenInfo(auth.token.access_token).then(() => {
+        this.auth = auth;
       });
     } else {
       this.authPromise = new Promise(resolve => resolve(this.auth));
@@ -85,13 +114,23 @@ class Wealthsimple {
 
   // TODO: Should this have the side-effect of updating this.auth?
   accessTokenInfo(accessToken = null) {
+    const token = accessToken || this.accessToken();
+    if (!token) {
+      return new Promise(resolve => {
+        if (this.onAuthInvalid) {
+          this.onAuthInvalid({});
+        }
+        resolve();
+      });
+    }
+
     return this.get('/oauth/token/info', {
-      headers: { Authorization: `Bearer ${accessToken || this.accessToken()}` },
+      headers: { Authorization: `Bearer ${token}` },
       ignoreAuthPromise: true,
       checkAuthRefresh: false,
     }).then(response =>
       // the info endpoint nests auth in a `token` root key
-      response.json.token,
+      response.json,
     ).catch((error) => {
       if (error.response === null) {
         throw error;
@@ -108,36 +147,27 @@ class Wealthsimple {
 
   accessToken() {
     // info endpoint and POST response have different structures
-    return this.auth && (this.auth.access_token || this.auth.token);
+    return this.auth && this.auth.token.access_token;
   }
 
   refreshToken() {
-    return this.auth && this.auth.refresh_token;
+    return this.auth && this.auth.token.refresh_token;
   }
 
   resourceOwnerId() {
-    return this.auth && this.auth.resource_owner_id;
+    return this.auth && this.auth.token.resource_owner_id;
   }
 
   clientCanonicalId() {
-    return this.auth && this.auth.client_canonical_id;
-  }
-
-  authExpiresAt() {
-    if (this.auth && this.auth.created_at && this.auth.expires_in) {
-      const expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
-      return new Date(expiresAtTimestamp * 1000);
-    }
-    return undefined;
+    return this.auth && this.auth.token.client_canonical_id;
   }
 
   isAuthExpired() {
-    const expiresAt = this.authExpiresAt();
-    return !!expiresAt && expiresAt <= new Date();
+    return this.auth && this.auth.expired();
   }
 
   isAuthRefreshable() {
-    return !!(this.auth && typeof this.auth.refresh_token === 'string');
+    return !!(this.auth && typeof this.auth.token.refresh_token === 'string');
   }
 
   authenticate(attributes) {
@@ -167,10 +197,10 @@ class Wealthsimple {
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((response) => {
         // Save auth details for use in subsequent requests:
-        this.auth = response.json;
+        this.auth = this.oauth2.accessToken.create(response.json);
 
         if (this.onAuthSuccess) {
-          this.onAuthSuccess(response.json);
+          this.onAuthSuccess(this.auth);
         }
 
         return response;
@@ -191,7 +221,7 @@ class Wealthsimple {
       }
       return this.authenticate({
         grantType: 'refresh_token',
-        refreshToken: this.auth.refresh_token,
+        refreshToken: this.refreshToken(),
         checkAuthRefresh: false,
       });
     });
@@ -199,7 +229,7 @@ class Wealthsimple {
 
   revokeAuth() {
     return this.authPromise.then(() => {
-      if (this.auth) {
+      if (this.accessToken()) {
         const body = {
           client_id: this.clientId,
           client_secret: this.clientSecret,
@@ -241,7 +271,7 @@ class Wealthsimple {
     checkAuthRefresh = true,
   }) {
     const executePrimaryRequest = () => {
-      if (!this.isAuthExpired() && !headers.Authorization) {
+      if (!this.isAuthExpired() && !headers.Authorization && this.accessToken()) {
         headers.Authorization = `Bearer ${this.accessToken()}`;
       }
       return this.request.fetch({
