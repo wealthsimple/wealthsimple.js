@@ -18,7 +18,7 @@ authPromise
   .then(() => {
     // Pretend that it expired by setting it to a date from long ago:
     console.log('Existing Token:', wealthsimple.accessToken());
-    wealthsimple.auth.expired = function() { return true; };
+    wealthsimple.auth.expired = function () { return true; };
   })
   .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
   .then(response => console.log('Success: ', response.json, 'New Token:', wealthsimple.accessToken()))

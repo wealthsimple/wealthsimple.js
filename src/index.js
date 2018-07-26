@@ -68,7 +68,7 @@ class Wealthsimple {
       options: {
         bodyFormat: 'json',
         authorizationMethod: 'body',
-      }
+      },
     };
     if (this.clientSecret) {
       credentials.client.secret = this.clientSecret;
@@ -102,10 +102,10 @@ class Wealthsimple {
     // Optionally pass in existing OAuth details (access_token + refresh_token)
     // so that the user does not have to be prompted to log in again:
     if (auth) {
-      auth = (auth.constructor.name === 'AccessToken') ? auth : this.oauth2.accessToken.create(auth);
+      const a = (auth.constructor.name === 'AccessToken') ? auth : this.oauth2.accessToken.create(auth);
       // Checks auth validity on bootstrap
       this.authPromise = this.accessTokenInfo(auth.token.access_token).then(() => {
-        this.auth = auth;
+        this.auth = a;
       });
     } else {
       this.authPromise = new Promise(resolve => resolve(this.auth));
@@ -116,7 +116,7 @@ class Wealthsimple {
   accessTokenInfo(accessToken = null) {
     const token = accessToken || this.accessToken();
     if (!token) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         if (this.onAuthInvalid) {
           this.onAuthInvalid({});
         }
@@ -163,7 +163,14 @@ class Wealthsimple {
   }
 
   isAuthExpired() {
-    return this.auth && this.auth.expired();
+    if (this.auth) {
+      return this.auth.expired();
+    }
+    return false;
+  }
+
+  authExpiresAt() {
+    return this.auth && this.auth.token.expires_at;
   }
 
   isAuthRefreshable() {
