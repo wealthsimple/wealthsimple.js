@@ -22,18 +22,18 @@ const authPromise = previousWealthsimple.authenticate({
   password: process.env.PASSWORD,
 });
 
-let existingAccessToken;
+let existingAuth;
 
 authPromise
-  .then(() => { existingAccessToken = previousWealthsimple.accessToken(); })
+  .then(() => { existingAuth = previousWealthsimple.auth; })
   .catch(error => console.error('Error:', error))
   .then(() => {
     const wealthsimple = new Wealthsimple({
       env: 'sandbox',
       clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
-      authAccessToken: existingAccessToken,
+      auth: existingAuth,
     });
-    console.log(existingAccessToken);
+    console.log(existingAuth);
     console.log('Chances are Wealthsimple.auth is null:', wealthsimple.auth);
     console.log('Chances are Wealthsimple.authPromise is pending:', wealthsimple.authPromise);
     wealthsimple.get('/users').then(() => {
@@ -47,7 +47,7 @@ authPromise
 const badWealthsimple = new Wealthsimple({
   env: 'sandbox',
   clientId: '58a99e4862a1b246a7745523ca230e61dd7feff351056fcb22c73a5d7a2fcd69',
-  authAccessToken: 'd7feff351056fcb22c73a5d7a2fcd6958a99e4862a1b246a7745523ca230e61d',
+  auth: { access_token: 'd7feff351056fcb22c73a5d7a2fcd6958a99e4862a1b246a7745523ca230e61d' },
 });
 
 console.log('Chances are Wealthsimple.auth is null:', badWealthsimple.auth);

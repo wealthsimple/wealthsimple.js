@@ -31,13 +31,9 @@ const wealthsimple = new Wealthsimple({
   // Optional: Depending on grant_type may or may not be needed:
   clientSecret: '<oauth_client_secret>',
 
-  // Optional: If available, you can optionally specify a previous auth
-  // response's access token so that the user does not have to login again:
-  authAccessToken: '<your_current_access_token>',
-
-  // (Deprecated) Optional: If available, you can optionally specify a previous
-  // auth response so that the user does not have to login again:
-  auth: { ... previous auth response ... },
+  // the auth's AccessToken object from a previous session or its token object
+  // so the user does not have to login again:
+  auth: { ... previous auth object or its token object ... },
 });
 
 wealthsimple.get('/healthcheck')
@@ -70,16 +66,16 @@ authPromise
 Loading previously saved token for authenicated requests:
 
 ```js
-const accessTokenCookie = document.cookie
+const accessTokenCookie = JSON.parse(document.cookie
   .split(';')
   .map((e) => e.split('='))
-  .find((e) =>  e[0] == '_accessToken' )[1];
+  .find((e) =>  e[0] == '_oauth2access' )[1]);
 
 // Constructor async bootsraps auth context
 const wealthsimple = new Wealthsimple({
   env: 'sandbox',
   clientId: '<oauth_client_id>',
-  authAccessToken: accessTokenCookie,
+  auth: accessTokenCookie,
 });
 
 // Will wait until auth context is loaded

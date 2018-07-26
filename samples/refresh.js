@@ -17,8 +17,9 @@ const authPromise = wealthsimple.authenticate({
 authPromise
   .then(() => {
     // Pretend that it expired by setting it to a date from long ago:
-    wealthsimple.auth.created_at = 1519775956;
+    console.log('Existing Token:', wealthsimple.accessToken());
+    wealthsimple.auth.expired = function () { return true; };
   })
   .then(() => wealthsimple.get(`/users/${wealthsimple.resourceOwnerId()}`))
-  .then(response => console.log('Success: ', response.json))
+  .then(response => console.log('Success: ', response.json, 'New Token:', wealthsimple.accessToken()))
   .catch(error => console.error('Error:', error));
