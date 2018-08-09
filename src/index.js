@@ -7,6 +7,11 @@ const ApiRequest = require('./api-request');
 const ApiError = require('./api-error');
 const constants = require('./constants');
 
+const isDate = require('date-fns/is_date');
+const isAfter = require('date-fns/is_after');
+const dateParse = require('date-fns/parse');
+const addSeconds = require('date-fns/add_seconds');
+
 class Wealthsimple {
   constructor({
     clientId,
@@ -50,31 +55,6 @@ class Wealthsimple {
 
     this.deviceId = deviceId;
 
-    const credentials = {
-      client: {
-        id: this.clientId,
-      },
-      auth: {
-        tokenHost: (this.baseUrl ? this.baseUrl : `https://api.${this.env}.wealthsimple.com`),
-        tokenPath: `/${this.apiVersion}/oauth/token`,
-        revokePath: `/${this.apiVersion}/oauth/token`,
-        authorizeHost: this.env === 'production' ? 'https://my.wealthsimple.com' : 'https://staging.wealthsimple.com',
-      },
-      http: {
-        Accept: 'application/json',
-        'X-Wealthsimple-Client': 'wealthsimple.js',
-        'X-Device-ID': this.deviceId,
-      },
-      options: {
-        bodyFormat: 'json',
-        authorizationMethod: 'body',
-      },
-    };
-    if (this.clientSecret) {
-      credentials.client.secret = this.clientSecret;
-    }
-    this.oauth2 = require('simple-oauth2').create(credentials);
-
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
     if (fetchAdapter) {
@@ -102,10 +82,9 @@ class Wealthsimple {
     // Optionally pass in existing OAuth details (access_token + refresh_token)
     // so that the user does not have to be prompted to log in again:
     if (auth) {
-      const a = (auth.constructor.name === 'AccessToken') ? auth : this.oauth2.accessToken.create(auth);
       // Checks auth validity on bootstrap
-      this.authPromise = this.accessTokenInfo(auth.token.access_token).then(() => {
-        this.auth = a;
+      this.authPromise = this.accessTokenInfo(auth.access_token).then(() => {
+        this.auth = auth;
       });
     } else {
       this.authPromise = new Promise(resolve => resolve(this.auth));
@@ -147,34 +126,49 @@ class Wealthsimple {
 
   accessToken() {
     // info endpoint and POST response have different structures
-    return this.auth && this.auth.token.access_token;
+    return this.auth && this.auth.access_token;
   }
 
   refreshToken() {
-    return this.auth && this.auth.token.refresh_token;
+    return this.auth && this.auth.refresh_token;
   }
 
   resourceOwnerId() {
-    return this.auth && this.auth.token.resource_owner_id;
+    return this.auth && this.auth.resource_owner_id;
   }
 
   clientCanonicalId() {
-    return this.auth && this.auth.token.client_canonical_id;
+    return this.auth && this.auth.client_canonical_id;
   }
 
   isAuthExpired() {
-    if (this.auth) {
-      return this.auth.expired();
+    const date = this.authExpiresAt();
+    if (date === null) {
+      return false;
     }
-    return false;
+    return isAfter(new Date(), date);
   }
 
   authExpiresAt() {
-    return this.auth && this.auth.token.expires_at;
+    if (!this.auth) {
+      return null;
+    }
+    let date;
+    if (this.auth.expires_at && !isDate(this.auth.expires_at)) {
+      date = dateParse(this.auth.expires_at);
+    } else if (this.auth.expires_in) {
+      date = addSeconds(
+        new Date(),
+        Number.parseInt(this.auth.expires_in, 10),
+      );
+    } else {
+      date = null;
+    }
+    return date;
   }
 
   isAuthRefreshable() {
-    return !!(this.auth && typeof this.auth.token.refresh_token === 'string');
+    return !!(this.auth && typeof this.auth.refresh_token === 'string');
   }
 
   authenticate(attributes) {
@@ -204,7 +198,7 @@ class Wealthsimple {
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((response) => {
         // Save auth details for use in subsequent requests:
-        this.auth = this.oauth2.accessToken.create(response.json);
+        this.auth = response.json;
 
         if (this.onAuthSuccess) {
           this.onAuthSuccess(this.auth);
