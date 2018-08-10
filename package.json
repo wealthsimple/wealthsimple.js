@@ -1,6 +1,6 @@
 {
   "name": "@wealthsimple/wealthsimple",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
   "main": "dist/wealthsimple.min.js",
@@ -21,11 +21,11 @@
     "fs": false
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash.mapkeys": "^4.6.0",
     "lodash.snakecase": "^4.1.1",
-    "query-string": "^5.1.0",
-    "simple-oauth2": "^2.2.0"
+    "query-string": "^5.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

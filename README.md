@@ -31,9 +31,9 @@ const wealthsimple = new Wealthsimple({
   // Optional: Depending on grant_type may or may not be needed:
   clientSecret: '<oauth_client_secret>',
 
-  // the auth's AccessToken object from a previous session or its token object
-  // so the user does not have to login again:
-  auth: { ... previous auth object or its token object ... },
+  // the Wealthsimple.auth object from a previous session (passed in
+  // onAuthSuccess callback) so the user does not have to login again:
+  auth: { ... previous auth object ... },
 });
 
 wealthsimple.get('/healthcheck')
