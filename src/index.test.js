@@ -9,14 +9,16 @@ describe('Wealthsimple', () => {
   describe('isAuthExpired()', () => {
     describe('auth is present and not expired', () => {
       it('returns false', () => {
-        wealthsimple.auth = { expires_in: 7200, created_at: new Date() / 1000 };
+        const date = new Date();
+        date.setSeconds(1000000);
+        wealthsimple.auth = { expires_at: date };
         expect(wealthsimple.isAuthExpired()).toBe(false);
       });
     });
 
     describe('auth is present but expired', () => {
       it('returns true', () => {
-        wealthsimple.auth = { expires_in: -1, created_at: new Date(2017, 4, 1) / 1000 };
+        wealthsimple.auth = { expires_at: Date.parse('2018-02-01T04:20:12Z') };
         expect(wealthsimple.isAuthExpired()).toBe(true);
       });
     });
@@ -53,7 +55,7 @@ describe('Wealthsimple', () => {
   describe('authExpiresAt()', () => {
     describe('auth is present', () => {
       it('returns date', () => {
-        wealthsimple.auth = { expires_in: 7200, created_at: Date.parse('2018-02-01T04:20:12Z') / 1000 };
+        wealthsimple.auth = { expires_at: Date.parse('2018-02-01T04:20:12Z') };
         expect(wealthsimple.authExpiresAt()).toEqual(expect.any(Date));
       });
     });

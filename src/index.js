@@ -150,21 +150,13 @@ class Wealthsimple {
   }
 
   authExpiresAt() {
-    if (!this.auth) {
+    if (!this.auth || !this.auth.expires_at) {
       return null;
     }
-    let date;
-    if (this.auth.expires_at && !isDate(this.auth.expires_at)) {
-      date = dateParse(this.auth.expires_at);
-    } else if (this.auth.expires_in) {
-      date = addSeconds(
-        new Date(),
-        Number.parseInt(this.auth.expires_in, 10),
-      );
-    } else {
-      date = null;
+    if (!isDate(this.auth.expires_at)) {
+      this.auth.expires_at = dateParse(this.auth.expires_at);
     }
-    return date;
+    return this.auth.expires_at;
   }
 
   isAuthRefreshable() {
@@ -199,6 +191,12 @@ class Wealthsimple {
       .then((response) => {
         // Save auth details for use in subsequent requests:
         this.auth = response.json;
+
+        // calculate a hard expiry date for proper refresh logic across reload
+        this.auth.expires_at = addSeconds(
+          this.auth.created_at * 1000, // JS operates in milliseconds
+          this.auth.expires_in,
+        );
 
         if (this.onAuthSuccess) {
           this.onAuthSuccess(this.auth);
