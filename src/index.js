@@ -111,7 +111,7 @@ class Wealthsimple {
       // the info endpoint nests auth in a `token` root key
       response.json,
     ).catch((error) => {
-      if (error.response === null) {
+      if (!error.response) {
         throw error;
       }
       if (error.response.status === 401) {
