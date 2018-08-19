@@ -6964,6 +6964,480 @@ $export($export.G + $export.B + $export.F * MSIE, {
 
 /***/ }),
 
+/***/ "./node_modules/date-fns/add_milliseconds/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/date-fns/add_milliseconds/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var parse = __webpack_require__(/*! ../parse/index.js */ "./node_modules/date-fns/parse/index.js");
+
+/**
+ * @category Millisecond Helpers
+ * @summary Add the specified number of milliseconds to the given date.
+ *
+ * @description
+ * Add the specified number of milliseconds to the given date.
+ *
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of milliseconds to be added
+ * @returns {Date} the new date with the milliseconds added
+ *
+ * @example
+ * // Add 750 milliseconds to 10 July 2014 12:45:30.000:
+ * var result = addMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:30.750
+ */
+function addMilliseconds(dirtyDate, dirtyAmount) {
+  var timestamp = parse(dirtyDate).getTime();
+  var amount = Number(dirtyAmount);
+  return new Date(timestamp + amount);
+}
+
+module.exports = addMilliseconds;
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/add_seconds/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/date-fns/add_seconds/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var addMilliseconds = __webpack_require__(/*! ../add_milliseconds/index.js */ "./node_modules/date-fns/add_milliseconds/index.js");
+
+/**
+ * @category Second Helpers
+ * @summary Add the specified number of seconds to the given date.
+ *
+ * @description
+ * Add the specified number of seconds to the given date.
+ *
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of seconds to be added
+ * @returns {Date} the new date with the seconds added
+ *
+ * @example
+ * // Add 30 seconds to 10 July 2014 12:45:00:
+ * var result = addSeconds(new Date(2014, 6, 10, 12, 45, 0), 30)
+ * //=> Thu Jul 10 2014 12:45:30
+ */
+function addSeconds(dirtyDate, dirtyAmount) {
+  var amount = Number(dirtyAmount);
+  return addMilliseconds(dirtyDate, amount * 1000);
+}
+
+module.exports = addSeconds;
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/is_after/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/is_after/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var parse = __webpack_require__(/*! ../parse/index.js */ "./node_modules/date-fns/parse/index.js");
+
+/**
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * @param {Date|String|Number} date - the date that should be after the other one to return true
+ * @param {Date|String|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is after the second date
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */
+function isAfter(dirtyDate, dirtyDateToCompare) {
+  var date = parse(dirtyDate);
+  var dateToCompare = parse(dirtyDateToCompare);
+  return date.getTime() > dateToCompare.getTime();
+}
+
+module.exports = isAfter;
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/is_date/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/is_date/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * @category Common Helpers
+ * @summary Is the given argument an instance of Date?
+ *
+ * @description
+ * Is the given argument an instance of Date?
+ *
+ * @param {*} argument - the argument to check
+ * @returns {Boolean} the given argument is an instance of Date
+ *
+ * @example
+ * // Is 'mayonnaise' a Date?
+ * var result = isDate('mayonnaise')
+ * //=> false
+ */
+function isDate(argument) {
+  return argument instanceof Date;
+}
+
+module.exports = isDate;
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/parse/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/parse/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isDate = __webpack_require__(/*! ../is_date/index.js */ "./node_modules/date-fns/is_date/index.js");
+
+var MILLISECONDS_IN_HOUR = 3600000;
+var MILLISECONDS_IN_MINUTE = 60000;
+var DEFAULT_ADDITIONAL_DIGITS = 2;
+
+var parseTokenDateTimeDelimeter = /[T ]/;
+var parseTokenPlainTime = /:/;
+
+// year tokens
+var parseTokenYY = /^(\d{2})$/;
+var parseTokensYYY = [/^([+-]\d{2})$/, // 0 additional digits
+/^([+-]\d{3})$/, // 1 additional digit
+/^([+-]\d{4})$/ // 2 additional digits
+];
+
+var parseTokenYYYY = /^(\d{4})/;
+var parseTokensYYYYY = [/^([+-]\d{4})/, // 0 additional digits
+/^([+-]\d{5})/, // 1 additional digit
+/^([+-]\d{6})/ // 2 additional digits
+];
+
+// date tokens
+var parseTokenMM = /^-(\d{2})$/;
+var parseTokenDDD = /^-?(\d{3})$/;
+var parseTokenMMDD = /^-?(\d{2})-?(\d{2})$/;
+var parseTokenWww = /^-?W(\d{2})$/;
+var parseTokenWwwD = /^-?W(\d{2})-?(\d{1})$/;
+
+// time tokens
+var parseTokenHH = /^(\d{2}([.,]\d*)?)$/;
+var parseTokenHHMM = /^(\d{2}):?(\d{2}([.,]\d*)?)$/;
+var parseTokenHHMMSS = /^(\d{2}):?(\d{2}):?(\d{2}([.,]\d*)?)$/;
+
+// timezone tokens
+var parseTokenTimezone = /([Z+-].*)$/;
+var parseTokenTimezoneZ = /^(Z)$/;
+var parseTokenTimezoneHH = /^([+-])(\d{2})$/;
+var parseTokenTimezoneHHMM = /^([+-])(\d{2}):?(\d{2})$/;
+
+/**
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If an argument is a string, the function tries to parse it.
+ * Function accepts complete ISO 8601 formats as well as partial implementations.
+ * ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
+ *
+ * If all above fails, the function passes the given argument to Date constructor.
+ *
+ * @param {Date|String|Number} argument - the value to convert
+ * @param {Object} [options] - the object with options
+ * @param {0 | 1 | 2} [options.additionalDigits=2] - the additional number of digits in the extended year format
+ * @returns {Date} the parsed date in the local time zone
+ *
+ * @example
+ * // Convert string '2014-02-11T11:30:30' to date:
+ * var result = parse('2014-02-11T11:30:30')
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Parse string '+02014101',
+ * // if the additional number of digits in the extended year format is 1:
+ * var result = parse('+02014101', {additionalDigits: 1})
+ * //=> Fri Apr 11 2014 00:00:00
+ */
+function parse(argument, dirtyOptions) {
+  if (isDate(argument)) {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new Date(argument.getTime());
+  } else if (typeof argument !== 'string') {
+    return new Date(argument);
+  }
+
+  var options = dirtyOptions || {};
+  var additionalDigits = options.additionalDigits;
+  if (additionalDigits == null) {
+    additionalDigits = DEFAULT_ADDITIONAL_DIGITS;
+  } else {
+    additionalDigits = Number(additionalDigits);
+  }
+
+  var dateStrings = splitDateString(argument);
+
+  var parseYearResult = parseYear(dateStrings.date, additionalDigits);
+  var year = parseYearResult.year;
+  var restDateString = parseYearResult.restDateString;
+
+  var date = parseDate(restDateString, year);
+
+  if (date) {
+    var timestamp = date.getTime();
+    var time = 0;
+    var offset;
+
+    if (dateStrings.time) {
+      time = parseTime(dateStrings.time);
+    }
+
+    if (dateStrings.timezone) {
+      offset = parseTimezone(dateStrings.timezone);
+    } else {
+      // get offset accurate to hour in timezones that change offset
+      offset = new Date(timestamp + time).getTimezoneOffset();
+      offset = new Date(timestamp + time + offset * MILLISECONDS_IN_MINUTE).getTimezoneOffset();
+    }
+
+    return new Date(timestamp + time + offset * MILLISECONDS_IN_MINUTE);
+  } else {
+    return new Date(argument);
+  }
+}
+
+function splitDateString(dateString) {
+  var dateStrings = {};
+  var array = dateString.split(parseTokenDateTimeDelimeter);
+  var timeString;
+
+  if (parseTokenPlainTime.test(array[0])) {
+    dateStrings.date = null;
+    timeString = array[0];
+  } else {
+    dateStrings.date = array[0];
+    timeString = array[1];
+  }
+
+  if (timeString) {
+    var token = parseTokenTimezone.exec(timeString);
+    if (token) {
+      dateStrings.time = timeString.replace(token[1], '');
+      dateStrings.timezone = token[1];
+    } else {
+      dateStrings.time = timeString;
+    }
+  }
+
+  return dateStrings;
+}
+
+function parseYear(dateString, additionalDigits) {
+  var parseTokenYYY = parseTokensYYY[additionalDigits];
+  var parseTokenYYYYY = parseTokensYYYYY[additionalDigits];
+
+  var token;
+
+  // YYYY or ±YYYYY
+  token = parseTokenYYYY.exec(dateString) || parseTokenYYYYY.exec(dateString);
+  if (token) {
+    var yearString = token[1];
+    return {
+      year: parseInt(yearString, 10),
+      restDateString: dateString.slice(yearString.length)
+    };
+  }
+
+  // YY or ±YYY
+  token = parseTokenYY.exec(dateString) || parseTokenYYY.exec(dateString);
+  if (token) {
+    var centuryString = token[1];
+    return {
+      year: parseInt(centuryString, 10) * 100,
+      restDateString: dateString.slice(centuryString.length)
+    };
+  }
+
+  // Invalid ISO-formatted year
+  return {
+    year: null
+  };
+}
+
+function parseDate(dateString, year) {
+  // Invalid ISO-formatted year
+  if (year === null) {
+    return null;
+  }
+
+  var token;
+  var date;
+  var month;
+  var week;
+
+  // YYYY
+  if (dateString.length === 0) {
+    date = new Date(0);
+    date.setUTCFullYear(year);
+    return date;
+  }
+
+  // YYYY-MM
+  token = parseTokenMM.exec(dateString);
+  if (token) {
+    date = new Date(0);
+    month = parseInt(token[1], 10) - 1;
+    date.setUTCFullYear(year, month);
+    return date;
+  }
+
+  // YYYY-DDD or YYYYDDD
+  token = parseTokenDDD.exec(dateString);
+  if (token) {
+    date = new Date(0);
+    var dayOfYear = parseInt(token[1], 10);
+    date.setUTCFullYear(year, 0, dayOfYear);
+    return date;
+  }
+
+  // YYYY-MM-DD or YYYYMMDD
+  token = parseTokenMMDD.exec(dateString);
+  if (token) {
+    date = new Date(0);
+    month = parseInt(token[1], 10) - 1;
+    var day = parseInt(token[2], 10);
+    date.setUTCFullYear(year, month, day);
+    return date;
+  }
+
+  // YYYY-Www or YYYYWww
+  token = parseTokenWww.exec(dateString);
+  if (token) {
+    week = parseInt(token[1], 10) - 1;
+    return dayOfISOYear(year, week);
+  }
+
+  // YYYY-Www-D or YYYYWwwD
+  token = parseTokenWwwD.exec(dateString);
+  if (token) {
+    week = parseInt(token[1], 10) - 1;
+    var dayOfWeek = parseInt(token[2], 10) - 1;
+    return dayOfISOYear(year, week, dayOfWeek);
+  }
+
+  // Invalid ISO-formatted date
+  return null;
+}
+
+function parseTime(timeString) {
+  var token;
+  var hours;
+  var minutes;
+
+  // hh
+  token = parseTokenHH.exec(timeString);
+  if (token) {
+    hours = parseFloat(token[1].replace(',', '.'));
+    return hours % 24 * MILLISECONDS_IN_HOUR;
+  }
+
+  // hh:mm or hhmm
+  token = parseTokenHHMM.exec(timeString);
+  if (token) {
+    hours = parseInt(token[1], 10);
+    minutes = parseFloat(token[2].replace(',', '.'));
+    return hours % 24 * MILLISECONDS_IN_HOUR + minutes * MILLISECONDS_IN_MINUTE;
+  }
+
+  // hh:mm:ss or hhmmss
+  token = parseTokenHHMMSS.exec(timeString);
+  if (token) {
+    hours = parseInt(token[1], 10);
+    minutes = parseInt(token[2], 10);
+    var seconds = parseFloat(token[3].replace(',', '.'));
+    return hours % 24 * MILLISECONDS_IN_HOUR + minutes * MILLISECONDS_IN_MINUTE + seconds * 1000;
+  }
+
+  // Invalid ISO-formatted time
+  return null;
+}
+
+function parseTimezone(timezoneString) {
+  var token;
+  var absoluteOffset;
+
+  // Z
+  token = parseTokenTimezoneZ.exec(timezoneString);
+  if (token) {
+    return 0;
+  }
+
+  // ±hh
+  token = parseTokenTimezoneHH.exec(timezoneString);
+  if (token) {
+    absoluteOffset = parseInt(token[2], 10) * 60;
+    return token[1] === '+' ? -absoluteOffset : absoluteOffset;
+  }
+
+  // ±hh:mm or ±hhmm
+  token = parseTokenTimezoneHHMM.exec(timezoneString);
+  if (token) {
+    absoluteOffset = parseInt(token[2], 10) * 60 + parseInt(token[3], 10);
+    return token[1] === '+' ? -absoluteOffset : absoluteOffset;
+  }
+
+  return 0;
+}
+
+function dayOfISOYear(isoYear, week, day) {
+  week = week || 0;
+  day = day || 0;
+  var date = new Date(0);
+  date.setUTCFullYear(isoYear, 0, 4);
+  var fourthOfJanuaryDay = date.getUTCDay() || 7;
+  var diff = week * 7 + day + 1 - fourthOfJanuaryDay;
+  date.setUTCDate(date.getUTCDate() + diff);
+  return date;
+}
+
+module.exports = parse;
+
+/***/ }),
+
 /***/ "./node_modules/decode-uri-component/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/decode-uri-component/index.js ***!
@@ -11465,7 +11939,8 @@ var ApiRequest = function () {
       return this.client.fetchAdapter(url, {
         headers: newHeaders,
         method: method,
-        body: newBody
+        body: newBody,
+        credentials: 'same-origin'
       }).then(this._handleResponse.bind(this));
     }
   }, {
@@ -11514,12 +11989,16 @@ var ApiRequest = function () {
   }, {
     key: '_defaultHeaders',
     value: function _defaultHeaders() {
-      return {
+      var h = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Date: new Date().toUTCString(),
         'X-Wealthsimple-Client': 'wealthsimple.js'
       };
+      if (this.client.deviceId) {
+        h['X-WS-Device-ID'] = this.client.deviceId;
+      }
+      return h;
     }
   }]);
 
@@ -11622,6 +12101,15 @@ var ApiResponse = function () {
       return otp;
     }
   }, {
+    key: 'getOTPClaim',
+    value: function getOTPClaim() {
+      var otpClaimString = this.headers.get(constants.OTP_CLAIM_HEADER);
+      if (!otpClaimString) {
+        return null;
+      }
+      return otpClaimString;
+    }
+  }, {
     key: 'toString',
     value: function toString() {
       var message = 'Response status: ' + this.status;
@@ -11654,7 +12142,8 @@ module.exports = ApiResponse;
 module.exports = {
   API_VERSIONS: ['v1'],
   ENVIRONMENTS: ['development', 'sandbox', 'production'],
-  OTP_HEADER: 'x-wealthsimple-otp'
+  OTP_HEADER: 'x-wealthsimple-otp',
+  OTP_CLAIM_HEADER: 'x-wealthsimple-otp-claim'
 };
 
 /***/ }),
@@ -11873,12 +12362,20 @@ var ApiRequest = __webpack_require__(/*! ./api-request */ "./src/api-request.js"
 var ApiError = __webpack_require__(/*! ./api-error */ "./src/api-error.js");
 var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
 
+var isDate = __webpack_require__(/*! date-fns/is_date */ "./node_modules/date-fns/is_date/index.js");
+var isAfter = __webpack_require__(/*! date-fns/is_after */ "./node_modules/date-fns/is_after/index.js");
+var dateParse = __webpack_require__(/*! date-fns/parse */ "./node_modules/date-fns/parse/index.js");
+var addSeconds = __webpack_require__(/*! date-fns/add_seconds */ "./node_modules/date-fns/add_seconds/index.js");
+
 var Wealthsimple = function () {
   function Wealthsimple(_ref) {
+    var _this = this;
+
     var clientId = _ref.clientId,
         clientSecret = _ref.clientSecret,
-        auth = _ref.auth,
         fetchAdapter = _ref.fetchAdapter,
+        _ref$auth = _ref.auth,
+        auth = _ref$auth === undefined ? null : _ref$auth,
         _ref$env = _ref.env,
         env = _ref$env === undefined ? null : _ref$env,
         _ref$baseUrl = _ref.baseUrl,
@@ -11889,10 +12386,14 @@ var Wealthsimple = function () {
         onAuthSuccess = _ref$onAuthSuccess === undefined ? null : _ref$onAuthSuccess,
         _ref$onAuthRevoke = _ref.onAuthRevoke,
         onAuthRevoke = _ref$onAuthRevoke === undefined ? null : _ref$onAuthRevoke,
+        _ref$onAuthInvalid = _ref.onAuthInvalid,
+        onAuthInvalid = _ref$onAuthInvalid === undefined ? null : _ref$onAuthInvalid,
         _ref$onResponse = _ref.onResponse,
         onResponse = _ref$onResponse === undefined ? null : _ref$onResponse,
         _ref$verbose = _ref.verbose,
-        verbose = _ref$verbose === undefined ? false : _ref$verbose;
+        verbose = _ref$verbose === undefined ? false : _ref$verbose,
+        _ref$deviceId = _ref.deviceId,
+        deviceId = _ref$deviceId === undefined ? null : _ref$deviceId;
 
     _classCallCheck(this, Wealthsimple);
 
@@ -11921,9 +12422,7 @@ var Wealthsimple = function () {
     }
     this.apiVersion = apiVersion;
 
-    // Optionally pass in existing OAuth details (access_token + refresh_token)
-    // so that the user does not have to be prompted to log in again:
-    this.auth = auth;
+    this.deviceId = deviceId;
 
     // Optionally allow a custom request adapter to be specified (e.g. for
     // react-native) which must implement the `fetch` interface:
@@ -11944,12 +12443,79 @@ var Wealthsimple = function () {
     // Optionally allow for callbacks on certain key events:
     this.onAuthSuccess = onAuthSuccess;
     this.onAuthRevoke = onAuthRevoke;
+    this.onAuthInvalid = onAuthInvalid;
     this.onResponse = onResponse;
 
     this.request = new ApiRequest({ client: this });
+
+    // Optionally pass in existing OAuth details (access_token + refresh_token)
+    // so that the user does not have to be prompted to log in again:
+    if (auth) {
+      // Checks auth validity on bootstrap
+      this.authPromise = this.accessTokenInfo(auth.access_token).then(function () {
+        _this.auth = auth;
+      });
+    } else {
+      this.authPromise = new Promise(function (resolve) {
+        return resolve(_this.auth);
+      });
+    }
   }
 
+  // TODO: Should this have the side-effect of updating this.auth?
+
+
   _createClass(Wealthsimple, [{
+    key: 'accessTokenInfo',
+    value: function accessTokenInfo() {
+      var _this2 = this;
+
+      var accessToken = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      var token = accessToken || this.accessToken();
+      if (!token) {
+        return new Promise(function (resolve) {
+          if (_this2.onAuthInvalid) {
+            _this2.onAuthInvalid({});
+          }
+          resolve();
+        });
+      }
+
+      return this.get('/oauth/token/info', {
+        headers: { Authorization: 'Bearer ' + token },
+        ignoreAuthPromise: true,
+        checkAuthRefresh: false
+      }).then(function (response) {
+        return (
+          // the info endpoint nests auth in a `token` root key
+          response.json
+        );
+      }).catch(function (error) {
+        if (!error.response) {
+          throw error;
+        }
+        if (error.response.status === 401) {
+          if (_this2.onAuthInvalid) {
+            _this2.onAuthInvalid(error.response.json);
+          }
+          return null;
+        }
+        throw new ApiError(error.response);
+      });
+    }
+  }, {
+    key: 'accessToken',
+    value: function accessToken() {
+      // info endpoint and POST response have different structures
+      return this.auth && this.auth.access_token;
+    }
+  }, {
+    key: 'refreshToken',
+    value: function refreshToken() {
+      return this.auth && this.auth.refresh_token;
+    }
+  }, {
     key: 'resourceOwnerId',
     value: function resourceOwnerId() {
       return this.auth && this.auth.resource_owner_id;
@@ -11960,19 +12526,24 @@ var Wealthsimple = function () {
       return this.auth && this.auth.client_canonical_id;
     }
   }, {
-    key: 'authExpiresAt',
-    value: function authExpiresAt() {
-      if (this.auth && this.auth.created_at && this.auth.expires_in) {
-        var expiresAtTimestamp = this.auth.created_at + this.auth.expires_in;
-        return new Date(expiresAtTimestamp * 1000);
-      }
-      return undefined;
-    }
-  }, {
     key: 'isAuthExpired',
     value: function isAuthExpired() {
-      var expiresAt = this.authExpiresAt();
-      return !!expiresAt && expiresAt <= new Date();
+      var date = this.authExpiresAt();
+      if (date === null) {
+        return false;
+      }
+      return isAfter(new Date(), date);
+    }
+  }, {
+    key: 'authExpiresAt',
+    value: function authExpiresAt() {
+      if (!this.auth || !this.auth.expires_at) {
+        return null;
+      }
+      if (!isDate(this.auth.expires_at)) {
+        this.auth.expires_at = dateParse(this.auth.expires_at);
+      }
+      return this.auth.expires_at;
     }
   }, {
     key: 'isAuthRefreshable',
@@ -11982,12 +12553,17 @@ var Wealthsimple = function () {
   }, {
     key: 'authenticate',
     value: function authenticate(attributes) {
-      var _this = this;
+      var _this3 = this;
 
       var headers = {};
       if (attributes.otp) {
         headers[constants.OTP_HEADER] = attributes.otp;
         delete attributes.otp;
+      }
+
+      if (attributes.otpClaim) {
+        headers[constants.OTP_CLAIM_HEADER] = attributes.otpClaim;
+        delete attributes.otpClaim;
       }
 
       var checkAuthRefresh = true;
@@ -12006,55 +12582,86 @@ var Wealthsimple = function () {
 
       return this.post('/oauth/token', { headers: headers, body: body, checkAuthRefresh: checkAuthRefresh }).then(function (response) {
         // Save auth details for use in subsequent requests:
-        _this.auth = response.json;
+        _this3.auth = response.json;
 
-        if (_this.onAuthSuccess) {
-          _this.onAuthSuccess(response.json);
+        // calculate a hard expiry date for proper refresh logic across reload
+        _this3.auth.expires_at = addSeconds(_this3.auth.created_at * 1000, // JS operates in milliseconds
+        _this3.auth.expires_in);
+
+        if (_this3.onAuthSuccess) {
+          _this3.onAuthSuccess(_this3.auth);
         }
 
         return response;
       }).catch(function (error) {
-        throw new ApiError(error.response);
+        if (error.response) {
+          throw new ApiError(error.response);
+        } else {
+          throw error;
+        }
       });
     }
   }, {
     key: 'refreshAuth',
     value: function refreshAuth() {
-      if (!this.isAuthRefreshable()) {
-        throw new Error('Must have a refresh_token set in order to refresh auth.');
-      }
-      return this.authenticate({
-        grantType: 'refresh_token',
-        refreshToken: this.auth.refresh_token,
-        checkAuthRefresh: false
+      var _this4 = this;
+
+      return this.authPromise.then(function () {
+        if (!_this4.isAuthRefreshable()) {
+          throw new Error('Must have a refresh_token set in order to refresh auth.');
+        }
+        return _this4.authenticate({
+          grantType: 'refresh_token',
+          refreshToken: _this4.refreshToken(),
+          checkAuthRefresh: false
+        });
       });
     }
   }, {
     key: 'revokeAuth',
     value: function revokeAuth() {
-      var _this2 = this;
+      var _this5 = this;
 
-      if (this.auth) {
-        return this.post('/oauth/revoke').then(function () {
-          _this2.auth = null;
+      return this.authPromise.then(function () {
+        if (_this5.accessToken()) {
+          var body = {
+            client_id: _this5.clientId,
+            client_secret: _this5.clientSecret,
+            token: _this5.accessToken()
+          };
+          return _this5.post('/oauth/revoke', { body: body }).then(function () {
+            _this5.auth = null;
 
-          if (_this2.onAuthRevoke) {
-            _this2.onAuthRevoke();
-          }
-        });
-      }
-      // Not authenticated
-      return new Promise(function (resolve) {
-        if (_this2.onAuthRevoke) {
-          _this2.onAuthRevoke();
+            if (_this5.onAuthRevoke) {
+              _this5.onAuthRevoke();
+            }
+          });
         }
-        resolve();
+        // Not authenticated
+        return new Promise(function (resolve) {
+          if (_this5.onAuthRevoke) {
+            _this5.onAuthRevoke();
+          }
+          resolve();
+        });
+      }).catch(function () {
+        return (
+          // Something went wrong server-side, but that doesn't matter to the client
+          // The risk is that the token didnt revoke, but we can still forget about
+          // The data here on the client side
+          new Promise(function (resolve) {
+            if (_this5.onAuthRevoke) {
+              _this5.onAuthRevoke();
+            }
+            resolve();
+          })
+        );
       });
     }
   }, {
     key: '_fetch',
     value: function _fetch(method, path, _ref2) {
-      var _this3 = this;
+      var _this6 = this;
 
       var _ref2$headers = _ref2.headers,
           headers = _ref2$headers === undefined ? {} : _ref2$headers,
@@ -12065,11 +12672,11 @@ var Wealthsimple = function () {
           _ref2$checkAuthRefres = _ref2.checkAuthRefresh,
           checkAuthRefresh = _ref2$checkAuthRefres === undefined ? true : _ref2$checkAuthRefres;
 
-      var exeturePrimaryRequest = function exeturePrimaryRequest() {
-        if (!_this3.isAuthExpired() && _this3.auth) {
-          headers.Authorization = 'Bearer ' + _this3.auth.access_token;
+      var executePrimaryRequest = function executePrimaryRequest() {
+        if (!_this6.isAuthExpired() && !headers.Authorization && _this6.accessToken()) {
+          headers.Authorization = 'Bearer ' + _this6.accessToken();
         }
-        return _this3.request.fetch({
+        return _this6.request.fetch({
           method: method, path: path, headers: headers, query: query, body: body
         });
       };
@@ -12077,9 +12684,14 @@ var Wealthsimple = function () {
       if (checkAuthRefresh && this.isAuthRefreshable() && this.isAuthExpired()) {
         // Automatically refresh auth using refresh_token, then subsequently
         // perform the actual request:
-        return this.refreshAuth().then(exeturePrimaryRequest);
+        return this.refreshAuth().then(executePrimaryRequest);
       }
-      return exeturePrimaryRequest();
+      return executePrimaryRequest().catch(function (error) {
+        if (error.response && error.response.status === 401 && _this6.onAuthInvalid) {
+          _this6.onAuthInvalid(error.response.json);
+        }
+        throw error;
+      });
     }
   }]);
 
@@ -12088,9 +12700,18 @@ var Wealthsimple = function () {
 
 ['get', 'patch', 'put', 'post', 'delete', 'head'].forEach(function (method) {
   Wealthsimple.prototype[method] = function (path) {
+    var _this7 = this;
+
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    return this._fetch(method.toUpperCase(), path, options);
+    // Make sure that constructor's context bootstrapping is complete before a
+    // remote call is made
+    if (options.ignoreAuthPromise || !this.authPromise) {
+      return this._fetch(method.toUpperCase(), path, options);
+    }
+    return this.authPromise.then(function () {
+      return _this7._fetch(method.toUpperCase(), path, options);
+    });
   };
 });
 
