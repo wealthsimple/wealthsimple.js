@@ -50,13 +50,8 @@ class ApiRequest {
     if (!newPath.startsWith('/')) {
       newPath = `/${newPath}`;
     }
-    let baseUrl;
-    if (this.client.baseUrl) {
-      ({ baseUrl } = this.client);
-    } else {
-      baseUrl = `https://api.${this.client.env}.wealthsimple.com`;
-    }
-    return `${baseUrl}/${this.client.apiVersion}${newPath}`;
+
+    return `${this.client.baseUrl}/${this.client.apiVersion}${newPath}`;
   }
 
   // Given a Response object ( https://developer.mozilla.org/en-US/docs/Web/API/Response )

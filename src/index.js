@@ -43,6 +43,7 @@ class Wealthsimple {
         throw new Error(`Unrecognized 'env'. Please use one of: ${constants.ENVIRONMENTS.join(', ')}`);
       }
       this.env = env;
+      this.baseUrl = `https://api.${env}.wealthsimple.com`;
     }
 
     // Setting to `true` will add request logging.
