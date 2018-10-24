@@ -109,7 +109,6 @@ class Wealthsimple {
       ignoreAuthPromise: true,
       checkAuthRefresh: false,
     }).then(response =>
-      // the info endpoint nests auth in a `token` root key
       response.json,
     ).catch((error) => {
       if (!error.response) {
