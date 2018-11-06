@@ -5,7 +5,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = (env, argv) => ({
   // This is where we start to crawl the tree looking for imports to
   // tell us what the output bundle should include.
-  entry: './src/index.js',
+  entry: './index.browser.js',
 
   // This is where we're putting the output.
   output: {

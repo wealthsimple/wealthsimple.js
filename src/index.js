@@ -1,6 +1,5 @@
 'use strict';
 
-require('babel-polyfill');
 const snakeCase = require('lodash.snakecase');
 const mapKeys = require('lodash.mapkeys');
 const ApiRequest = require('./api-request');
