@@ -163,6 +163,31 @@ class Wealthsimple {
     return !!(this.auth && typeof this.auth.refresh_token === 'string');
   }
 
+  hotSwap(profile) {
+    if (!this.auth || !this.auth.access_token) {
+      throw new Error('Cannot hotswap without an existing access token!');
+    }
+
+    const body = {
+      access_token: this.auth.access_token,
+      profile,
+    };
+
+    return this.post('/oauth/switch_access_tokens', { body })
+      .then(this._updateAuthObject)
+      .then((response) => {
+        this.authPromise = new Promise(resolve => resolve(this.auth));
+        return response;
+      })
+      .catch((error) => {
+        if (error.response) {
+          throw new ApiError(error.response);
+        } else {
+          throw error;
+        }
+      });
+  }
+
   authenticate(attributes) {
     const headers = {};
     if (attributes.otp) {
@@ -188,22 +213,7 @@ class Wealthsimple {
     };
 
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
-      .then((response) => {
-        // Save auth details for use in subsequent requests:
-        this.auth = response.json;
-
-        // calculate a hard expiry date for proper refresh logic across reload
-        this.auth.expires_at = addSeconds(
-          this.auth.created_at * 1000, // JS operates in milliseconds
-          this.auth.expires_in,
-        );
-
-        if (this.onAuthSuccess) {
-          this.onAuthSuccess(this.auth);
-        }
-
-        return response;
-      })
+      .then(this._updateAuthObject)
       .catch((error) => {
         if (error.response) {
           throw new ApiError(error.response);
@@ -261,6 +271,23 @@ class Wealthsimple {
         resolve();
       })
     ));
+  }
+
+  _updateAuthObject(response) {
+    // Save auth details for use in subsequent requests:
+    this.auth = response.json;
+
+    // calculate a hard expiry date for proper refresh logic across reload
+    this.auth.expires_at = addSeconds(
+      this.auth.created_at * 1000, // JS operates in milliseconds
+      this.auth.expires_in,
+    );
+
+    if (this.onAuthSuccess) {
+      this.onAuthSuccess(this.auth);
+    }
+
+    return response;
   }
 
   _fetch(method, path, {
