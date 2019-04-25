@@ -164,14 +164,7 @@ class Wealthsimple {
   }
 
   hotSwap(profile) {
-    if (!this.auth || !this.auth.access_token) {
-      throw new Error('Cannot hotswap without an existing access token!');
-    }
-
-    const body = {
-      access_token: this.auth.access_token,
-      profile,
-    };
+    const body = { profile };
 
     return this.post('/oauth/switch_access_tokens', { body })
       .then(this._updateAuthObject)
