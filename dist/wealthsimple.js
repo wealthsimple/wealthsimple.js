@@ -284,6 +284,7 @@ __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core
 __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
 var Wealthsimple = __webpack_require__(/*! ./src/index */ "./src/index.js");
+
 module.exports = Wealthsimple;
 
 /***/ }),
@@ -12562,10 +12563,28 @@ var Wealthsimple = function () {
       return !!(this.auth && typeof this.auth.refresh_token === 'string');
     }
   }, {
-    key: 'authenticate',
-    value: function authenticate(attributes) {
+    key: 'hotSwap',
+    value: function hotSwap(profile) {
       var _this3 = this;
 
+      var body = { profile: profile };
+
+      return this.post('/oauth/switch_access_tokens', { body: body }).then(this._updateAuthObject).then(function (response) {
+        _this3.authPromise = new Promise(function (resolve) {
+          return resolve(_this3.auth);
+        });
+        return response;
+      }).catch(function (error) {
+        if (error.response) {
+          throw new ApiError(error.response);
+        } else {
+          throw error;
+        }
+      });
+    }
+  }, {
+    key: 'authenticate',
+    value: function authenticate(attributes) {
       var headers = {};
       if (attributes.otp) {
         headers[constants.OTP_HEADER] = attributes.otp;
@@ -12591,20 +12610,7 @@ var Wealthsimple = function () {
         client_secret: this.clientSecret
       });
 
-      return this.post('/oauth/token', { headers: headers, body: body, checkAuthRefresh: checkAuthRefresh }).then(function (response) {
-        // Save auth details for use in subsequent requests:
-        _this3.auth = response.json;
-
-        // calculate a hard expiry date for proper refresh logic across reload
-        _this3.auth.expires_at = addSeconds(_this3.auth.created_at * 1000, // JS operates in milliseconds
-        _this3.auth.expires_in);
-
-        if (_this3.onAuthSuccess) {
-          _this3.onAuthSuccess(_this3.auth);
-        }
-
-        return response;
-      }).catch(function (error) {
+      return this.post('/oauth/token', { headers: headers, body: body, checkAuthRefresh: checkAuthRefresh }).then(this._updateAuthObject).catch(function (error) {
         if (error.response) {
           throw new ApiError(error.response);
         } else {
@@ -12668,6 +12674,22 @@ var Wealthsimple = function () {
           })
         );
       });
+    }
+  }, {
+    key: '_updateAuthObject',
+    value: function _updateAuthObject(response) {
+      // Save auth details for use in subsequent requests:
+      this.auth = response.json;
+
+      // calculate a hard expiry date for proper refresh logic across reload
+      this.auth.expires_at = addSeconds(this.auth.created_at * 1000, // JS operates in milliseconds
+      this.auth.expires_in);
+
+      if (this.onAuthSuccess) {
+        this.onAuthSuccess(this.auth);
+      }
+
+      return response;
     }
   }, {
     key: '_fetch',
