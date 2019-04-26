@@ -1,6 +1,6 @@
 {
   "name": "@wealthsimple/wealthsimple",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A JavaScript client for the Wealthsimple API",
   "license": "MIT",
   "main": "dist/wealthsimple.min.js",
@@ -11,6 +11,7 @@
     "lint": "eslint '**/*.js'",
     "retire": "retire --ignore dist -n -p",
     "test": "jest --watch",
+    "test:coverage": "jest --coverage --runInBand --reporters=jest-junit --coverageReporters=text-lcov | coveralls",
     "test:all": "yarn retire && yarn lint && jest --runInBand",
     "prebuild": "rm -rf dist",
     "build": "npm run build:dev && npm run build:prod",
@@ -34,6 +35,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.3",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
@@ -41,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "jest": "^22.4.2",
+    "jest-junit": "^6.3.0",
     "jest-runner-eslint": "^0.4.0",
     "prompt-sync": "^4.1.5",
     "retire": "^1.6.0",
@@ -49,6 +52,9 @@
     "webpack-cli": "^2.0.12"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "**/src/**/*.js"
+    ],
     "projects": [
       {
         "displayName": "test"
