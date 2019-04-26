@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/wealthsimple/wealthsimple.js/badge.svg?branch=abhi%2Fcode-coverage)](https://coveralls.io/github/wealthsimple/wealthsimple.js?branch=abhi%2Fcode-coverage)
+[![Coverage Status](https://coveralls.io/repos/github/wealthsimple/wealthsimple.js/badge.svg?branch=master)](https://coveralls.io/github/wealthsimple/wealthsimple.js?branch=master)
 [![CircleCI](https://circleci.com/gh/wealthsimple/wealthsimple.js.svg?style=svg&circle-token=588c9a24bda879ba0199d8ac005a3cc8dc5f39ba)](https://circleci.com/gh/wealthsimple/wealthsimple.js)
 # @wealthsimple/wealthsimple
 
