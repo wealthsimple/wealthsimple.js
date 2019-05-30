@@ -15,7 +15,7 @@ class ApiRequest {
     let newBody = body;
 
     if (query && Object.keys(query).length > 0) {
-      newPath += `?${queryString.stringify(query)}`;
+      newPath += `?${queryString.stringify(query, {arrayFormat: 'bracket'})}`;
     }
     const url = this.urlFor(newPath);
 
