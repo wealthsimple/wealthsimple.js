@@ -115,4 +115,26 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
       });
     });
   });
+
+  describe('with no options', () => {
+    beforeEach(() => {
+      subject = new CoBrowsing();
+    });
+
+    it('initializes with null values', () => {
+      expect(subject.users).toBeUndefined();
+    });
+
+    describe('isCoBrowsing', () => {
+      it('returns false', () => {
+        expect(subject.isCoBrowsing()).toBe(false);
+      });
+    });
+
+    describe('getTargetUser', () => {
+      it('returns null', () => {
+        expect(subject.getTargetUser()).toBeNull();
+      });
+    });
+  });
 });
