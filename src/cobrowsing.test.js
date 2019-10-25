@@ -11,7 +11,7 @@ describe('CoBrowsing', () => {
       const logger = { warn, error };
 
       const context =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci1sZy1oZWdmbGFnMCJ9.B5byfVdeNOH5_KbilfBQTgxZlllXIpMSEqFBZdErgzJ4XM1oT8ZkrmKP9ogF4e9I6t2HlaUHIIlscTYU2I26yw';
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci04dy1nbHIyeHh1dyJ9.F8jeRkTnWyOYadoNbh3Tt100OLQlEBmtklK0vEGmrAuZkVjUTUMNzbNXk8MpHd9ahVMMRdvL9KxnX--9gdC3Pw';
       const publicKey = `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
 6th4+Fe2NeJFbb1F5Gwi9JW64K8g/zWPE77ttwuB1VZrSFqj7tPBFJErDA==
@@ -43,7 +43,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
 
     describe('getTargetUser', () => {
       it('can return the target user', () => {
-        expect(subject.getTargetUser()).toEqual('user-lg-hegflag0');
+        expect(subject.getTargetUser()).toEqual('user-8w-glr2xxuw');
       });
     });
   });

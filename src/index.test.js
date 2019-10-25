@@ -91,6 +91,45 @@ describe('Wealthsimple', () => {
         expect(wealthsimple.resourceOwnerId()).toEqual('user-abc123');
         expect(wealthsimple.clientCanonicalId()).toEqual('person-def345');
       });
+
+      describe('co-browsing', () => {
+        // const fetchAdapter = jest.fn().mockResolvedValue({});
+        // const fetchAdapter = { get };
+        const context =
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci04dy1nbHIyeHh1dyJ9.F8jeRkTnWyOYadoNbh3Tt100OLQlEBmtklK0vEGmrAuZkVjUTUMNzbNXk8MpHd9ahVMMRdvL9KxnX--9gdC3Pw';
+        const publicKey = `-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
+6th4+Fe2NeJFbb1F5Gwi9JW64K8g/zWPE77ttwuB1VZrSFqj7tPBFJErDA==
+-----END PUBLIC KEY-----`;
+
+        beforeEach(() => {
+          wealthsimple = new Wealthsimple({
+            clientId: 'clientid',
+            env: 'sandbox',
+            apiVersion: 'v1',
+            // fetchAdapter,
+            cobrowsing: {
+              context,
+              publicKey,
+              placeholder: '[USER_CANONICAL_ID]',
+            },
+          });
+        });
+
+        describe('_replacePath', () => {
+          it('replaces the placeholder with the target user canonical id from the co-browsing context', () => {
+            expect(wealthsimple._replacePath('/api/sessions/[USER_CANONICAL_ID]'))
+              .toEqual('/api/sessions/user-8w-glr2xxuw');
+          });
+        });
+
+        // TODO: Test that fetch methods are called with the right path
+        /* it('replaces the placeholder path with the target user canonical id', () => {
+          wealthsimple.get('/api/sessions/[USER_CANONICAL_ID]');
+
+          expect(fetchAdapter).toHaveBeenCalled();
+        }); */
+      });
     });
   });
 });

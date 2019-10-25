@@ -3,9 +3,15 @@ const jwt = require('jsonwebtoken');
 class CoBrowsing {
   constructor(config) {
     if (config) {
-      const { context, publicKey, logger = console } = config;
+      const {
+        context,
+        publicKey,
+        placeholder = ':USER_CANONICAL_ID',
+        logger = console,
+      } = config;
 
       this.logger = logger;
+      this.placeholder = placeholder;
       this.users = this._usersFromContext(context, publicKey);
     }
   }

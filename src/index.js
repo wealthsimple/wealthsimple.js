@@ -5,6 +5,7 @@ const mapKeys = require('lodash.mapkeys');
 const ApiRequest = require('./api-request');
 const ApiError = require('./api-error');
 const constants = require('./constants');
+const CoBrowsing = require('./cobrowsing');
 
 const isDate = require('date-fns/is_date');
 const isAfter = require('date-fns/is_after');
@@ -26,6 +27,7 @@ class Wealthsimple {
     onResponse = null,
     verbose = false,
     deviceId = null,
+    cobrowsing = null,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -89,6 +91,8 @@ class Wealthsimple {
     } else {
       this.authPromise = new Promise(resolve => resolve(this.auth));
     }
+
+    this.cobrowsing = new CoBrowsing(cobrowsing);
   }
 
   // TODO: Should this have the side-effect of updating this.auth?
@@ -290,6 +294,16 @@ class Wealthsimple {
       throw error;
     });
   }
+
+  _replacePath(path) {
+    if (!this.cobrowsing.isCoBrowsing()) {
+      return path;
+    }
+
+    const { placeholder } = this.cobrowsing;
+
+    return path.replace(placeholder, this.cobrowsing.getTargetUser());
+  }
 }
 
 ['get', 'patch', 'put', 'post', 'delete', 'head'].forEach((method) => {
@@ -297,9 +311,12 @@ class Wealthsimple {
     // Make sure that constructor's context bootstrapping is complete before a
     // remote call is made
     if (options.ignoreAuthPromise || !this.authPromise) {
-      return this._fetch(method.toUpperCase(), path, options);
+      return this._fetch(method.toUpperCase(), this._replacePath(path), options);
     }
-    return this.authPromise.then(() => this._fetch(method.toUpperCase(), path, options));
+
+    return this.authPromise.then(() =>
+      this._fetch(method.toUpperCase(), this._replacePath(path), options),
+    );
   };
 });
 
