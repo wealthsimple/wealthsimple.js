@@ -43,7 +43,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
 
     describe('getTargetUser', () => {
       it('can return the target user', () => {
-        expect(subject.getTargetUser()).toEqual('user-lg-hegflag0')
+        expect(subject.getTargetUser()).toEqual('user-lg-hegflag0');
       });
     });
   });
