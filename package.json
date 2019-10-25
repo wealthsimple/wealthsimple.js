@@ -8,9 +8,10 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint src",
     "retire": "retire --ignore dist -n -p",
-    "test": "jest --watch",
+    "jest": "jest --watch",
+    "test": "npm run lint && npm run jest",
     "test:coverage": "jest --coverage --runInBand --reporters=jest-junit --coverageReporters=text-lcov | coveralls",
     "test:all": "yarn retire && yarn lint && jest --runInBand",
     "prebuild": "rm -rf dist",
@@ -22,19 +23,20 @@
     "fs": false
   },
   "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
     "date-fns": "^1.29.0",
     "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
     "lodash.mapkeys": "^4.6.0",
     "lodash.snakecase": "^4.1.1",
     "query-string": "^5.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.3",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
@@ -42,9 +44,8 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
-    "jest": "^22.4.2",
+    "jest": "^24.9.0",
     "jest-junit": "^6.3.0",
-    "jest-runner-eslint": "^0.4.0",
     "prompt-sync": "^4.1.5",
     "retire": "^1.6.0",
     "webpack": "^4.1.1",
@@ -61,13 +62,6 @@
     "projects": [
       {
         "displayName": "test"
-      },
-      {
-        "displayName": "lint",
-        "runner": "jest-runner-eslint",
-        "testMatch": [
-          "<rootDir>/**/*.js"
-        ]
       }
     ]
   }
