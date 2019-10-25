@@ -23,12 +23,6 @@
     "fs": false
   },
   "dependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/plugin-transform-async-to-generator": "^7.5.0",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.3",
-    "babel-loader": "^8.0.6",
     "date-fns": "^1.29.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
@@ -37,6 +31,12 @@
     "query-string": "^5.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
     "coveralls": "^3.0.3",
     "dotenv": "^5.0.0",
     "eslint": "^4.18.2",
