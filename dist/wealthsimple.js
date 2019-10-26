@@ -37781,8 +37781,6 @@ function () {
   }, {
     key: "_replacePath",
     value: function _replacePath(path) {
-      console.log('>>> HELLLO', path);
-
       if (!this.cobrowsing || !this.cobrowsing.isCoBrowsing()) {
         return path;
       }
