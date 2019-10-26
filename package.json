@@ -10,10 +10,9 @@
   "scripts": {
     "lint": "eslint src",
     "retire": "retire --ignore dist -n -p",
-    "jest": "jest --watch",
-    "test": "npm run lint && npm run jest",
+    "test": "jest --watch",
     "test:coverage": "jest --coverage --runInBand --reporters=jest-junit --coverageReporters=text-lcov | coveralls",
-    "test:all": "yarn retire && yarn lint && jest --runInBand",
+    "test:all": "yarn build && yarn retire && yarn lint && jest --runInBand",
     "prebuild": "rm -rf dist",
     "build": "npm run build:dev && npm run build:prod",
     "build:dev": "webpack --mode development",
