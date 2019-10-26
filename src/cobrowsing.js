@@ -10,10 +10,13 @@ class CoBrowsing {
         logger = console,
       } = config;
 
-      this.logger = logger;
+      this.logger = logger || {
+        warn: () => undefined,
+        error: () => undefined,
+        debug: () => undefined,
+      };
       this.placeholder = placeholder;
       this.users = this._usersFromContext(context, publicKey);
-      this.logger.debug('Init CoBrowsing', this);
     }
   }
 
