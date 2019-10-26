@@ -37461,6 +37461,8 @@ function () {
 
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.cobrowsing = new CoBrowsing(cobrowsing);
+    this.CoBrowsing = CoBrowsing;
 
     if (baseUrl) {
       this.baseUrl = baseUrl;
@@ -37520,8 +37522,6 @@ function () {
         return resolve(_this.auth);
       });
     }
-
-    this.cobrowsing = new CoBrowsing(cobrowsing);
   } // TODO: Should this have the side-effect of updating this.auth?
 
 

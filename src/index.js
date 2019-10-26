@@ -36,6 +36,9 @@ class Wealthsimple {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
 
+    this.cobrowsing = new CoBrowsing(cobrowsing);
+    this.CoBrowsing = CoBrowsing;
+
     if (baseUrl) {
       this.baseUrl = baseUrl;
     } else {
@@ -91,8 +94,6 @@ class Wealthsimple {
     } else {
       this.authPromise = new Promise(resolve => resolve(this.auth));
     }
-
-    this.cobrowsing = new CoBrowsing(cobrowsing);
   }
 
   // TODO: Should this have the side-effect of updating this.auth?
