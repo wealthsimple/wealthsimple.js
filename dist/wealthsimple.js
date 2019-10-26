@@ -37256,10 +37256,19 @@ function () {
           placeholder = _config$placeholder === void 0 ? ':USER_CANONICAL_ID' : _config$placeholder,
           _config$logger = config.logger,
           logger = _config$logger === void 0 ? console : _config$logger;
-      this.logger = logger;
+      this.logger = logger || {
+        warn: function warn() {
+          return undefined;
+        },
+        error: function error() {
+          return undefined;
+        },
+        debug: function debug() {
+          return undefined;
+        }
+      };
       this.placeholder = placeholder;
       this.users = this._usersFromContext(context, publicKey);
-      this.logger.debug('Init CoBrowsing', this);
     }
   }
 
