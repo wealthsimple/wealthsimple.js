@@ -3,19 +3,19 @@ const CoBrowsing = require('./cobrowsing');
 describe('CoBrowsing', () => {
   let subject = null;
 
+  const context =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci04dy1nbHIyeHh1dyJ9.F8jeRkTnWyOYadoNbh3Tt100OLQlEBmtklK0vEGmrAuZkVjUTUMNzbNXk8MpHd9ahVMMRdvL9KxnX--9gdC3Pw';
+  const publicKey = `-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
+6th4+Fe2NeJFbb1F5Gwi9JW64K8g/zWPE77ttwuB1VZrSFqj7tPBFJErDA==
+-----END PUBLIC KEY-----`;
+
   describe('with valid co-browsing context and public key', () => {
     const warn = jest.fn();
     const error = jest.fn();
 
     beforeEach(() => {
       const logger = { warn, error };
-
-      const context =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci04dy1nbHIyeHh1dyJ9.F8jeRkTnWyOYadoNbh3Tt100OLQlEBmtklK0vEGmrAuZkVjUTUMNzbNXk8MpHd9ahVMMRdvL9KxnX--9gdC3Pw';
-      const publicKey = `-----BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
-6th4+Fe2NeJFbb1F5Gwi9JW64K8g/zWPE77ttwuB1VZrSFqj7tPBFJErDA==
------END PUBLIC KEY-----`;
 
       subject = new CoBrowsing({ context, publicKey, logger });
     });
@@ -54,10 +54,6 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
 
     beforeEach(() => {
       const logger = { warn, error };
-      const publicKey = `-----BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
-6th4+Fe2NeJFbb1F5Gwi9JW64K8g/zWPE77ttwuB1VZrSFqj7tPBFJErDA==
------END PUBLIC KEY-----`;
 
       subject = new CoBrowsing({ publicKey, logger });
     });
@@ -89,8 +85,6 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
 
     beforeEach(() => {
       const logger = { warn, error };
-      const context =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhaWQiOiJ1c2VyLWZhMXB6Z3hhMnpvIiwidGlkIjoidXNlci1sZy1oZWdmbGFnMCJ9.B5byfVdeNOH5_KbilfBQTgxZlllXIpMSEqFBZdErgzJ4XM1oT8ZkrmKP9ogF4e9I6t2HlaUHIIlscTYU2I26yw';
 
       subject = new CoBrowsing({ context, logger });
     });
