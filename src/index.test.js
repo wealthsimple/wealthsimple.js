@@ -132,5 +132,4 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
       });
     });
   });
-  describe('', () => {});
 });
