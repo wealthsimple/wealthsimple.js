@@ -296,7 +296,8 @@ class Wealthsimple {
   }
 
   _replacePath(path) {
-    if (!this.cobrowsing.isCoBrowsing()) {
+    console.log('>>> HELLLO', path);
+    if (!this.cobrowsing || !this.cobrowsing.isCoBrowsing()) {
       return path;
     }
 

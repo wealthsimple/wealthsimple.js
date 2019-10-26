@@ -13,6 +13,7 @@ class CoBrowsing {
       this.logger = logger;
       this.placeholder = placeholder;
       this.users = this._usersFromContext(context, publicKey);
+      this.logger.debug('Init CoBrowsing', this);
     }
   }
 
