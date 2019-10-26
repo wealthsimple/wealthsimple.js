@@ -37,7 +37,6 @@ class Wealthsimple {
     this.clientSecret = clientSecret;
 
     this.cobrowsing = new CoBrowsing(cobrowsing);
-    this.CoBrowsing = CoBrowsing;
 
     if (baseUrl) {
       this.baseUrl = baseUrl;
@@ -297,7 +296,7 @@ class Wealthsimple {
   }
 
   _replacePath(path) {
-    if (!this.cobrowsing || !this.cobrowsing.isCoBrowsing()) {
+    if (!this.cobrowsing.isCoBrowsing()) {
       return path;
     }
 
