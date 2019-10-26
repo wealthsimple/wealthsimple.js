@@ -37242,6 +37242,23 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var jwt = __webpack_require__(/*! jsonwebtoken */ "./node_modules/jsonwebtoken/index.js");
+/**
+ * Enables convenient placeholder swapping functionality for API requests
+ *
+ * config:
+ *    context:
+ *      encoded JWT token with keys `{ aid, tid }` (actor id, target id)
+ *
+ *    publicKey:
+ *      public ECDSA key for decoding context
+ *
+ *    placeholder:
+ *      preferred placeholder string for URL paths. default: :USER_CANONICAL_ID
+ *
+ *    logger:
+ *      preferred logger, with Function properties: [warn, error, debug, info]
+ */
+
 
 var CoBrowsing =
 /*#__PURE__*/
@@ -37252,10 +37269,8 @@ function () {
     if (config) {
       var context = config.context,
           publicKey = config.publicKey,
-          _config$placeholder = config.placeholder,
-          placeholder = _config$placeholder === void 0 ? ':USER_CANONICAL_ID' : _config$placeholder,
-          _config$logger = config.logger,
-          logger = _config$logger === void 0 ? console : _config$logger;
+          logger = config.logger,
+          placeholder = config.placeholder;
       this.logger = logger || {
         warn: function warn() {
           return undefined;
@@ -37267,12 +37282,44 @@ function () {
           return undefined;
         }
       };
-      this.placeholder = placeholder;
+      this.placeholder = placeholder || ':USER_CANONICAL_ID';
       this.users = this._usersFromContext(context, publicKey);
     }
   }
+  /**
+   * If there's a co-browsing session in progress
+   * @returns {boolean}
+   */
+
 
   _createClass(CoBrowsing, [{
+    key: "isCoBrowsing",
+    value: function isCoBrowsing() {
+      return !!(this.users && this.users.target && this.users.actor);
+    }
+    /**
+     * User canonical id for the target user
+     * @returns {String}
+     */
+
+  }, {
+    key: "getTargetUser",
+    value: function getTargetUser() {
+      if (!this.users) return null;
+      return this.users.target;
+    }
+    /**
+     * User canonical id for the actor user
+     * @returns {String}
+     */
+
+  }, {
+    key: "getActorUser",
+    value: function getActorUser() {
+      if (!this.users) return null;
+      return this.users.actor;
+    }
+  }, {
     key: "_usersFromContext",
     value: function _usersFromContext(context, publicKey) {
       if (!context) {
@@ -37302,23 +37349,6 @@ function () {
         this.logger.error(err);
         return null;
       }
-    }
-  }, {
-    key: "isCoBrowsing",
-    value: function isCoBrowsing() {
-      return !!(this.users && this.users.target && this.users.actor);
-    }
-  }, {
-    key: "getTargetUser",
-    value: function getTargetUser() {
-      if (!this.users) return null;
-      return this.users.target;
-    }
-  }, {
-    key: "getActorUser",
-    value: function getActorUser() {
-      if (!this.users) return null;
-      return this.users.actor;
     }
   }]);
 
