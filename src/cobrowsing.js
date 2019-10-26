@@ -1,13 +1,26 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * Enables convenient placeholder swapping functionality for API requests
+ *
+ * config:
+ *    context:
+ *      encoded JWT token with keys `{ aid, tid }` (actor id, target id)
+ *
+ *    publicKey:
+ *      public ECDSA key for decoding context
+ *
+ *    placeholder:
+ *      preferred placeholder string for URL paths. default: :USER_CANONICAL_ID
+ *
+ *    logger:
+ *      preferred logger, with Function properties: [warn, error, debug, info]
+ */
 class CoBrowsing {
   constructor(config) {
     if (config) {
       const {
-        context,
-        publicKey,
-        placeholder = ':USER_CANONICAL_ID',
-        logger = console,
+        context, publicKey, logger, placeholder,
       } = config;
 
       this.logger = logger || {
@@ -15,10 +28,39 @@ class CoBrowsing {
         error: () => undefined,
         debug: () => undefined,
       };
-      this.placeholder = placeholder;
+      this.placeholder = placeholder || ':USER_CANONICAL_ID';
       this.users = this._usersFromContext(context, publicKey);
     }
   }
+
+  /**
+   * If there's a co-browsing session in progress
+   * @returns {boolean}
+   */
+  isCoBrowsing() {
+    return !!(this.users && this.users.target && this.users.actor);
+  }
+
+  /**
+   * User canonical id for the target user
+   * @returns {String}
+   */
+  getTargetUser() {
+    if (!this.users) return null;
+
+    return this.users.target;
+  }
+
+  /**
+   * User canonical id for the actor user
+   * @returns {String}
+   */
+  getActorUser() {
+    if (!this.users) return null;
+
+    return this.users.actor;
+  }
+
 
   _usersFromContext(context, publicKey) {
     if (!context) {
@@ -46,22 +88,6 @@ class CoBrowsing {
       this.logger.error(err);
       return null;
     }
-  }
-
-  isCoBrowsing() {
-    return !!(this.users && this.users.target && this.users.actor);
-  }
-
-  getTargetUser() {
-    if (!this.users) return null;
-
-    return this.users.target;
-  }
-
-  getActorUser() {
-    if (!this.users) return null;
-
-    return this.users.actor;
   }
 }
 

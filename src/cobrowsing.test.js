@@ -46,6 +46,12 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
         expect(subject.getTargetUser()).toEqual('user-8w-glr2xxuw');
       });
     });
+
+    describe('getActorUser', () => {
+      it('can return the actor user', () => {
+        expect(subject.getActorUser()).toEqual('user-fa1pzgxa2zo');
+      });
+    });
   });
 
   describe('with no context', () => {
@@ -77,6 +83,12 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
         expect(subject.getTargetUser()).toBeNull();
       });
     });
+
+    describe('getActorUser', () => {
+      it('returns null', () => {
+        expect(subject.getActorUser()).toBeNull();
+      });
+    });
   });
 
   describe('with no public key', () => {
@@ -106,6 +118,12 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEefUNZ8T+aVKookOPdmkkeQRdJFW8
     describe('getTargetUser', () => {
       it('returns null', () => {
         expect(subject.getTargetUser()).toBeNull();
+      });
+    });
+
+    describe('getActorUser', () => {
+      it('returns null', () => {
+        expect(subject.getActorUser()).toBeNull();
       });
     });
   });
