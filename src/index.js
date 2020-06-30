@@ -187,16 +187,16 @@ class Wealthsimple {
       client_secret: this.clientSecret,
     };
 
+    // Set a token expiry marker using client machine local time before we fetch the token
+    const currentTime = new Date().getTime();
+
     return this.post('/oauth/token', { headers, body, checkAuthRefresh })
       .then((response) => {
         // Save auth details for use in subsequent requests:
         this.auth = response.json;
 
         // calculate a hard expiry date for proper refresh logic across reload
-        this.auth.expires_at = addSeconds(
-          this.auth.created_at * 1000, // JS operates in milliseconds
-          this.auth.expires_in,
-        );
+        this.auth.expires_at = addSeconds(currentTime, this.auth.expires_in);
 
         if (this.onAuthSuccess) {
           this.onAuthSuccess(this.auth);
