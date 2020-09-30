@@ -17,7 +17,10 @@ class ApiRequest {
     if (query && Object.keys(query).length > 0) {
       newPath += `?${queryString.stringify(query)}`;
     }
-    const url = this.urlFor(newPath);
+    let url = this.urlFor(newPath);
+    if (path.includes('graphql')) {
+      url = url.includes('production') ? `https://my.wealthsimple.com/${path}` : `https://staging.wealthsimple.com/${path}`;
+    }
 
     // All request bodies (for now) are JSON:
     if (newBody && typeof newBody !== 'string') {
@@ -71,6 +74,14 @@ class ApiRequest {
         if (this.client.onResponse) {
           this.client.onResponse(apiResponse);
         }
+
+        if (apiResponse.json && apiResponse.json.errors && apiResponse.json.errors[0].extensions && apiResponse.json.errors[0].extensions.response) {
+          apiResponse.status = apiResponse.json.errors[0].extensions.response.status;
+          apiResponse.errors = apiResponse.json.errors[0].extensions.response.body;
+
+          throw new ApiError(apiResponse);
+        }
+
         if (!response.ok) {
           throw new ApiError(apiResponse);
         }

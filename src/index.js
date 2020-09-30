@@ -182,21 +182,33 @@ class Wealthsimple {
     }
 
     const body = {
-      ...mapKeys(attributes, (v, k) => snakeCase(k)),
-      client_id: this.clientId,
-      client_secret: this.clientSecret,
+      operationName: 'createToken',
+      variables: {
+        input: {
+          ...mapKeys(attributes, (v, k) => snakeCase(k)),
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+        },
+      },
+      query: constants.CREATE_TOKEN_MUTATION,
     };
 
-    return this.post('/oauth/token', { headers, body, checkAuthRefresh })
+    return this.post('public/graphql', { headers, body, checkAuthRefresh })
       .then((response) => {
         // Save auth details for use in subsequent requests:
-        this.auth = response.json;
+        this.auth = response.json.data.createToken;
 
         // calculate a hard expiry date for proper refresh logic across reload
         this.auth.expires_at = addSeconds(
           this.auth.created_at * 1000, // JS operates in milliseconds
           this.auth.expires_in,
         );
+
+        Object.keys(this.auth.profiles).forEach((key) => {
+          if (this.auth.profiles[key] == null) {
+            delete this.auth.profiles[key];
+          }
+        });
 
         if (this.onAuthSuccess) {
           this.onAuthSuccess(this.auth);
