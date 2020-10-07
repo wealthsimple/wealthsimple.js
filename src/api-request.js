@@ -19,7 +19,7 @@ class ApiRequest {
     }
     let url = this.urlFor(newPath);
     if (path.includes('graphql')) {
-      url = url.includes('production') ? `https://my.wealthsimple.com/${path}` : `https://staging.wealthsimple.com/${path}`;
+      url = this.client.investGraphQlApiPublicBaseUrl;
     }
 
     // All request bodies (for now) are JSON:
@@ -77,7 +77,7 @@ class ApiRequest {
 
         if (apiResponse.json && apiResponse.json.errors && apiResponse.json.errors[0].extensions && apiResponse.json.errors[0].extensions.response) {
           apiResponse.status = apiResponse.json.errors[0].extensions.response.status;
-          apiResponse.errors = apiResponse.json.errors[0].extensions.response.body;
+          apiResponse.json = apiResponse.json.errors[0].extensions.response.body;
 
           throw new ApiError(apiResponse);
         }

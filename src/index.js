@@ -26,6 +26,7 @@ class Wealthsimple {
     onResponse = null,
     verbose = false,
     deviceId = null,
+    investGraphQlApiPublicBaseUrl = null,
   }) {
     // OAuth client details:
     if (!clientId || typeof clientId !== 'string') {
@@ -43,6 +44,12 @@ class Wealthsimple {
       }
       this.env = env;
       this.baseUrl = `https://api.${env}.wealthsimple.com`;
+    }
+
+    if (investGraphQlApiPublicBaseUrl) {
+      this.investGraphQlApiPublicBaseUrl = investGraphQlApiPublicBaseUrl;
+    } else {
+      this.investGraphQlApiPublicBaseUrl = `https://${env === 'production' ? 'my' : 'staging'}.wealthsimple.com/public/graphql`;
     }
 
     // Setting to `true` will add request logging.
