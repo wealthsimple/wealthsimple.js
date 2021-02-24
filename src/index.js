@@ -270,7 +270,7 @@ class Wealthsimple {
     checkAuthRefresh = true,
   }) {
     const executePrimaryRequest = () => {
-      if (!this.isAuthExpired() && !headers.Authorization && this.accessToken()) {
+      if (!headers.Authorization && this.accessToken()) {
         headers.Authorization = `Bearer ${this.accessToken()}`;
       }
       return this.request.fetch({
