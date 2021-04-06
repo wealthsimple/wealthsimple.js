@@ -175,6 +175,11 @@ class Wealthsimple {
       delete attributes.otpClaim;
     }
 
+    if (attributes.oktaClaim) {
+      headers[constants.OKTA_CLAIM_HEADER] = attributes.oktaClaim;
+      delete attributes.oktaClaim;
+    }
+
     let checkAuthRefresh = true;
     if (attributes.hasOwnProperty('checkAuthRefresh')) {
       ({ checkAuthRefresh } = attributes);
