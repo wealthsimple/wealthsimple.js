@@ -180,6 +180,16 @@ class Wealthsimple {
       delete attributes.oktaClaim;
     }
 
+    if (attributes.otpPreferredDeviceType) {
+      headers[constants.OTP_PREFERRED_DEVICE_TYPE] = attributes.otpPreferredDeviceType;
+      delete attributes.otpPreferredDeviceType;
+    }
+
+    if (attributes.otpPreferredDeviceIdentifier) {
+      headers[constants.OTP_PREFERRED_DEVICE_IDENTIFIER] = attributes.otpPreferredDeviceIdentifier;
+      delete attributes.otpPreferredDeviceIdentifier;
+    }
+
     let checkAuthRefresh = true;
     if (attributes.hasOwnProperty('checkAuthRefresh')) {
       ({ checkAuthRefresh } = attributes);
