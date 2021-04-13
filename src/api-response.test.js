@@ -113,4 +113,35 @@ describe('ApiResponse', () => {
       });
     });
   });
+
+  describe('getOTPOptions', () => {
+    describe('without otp options header', () => {
+      it('returns null', () => {
+        expect(response.getOTPOptions()).toBe(null);
+      });
+    })
+
+    describe('with otp options header', () => {
+      beforeEach(() => {
+        headers['x-wealthsimple-otp-options'] = 'eyJhbGciOiJIUzI1NiJ9.eyJtZXRob2RzIjpbeyJkZXZpY2VfdHlwZSI6ImVtYWlsIiwiaGludCI6bnVsbH0seyJkZXZpY2VfdHlwZSI6InJlY292ZXJ5X3NtcyIsImhpbnQiOiIzMyJ9XX0.XmWAvXBDi3avKqtDV1OVQpkABwKxlkeoFyfy06EkO1A'
+      })
+
+      it('returns the options object', () => {
+        expect(response.getOTPOptions()).toEqual(
+          {
+            methods: [
+              {
+                device_type: 'email',
+                hint: null,
+              },
+              {
+                device_type: 'recovery_sms',
+                hint: '33'
+              }
+            ]
+          }
+        )
+      })
+    })
+  })
 });
