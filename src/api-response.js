@@ -1,3 +1,4 @@
+const { default: jwtDecode } = require('jwt-decode');
 const constants = require('./constants');
 
 class ApiResponse {
@@ -51,6 +52,14 @@ class ApiResponse {
     return otp;
   }
 
+  getOTPOptions() {
+    const otpOptions = this.headers.get(constants.OTP_OPTIONS_HEADER);
+    if (!otpOptions) {
+      return null;
+    }
+
+    return jwtDecode(otpOptions);
+  }
   getOTPClaim() {
     const otpClaimString = this.headers.get(constants.OTP_CLAIM_HEADER);
     if (!otpClaimString) {
