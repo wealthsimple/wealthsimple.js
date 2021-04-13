@@ -12861,13 +12861,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _jwtDecode = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/build/jwt-decode.esm.js");
-
-var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _require = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/build/jwt-decode.esm.js"),
+    jwtDecode = _require.default;
 
 var constants = __webpack_require__(/*! ./constants */ "./src/constants.js");
 
@@ -12952,7 +12949,7 @@ var ApiResponse = function () {
         return null;
       }
 
-      return (0, _jwtDecode2.default)(otpOptions);
+      return jwtDecode(otpOptions);
     }
   }, {
     key: 'getOTPClaim',
