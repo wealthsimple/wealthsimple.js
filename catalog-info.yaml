@@ -1,0 +1,11 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: wealthsimple.js
+  description: JavaScript bindings for Wealthsimple API
+  tags:
+    - javascript
+spec:
+  type: other
+  lifecycle: production
