@@ -1,6 +1,14 @@
 # Javascript Node CircleCI 2.0 configuration file
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 version: 2
+
+orbs:
+  micro-app: wealthsimple/micro-app@dev:master
+
+references:
+ micro_app_parameters: &_micro_app_parameters_
+    node_version: '12'
+
 jobs:
   build:
     docker:
@@ -21,3 +29,20 @@ jobs:
       - run: yarn test:all
       # Generate coverage
       - run: yarn test:coverage
+
+workflows:
+  version: 2
+  commit-workflow:
+    jobs:
+      - javascript/security:
+          context: wealthsimple
+      - shell/check:
+          context: wealthsimple
+          find_command: find packages -type f -name "*.sh"
+      - build:
+          context: wealthsimple
+      - semantic-release:
+          context: wealthsimple
+          filters:
+            branches:
+              only: master
