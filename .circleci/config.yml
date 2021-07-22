@@ -3,11 +3,11 @@
 version: 2
 
 orbs:
-  micro-app: wealthsimple/micro-app@dev:master
+  javascript: wealthsimple/javascript@dev:master
+  shell: wealthsimple/shell@dev:master
 
 references:
- micro_app_parameters: &_micro_app_parameters_
-    node_version: '12'
+  parameters: &parameters
 
 jobs:
   build:
@@ -32,13 +32,8 @@ jobs:
 
 workflows:
   version: 2
-  commit-workflow:
+  build-and-deploy:
     jobs:
-      - javascript/security:
-          context: wealthsimple
-      - shell/check:
-          context: wealthsimple
-          find_command: find packages -type f -name "*.sh"
       - build:
           context: wealthsimple
       - semantic-release:

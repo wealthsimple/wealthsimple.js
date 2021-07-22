@@ -20,7 +20,7 @@
     "prepublishOnly": "yarn build"
   },
   "files": 
-    ["dist/**/*", "README.md"],
+    ["dist", "src", "README.md"],
   "publishConfig": {
     "registry": "https://nexus.iad.w10external.com/repository/npm-private"
   },
